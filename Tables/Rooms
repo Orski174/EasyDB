@@ -1,6 +1,8 @@
 CREATE TABLE Rooms (
-    Room_ID INT PRIMARY KEY,
+    Room_ID INT NOT NULL,
     Room_Name VARCHAR(255) NOT NULL,
     Room_Number INT NOT NULL,
-    WH_Name VARCHAR(255) NOT NULL
+    WH_Name VARCHAR(255),
+    CONSTRAINT PK_Rooms PRIMARY KEY (Room_ID),  
+    Constraint FK_Rooms_WH_Name FOREIGN KEY (WH_Name) REFERENCES Warehouses(WH_Name)
 );

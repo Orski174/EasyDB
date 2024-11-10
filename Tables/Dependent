@@ -4,6 +4,6 @@ CREATE TABLE Dependents (
     Relationship VARCHAR(50) NOT NULL,
     Birth_Day DATE NOT NULL,
     RelativeSSN CHAR(11) NOT NULL,
-    PRIMARY KEY (DependantName, RelativeSSN),
-    FOREIGN KEY (RelativeSSN) REFERENCES Employee(SSN)
+    CONSTRAINT PK_Dependents PRIMARY KEY (DependantName),
+    Constraint FK_Dependents_RelativeSSN FOREIGN KEY (RelativeSSN) REFERENCES Employee(SSN)
 );

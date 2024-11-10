@@ -1,5 +1,6 @@
 CREATE TABLE Block_Categories (
     Block_ID INT NOT NULL,
     Category VARCHAR(255) NOT NULL,
-    CONSTRAINT PK_Block_Categories PRIMARY KEY (Block_ID, Category)
+    CONSTRAINT PK_Block_Categories PRIMARY KEY (Block_ID, Category),
+    Constraint FK_Block_Categories_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );

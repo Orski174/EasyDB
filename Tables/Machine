@@ -1,9 +1,9 @@
 CREATE TABLE Machine (
-    Machine_Nb INT,
+    Machine_Nb INT NOT NULL,
     Machine_Name VARCHAR(255) NOT NULL,
-    First_Used DATE,
-    Operation_Cost DECIMAL(10, 2),
-    Room_ID INT,
-    CONSTRAINT PK_Machine PRIMARY KEY (Machine_Nb),
-    FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
+    First_Used DATE NOT NULL,
+    Operation_Cost DECIMAL(10, 2) NOT NULL,
+    Room_ID INT NOT NULL,
+    CONSTRAINT PK_Machine PRIMARY KEY (Machine_Nb, Machine_Name),
+    CONSTRAINT FK_Machine_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
 );

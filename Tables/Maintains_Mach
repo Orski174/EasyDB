@@ -1,9 +1,11 @@
 CREATE TABLE Maintains_Mach (
-    Machine_Number INT,
-    Cost DECIMAL(10, 2),
-    Description VARCHAR(255),
-    Date DATE,
-    EmpSSN CHAR(9),
-    Machine_Name VARCHAR(255),
-    CONSTRAINT PK_Maintains_Mach PRIMARY KEY (Machine_Number)
+    Machine_Number INT NOT NULL,
+    Machine_Name VARCHAR(255) NOT NULL,
+    Cost DECIMAL(10, 2) NOT NULL,
+    MM_Descr VARCHAR(255),
+    MM_Date DATE NOT NULL,
+    EmpSSN CHAR(9) NOT NULL,    
+    CONSTRAINT PK_Maintains_Mach PRIMARY KEY (Machine_Number),
+    CONSTRAINT FK_Maintains_Mach_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
+    CONSTRAINT FK_Maintains_Mach_Machine FOREIGN KEY (Machine_Number, Machine_Name) REFERENCES Machine(Machine_Nb, Machine_Name)
 );

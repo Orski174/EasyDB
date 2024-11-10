@@ -2,5 +2,6 @@ CREATE TABLE Contains_Material (
     Block_ID INT NOT NULL,
     Material_Name VARCHAR(255) NOT NULL,
     Quantity INT NOT NULL,
-    CONSTRAINT PK_Contains_Material PRIMARY KEY (Block_ID, Material_Name)
+    CONSTRAINT PK_Contains_Material PRIMARY KEY (Block_ID, Material_Name),
+    Constraint FK_Contains_Material_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );

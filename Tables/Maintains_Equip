@@ -1,8 +1,10 @@
 CREATE TABLE Maintains_Equip (
-    Equipment_ID INT,
-    Cost DECIMAL(10, 2),
-    Description VARCHAR(255),
-    Date DATE,
-    EmpSSN CHAR(9),
-    CONSTRAINT PK_Maintains_Equip PRIMARY KEY (Equipment_ID)
+    Equipment_ID INT NOT NULL,
+    Cost DECIMAL(10, 2) NOT NULL,
+    ME_Descr VARCHAR(255) NOT NULL,
+    ME_Date DATE NOT NULL,
+    EmpSSN CHAR(9) NOT NULL,
+    CONSTRAINT PK_Maintains_Equip PRIMARY KEY (Equipment_ID, Date, EmpSSN),
+    CONSTRAINT FK_Maintains_Equip_Equipment_ID FOREIGN KEY (Equipment_ID) REFERENCES Equipment(Equipment_ID),
+    CONSTRAINT FK_Maintains_Equip_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN)
 );

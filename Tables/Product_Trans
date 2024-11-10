@@ -1,11 +1,16 @@
 CREATE TABLE Product_Trans (
-    Prod_Name VARCHAR(255),
-    Conn_ID INT,
-    Expiry_Date DATE,
-    Transaction_Date DATE,
-    Total_Revenue DECIMAL(10, 2),
-    Quantity INT,
-    Production_Date DATE,
-    EmpSSN CHAR(9),
-    Block_ID INT
+    Prod_Name VARCHAR(255) NOT NULL,
+    Con_ID INT NOT NULL,
+    Expiry_Date DATE NOT NULL,
+    Transaction_Date DATE NOT NULL,
+    Total_Revenue DECIMAL(10, 2) NOT NULL,
+    Quantity INT NOT NULL,
+    Production_Date DATE NOT NULL,
+    EmpSSN CHAR(9) NOT NULL,
+    Block_ID INT NOT NULL,
+    CONSTRAINT PK_Product_Trans PRIMARY KEY (Prod_Name, Con_ID, Transaction_Date, EmpSSN, Block_ID),
+    CONSTRAINT FK_Product_Trans_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
+    CONSTRAINT FK_Product_Trans_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(Block_ID),
+    CONSTRAINT FK_Product_Trans_Prod_Name FOREIGN KEY (Prod_Name) REFERENCES Product(Prod_Name),
+    CONSTRAINT FK_Product_Trans_Conn_ID FOREIGN KEY (Con_ID) REFERENCES Connection(Con_ID)
 );
