@@ -1,0 +1,9 @@
+CREATE TABLE Equip_Trans (
+    Supp_ID INT NOT NULL,
+    Cost DECIMAL(10, 2) NOT NULL,
+    Trans_Date DATE NOT NULL,
+    Equipment_ID INT NOT NULL,
+    Quantity INT NOT NULL,
+    EmpSSN CHAR(9) NOT NULL,
+    PRIMARY KEY (Supp_ID, Trans_Date, Equipment_ID, EmpSSN)
+);

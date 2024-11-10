@@ -1,0 +1,7 @@
+CREATE TABLE Equipment (
+    Equipment_ID INT PRIMARY KEY,
+    Name VARCHAR(255) NOT NULL,
+    First_Used DATE,
+    Operation_Cost DECIMAL(10, 2),
+    Room_ID INT
+);

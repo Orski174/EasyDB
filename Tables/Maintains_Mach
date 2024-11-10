@@ -1,0 +1,8 @@
+CREATE TABLE Maintains_Mach (
+    Machine_Number INT PRIMARY KEY,
+    Cost DECIMAL(10, 2),
+    Description VARCHAR(255),
+    Date DATE,
+    EmpSSN CHAR(9),
+    Machine_Name VARCHAR(255)
+);

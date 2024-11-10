@@ -1,0 +1,18 @@
+CREATE TABLE Employee (
+    SSN CHAR(9) PRIMARY KEY,
+    F_Name VARCHAR(50),
+    L_Name VARCHAR(50),
+    Birth_Date DATE,
+    Gender CHAR(1),
+    Extension_Nb VARCHAR(10),
+    Address_1 VARCHAR(100),
+    Address_2 VARCHAR(100),
+    City VARCHAR(50),
+    Zip_Code VARCHAR(10),
+    Wage DECIMAL(10, 2),
+    Personal_Nb VARCHAR(15),
+    SupSSN CHAR(9),
+    Room_ID INT,
+    WH_Name VARCHAR(50),
+    Dep_Name VARCHAR(50)
+);

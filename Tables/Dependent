@@ -1,0 +1,9 @@
+CREATE TABLE Dependents (
+    DependantName VARCHAR(100) NOT NULL,
+    Gender CHAR(1) NOT NULL,
+    Relationship VARCHAR(50) NOT NULL,
+    Birth_Day DATE NOT NULL,
+    RelativeSSN CHAR(11) NOT NULL,
+    PRIMARY KEY (DependantName, RelativeSSN),
+    FOREIGN KEY (RelativeSSN) REFERENCES Employee(SSN)
+);

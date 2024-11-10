@@ -1,0 +1,6 @@
+CREATE TABLE Rooms (
+    Room_ID INT PRIMARY KEY,
+    Room_Name VARCHAR(255) NOT NULL,
+    Room_Number INT NOT NULL,
+    WH_Name VARCHAR(255) NOT NULL
+);

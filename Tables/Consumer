@@ -1,0 +1,9 @@
+CREATE TABLE Consumer (
+    Con_ID INT PRIMARY KEY,
+    Con_Name VARCHAR(100) NOT NULL,
+    Con_Nb VARCHAR(15),
+    Address_1 VARCHAR(255),
+    Address_2 VARCHAR(255),
+    City VARCHAR(100),
+    Zip_Code VARCHAR(10)
+);

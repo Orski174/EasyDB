@@ -1,0 +1,8 @@
+CREATE TABLE Machine (
+    Machine_Nb INT PRIMARY KEY,
+    Machine_Name VARCHAR(255) NOT NULL,
+    First_Used DATE,
+    Operation_Cost DECIMAL(10, 2),
+    Room_ID INT,
+    FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
+);

@@ -1,0 +1,5 @@
+CREATE TABLE Emp_Occup (
+    EmployeeSSN CHAR(9) NOT NULL,
+    Occupation VARCHAR(255) NOT NULL,
+    PRIMARY KEY (EmployeeSSN)
+);

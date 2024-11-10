@@ -1,0 +1,6 @@
+CREATE TABLE Block (
+    BK_ID INT PRIMARY KEY,
+    WH_Name VARCHAR(255),
+    Area VARCHAR(255),
+    Block_Name VARCHAR(255)
+);

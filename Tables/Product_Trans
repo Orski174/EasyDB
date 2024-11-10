@@ -1,0 +1,11 @@
+CREATE TABLE Product_Trans (
+    Prod_Name VARCHAR(255),
+    Conn_ID INT,
+    Expiry_Date DATE,
+    Transaction_Date DATE,
+    Total_Revenue DECIMAL(10, 2),
+    Quantity INT,
+    Production_Date DATE,
+    EmpSSN CHAR(9),
+    Block_ID INT
+);

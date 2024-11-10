@@ -1,0 +1,10 @@
+CREATE TABLE Machine_Trans (
+    Supp_ID INT NOT NULL,
+    Cost DECIMAL(10, 2) NOT NULL,
+    Trans_Date DATE NOT NULL,
+    Machine_Nb INT NOT NULL,
+    EmpSSN CHAR(9) NOT NULL,
+    Quantity INT NOT NULL,
+    Machine_Name VARCHAR(255) NOT NULL,
+    PRIMARY KEY (Supp_ID, Trans_Date, Machine_Nb)
+);

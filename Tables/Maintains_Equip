@@ -1,0 +1,7 @@
+CREATE TABLE Maintains_Equip (
+    Equipment_ID INT PRIMARY KEY,
+    Cost DECIMAL(10, 2),
+    Description VARCHAR(255),
+    Date DATE,
+    EmpSSN CHAR(9)
+);

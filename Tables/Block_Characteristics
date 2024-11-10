@@ -1,0 +1,5 @@
+CREATE TABLE Block_Characteristics (
+    Block_ID INT PRIMARY KEY,
+    Value VARCHAR(255),
+    Type VARCHAR(255)
+);
