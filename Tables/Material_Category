@@ -1,5 +1,5 @@
 CREATE TABLE Material_Category (
     Material_Name VARCHAR(255) NOT NULL,
     Category VARCHAR(255) NOT NULL,
-    PRIMARY KEY (Material_Name, Category)
+    CONSTRAINT PK_Material_Category PRIMARY KEY (Material_Name, Category)
 );

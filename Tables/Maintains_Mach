@@ -1,8 +1,9 @@
 CREATE TABLE Maintains_Mach (
-    Machine_Number INT PRIMARY KEY,
+    Machine_Number INT,
     Cost DECIMAL(10, 2),
     Description VARCHAR(255),
     Date DATE,
     EmpSSN CHAR(9),
-    Machine_Name VARCHAR(255)
+    Machine_Name VARCHAR(255),
+    CONSTRAINT PK_Maintains_Mach PRIMARY KEY (Machine_Number)
 );

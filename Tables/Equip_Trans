@@ -5,5 +5,5 @@ CREATE TABLE Equip_Trans (
     Equipment_ID INT NOT NULL,
     Quantity INT NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
-    PRIMARY KEY (Supp_ID, Trans_Date, Equipment_ID, EmpSSN)
+    CONSTRAINT PK_Equip_Trans PRIMARY KEY (Supp_ID, Trans_Date, Equipment_ID, EmpSSN)
 );

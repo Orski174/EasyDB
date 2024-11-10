@@ -1,5 +1,5 @@
 CREATE TABLE Department_Occupies (
     Dep_Name VARCHAR(255) NOT NULL,
     Room_ID INT NOT NULL,
-    PRIMARY KEY (Dep_Name, Room_ID)
+    CONSTRAINT PK_Department_Occupies PRIMARY KEY (Dep_Name, Room_ID)
 );

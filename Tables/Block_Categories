@@ -1,5 +1,5 @@
 CREATE TABLE Block_Categories (
     Block_ID INT NOT NULL,
     Category VARCHAR(255) NOT NULL,
-    PRIMARY KEY (Block_ID, Category)
+    CONSTRAINT PK_Block_Categories PRIMARY KEY (Block_ID, Category)
 );

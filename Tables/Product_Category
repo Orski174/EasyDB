@@ -1,5 +1,5 @@
 CREATE TABLE Product_Category (
     Product_Name VARCHAR(255) NOT NULL,
     Category VARCHAR(255) NOT NULL,
-    PRIMARY KEY (Product_Name, Category)
+    CONSTRAINT PK_Product_Category PRIMARY KEY (Product_Name, Category)
 );

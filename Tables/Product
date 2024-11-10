@@ -2,5 +2,6 @@ CREATE TABLE Product (
     Product_Name VARCHAR(255) NOT NULL,
     Categories VARCHAR(255),
     Price_per_unit DECIMAL(10, 2) NOT NULL,
-    Unit VARCHAR(50)
+    Unit VARCHAR(50),
+    CONSTRAINT PK_Product PRIMARY KEY (Product_Name)
 );

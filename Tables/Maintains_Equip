@@ -1,7 +1,8 @@
 CREATE TABLE Maintains_Equip (
-    Equipment_ID INT PRIMARY KEY,
+    Equipment_ID INT,
     Cost DECIMAL(10, 2),
     Description VARCHAR(255),
     Date DATE,
-    EmpSSN CHAR(9)
+    EmpSSN CHAR(9),
+    CONSTRAINT PK_Maintains_Equip PRIMARY KEY (Equipment_ID)
 );
