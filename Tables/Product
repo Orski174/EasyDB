@@ -1,5 +1,5 @@
 CREATE TABLE Product (
-    Product_Name VARCHAR(255) NOT NULL,
+    Product_Name VARCHAR(50) NOT NULL,
     Price_per_unit DECIMAL(10, 2) NOT NULL,
     Unit VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Product PRIMARY KEY (Product_Name)

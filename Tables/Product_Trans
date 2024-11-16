@@ -1,5 +1,5 @@
 CREATE TABLE Product_Trans (
-    Prod_Name VARCHAR(255) NOT NULL,
+    Prod_Name VARCHAR(50) NOT NULL,
     Con_ID INT NOT NULL,
     Expiry_Date DATE NOT NULL,
     Transaction_Date DATE NOT NULL,

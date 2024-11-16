@@ -1,11 +1,11 @@
 CREATE TABLE Supplier (
     Supp_ID INT NOT NULL,
     Supp_Name VARCHAR(100) NOT NULL,
-    Supp_Nb VARCHAR(50) NOT NULL,
+    Supp_Nb VARCHAR(15) NOT NULL,
     Supp_Email VARCHAR(30) NOT NULL,
     Address_1 VARCHAR(255) NOT NULL,
     Address_2 VARCHAR(255),
     City VARCHAR(100) NOT NULL,
-    Zip_Code VARCHAR(20) NOT NULL,
+    Zip_Code VARCHAR(10) NOT NULL,
     CONSTRAINT PK_Supplier PRIMARY KEY (Supp_ID)
 );

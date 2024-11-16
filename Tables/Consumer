@@ -5,7 +5,7 @@ CREATE TABLE Consumer (
     Con_Email VARCHAR(30),
     Address_1 VARCHAR(255),
     Address_2 VARCHAR(255),
-    City VARCHAR(100),
+    City VARCHAR(50),
     Zip_Code VARCHAR(10)
     Constraint PK_Consumer PRIMARY KEY (Con_ID)
 );

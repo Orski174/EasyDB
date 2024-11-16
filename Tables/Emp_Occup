@@ -1,6 +1,6 @@
 CREATE TABLE Emp_Occup (
     EmployeeSSN CHAR(9) NOT NULL,
-    Occupation VARCHAR(255) NOT NULL,
+    Occupation VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Emp_Occup PRIMARY KEY (EmployeeSSN, Occupation),
     Constraint FK_Emp_Occup_EmployeeSSN FOREIGN KEY (EmployeeSSN) REFERENCES Employee(SSN)
 );

@@ -1,6 +1,6 @@
 CREATE TABLE Machine (
     Machine_Nb INT NOT NULL,
-    Machine_Name VARCHAR(255) NOT NULL,
+    Machine_Name VARCHAR(50) NOT NULL,
     First_Used DATE NOT NULL,
     Operation_Cost DECIMAL(10, 2) NOT NULL,
     Room_ID INT NOT NULL,

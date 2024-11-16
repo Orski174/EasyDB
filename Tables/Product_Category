@@ -1,6 +1,6 @@
 CREATE TABLE Product_Category (
-    Product_Name VARCHAR(255) NOT NULL,
-    Category VARCHAR(255) NOT NULL,
+    Product_Name VARCHAR(50) NOT NULL,
+    Category VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Product_Category PRIMARY KEY (Product_Name, Category),
     Constraint FK_Product_Category_Product_Name FOREIGN KEY (Product_Name) REFERENCES Product(Product_Name)
 );

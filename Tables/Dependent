@@ -3,7 +3,7 @@ CREATE TABLE Dependents (
     Gender CHAR(1) NOT NULL,
     Relationship VARCHAR(50) NOT NULL,
     Birth_Day DATE NOT NULL,
-    RelativeSSN CHAR(11) NOT NULL,
+    RelativeSSN CHAR(9) NOT NULL,
     CONSTRAINT PK_Dependents PRIMARY KEY (DependantName),
     Constraint FK_Dependents_RelativeSSN FOREIGN KEY (RelativeSSN) REFERENCES Employee(SSN)
 );

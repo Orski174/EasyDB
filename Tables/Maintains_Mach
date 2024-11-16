@@ -1,6 +1,6 @@
 CREATE TABLE Maintains_Mach (
     Machine_Number INT NOT NULL,
-    Machine_Name VARCHAR(255) NOT NULL,
+    Machine_Name VARCHAR(50) NOT NULL,
     Cost DECIMAL(10, 2) NOT NULL,
     MM_Descr VARCHAR(255),
     MM_Date DATE NOT NULL,

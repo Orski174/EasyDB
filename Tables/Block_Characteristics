@@ -1,7 +1,7 @@
 CREATE TABLE Block_Characteristics (
     Block_ID INT,
-    Val VARCHAR(255),
-    Types VARCHAR(255),
+    Val VARCHAR(30),
+    Types VARCHAR(30),
     CONSTRAINT PK_Block_Characteristics PRIMARY KEY (Block_ID, Val, Types),
     Constraint FK_Block_Characteristics_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );
