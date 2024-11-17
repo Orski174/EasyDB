@@ -2,11 +2,11 @@ CREATE TABLE Warehouse (
     WH_Name VARCHAR(100) NOT NULL,
     Contact_SSN VARCHAR(9) NOT NULL,
     Contact_Number VARCHAR(15) NOT NULL,
-    Address_1 VARCHAR(255) NOT NULL,
-    Address_2 VARCHAR(255),
-    City VARCHAR(100) NOT NULL,
-    Zip_code VARCHAR(15) NOT NULL,
-    Area VARCHAR(100) NOT NULL,
+    Address_1 VARCHAR(64) NOT NULL,
+    Address_2 VARCHAR(64),
+    City VARCHAR(50) NOT NULL,
+    Zip_code VARCHAR(10) NOT NULL,
+    Area INT NOT NULL,
     Constraint PK_Warehouse PRIMARY KEY (WH_Name)
     Constraint FK_Warehouse_Contact_SSN FOREIGN KEY (Contact_SSN) REFERENCES Employee(SSN)
 );

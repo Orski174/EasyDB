@@ -1,5 +1,5 @@
 CREATE TABLE Contains_Product (
-    Block_ID INT NOT NULL,
+    Block_ID VARCHAR(12) NOT NULL,
     Product_Name VARCHAR(100) NOT NULL,
     Quantity INT NOT NULL,
     CONSTRAINT PK_Contains_Product PRIMARY KEY (Block_ID, Product_Name),

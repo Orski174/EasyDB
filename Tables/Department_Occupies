@@ -1,6 +1,6 @@
 CREATE TABLE Department_Occupies (
     Dep_Name VARCHAR(100) NOT NULL,
-    Room_ID INT NOT NULL,
+    Room_ID VARCHAR(12) NOT NULL,
     CONSTRAINT PK_Department_Occupies PRIMARY KEY (Dep_Name, Room_ID)
     Constraint FK_Department_Occupies_Dep_Name FOREIGN KEY (Dep_Name) REFERENCES Department(Dep_Name),
     Constraint FK_Department_Occupies_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)

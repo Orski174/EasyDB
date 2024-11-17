@@ -1,5 +1,5 @@
 CREATE TABLE Contains_Material (
-    Block_ID INT NOT NULL,
+    Block_ID VARCHAR(12) NOT NULL,
     Material_Name VARCHAR(50) NOT NULL,
     Quantity INT NOT NULL,
     CONSTRAINT PK_Contains_Material PRIMARY KEY (Block_ID, Material_Name),

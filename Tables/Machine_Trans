@@ -1,5 +1,5 @@
 CREATE TABLE Machine_Trans (
-    Supp_ID INT NOT NULL,
+    Supp_ID VARCHAR(9) NOT NULL,
     Cost DECIMAL(10, 2) NOT NULL,
     Trans_Date DATE NOT NULL,
     Machine_Nb INT NOT NULL,

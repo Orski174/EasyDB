@@ -1,8 +1,8 @@
 CREATE TABLE Department (
-    Dep_Name VARCHAR(100) NOT NULL,
+    Dep_Name VARCHAR(50) NOT NULL,
     Contact_Nb VARCHAR(15),
-    Email VARCHAR(30),
-    ManagerSSN CHAR(10),
+    Email VARCHAR(30) NOT NULL,
+    ManagerSSN CHAR(9) NOT NULL,
     CONSTRAINT PK_Department PRIMARY KEY (Dep_Name),
     Constraint FK_Department_ManagerSSN FOREIGN KEY (ManagerSSN) REFERENCES Employee(SSN)
 );
