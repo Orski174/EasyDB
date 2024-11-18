@@ -1,6 +1,28 @@
 CREATE TABLE Material_Category (
-    Material_Name VARCHAR(50) NOT NULL,
+Material_Name VARCHAR(50) NOT NULL,
     Category VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Material_Category PRIMARY KEY (Material_Name, Category)
     Constraint FK_Material_Category_Material_Name FOREIGN KEY (Material_Name) REFERENCES Material(Material_Name)
 );
+
+INSERT INTO Material_Category (Material_Name, Category) VALUES
+('Concrete', 'Building Material'),
+('Steel', 'Building Material'),
+('Wood', 'Building Material'),
+('Glass', 'Building Material'),
+('Bricks', 'Building Material'),
+('Cement', 'Building Material'),
+('Sand', 'Building Material'),
+('Gravel', 'Building Material'),
+('Insulation', 'Building Material'),
+('Plywood', 'Building Material'),
+('Copper', 'Electrical Material'),
+('PVC', 'Plumbing Material'),
+('Aluminum', 'Building Material'),
+('Asphalt', 'Paving Material'),
+('Marble', 'Decorative Material'),
+('Granite', 'Decorative Material'),
+('Fiberglass', 'Insulation Material'),
+('Rubber', 'Industrial Material'),
+('Ceramic', 'Decorative Material'),
+('Bamboo', 'Eco-friendly Material');

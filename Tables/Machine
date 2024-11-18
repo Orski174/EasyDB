@@ -7,3 +7,15 @@ CREATE TABLE Machine (
     CONSTRAINT PK_Machine PRIMARY KEY (Machine_Nb, Machine_Name),
     CONSTRAINT FK_Machine_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
 );
+
+INSERT INTO Machine (Machine_Nb, Machine_Name, First_Used, Operation_Cost, Room_ID) VALUES
+(1, 'Excavator', '2015-06-01', 150.00, 'R001'),
+(2, 'Bulldozer', '2016-08-15', 200.00, 'R002'),
+(3, 'Crane', '2017-03-22', 250.00, 'R003'),
+(4, 'Concrete Mixer', '2018-11-05', 100.00, 'R004'),
+(5, 'Dump Truck', '2019-01-10', 180.00, 'R005'),
+(6, 'Forklift', '2020-07-19', 120.00, 'R006'),
+(7, 'Backhoe Loader', '2021-02-25', 220.00, 'R007'),
+(8, 'Grader', '2021-09-30', 210.00, 'R008'),
+(9, 'Paver', '2022-04-12', 230.00, 'R009'),
+(10, 'Compactor', '2022-12-20', 190.00, 'R010');

@@ -4,3 +4,15 @@ CREATE TABLE Product_Category (
     CONSTRAINT PK_Product_Category PRIMARY KEY (Product_Name, Category),
     Constraint FK_Product_Category_Product_Name FOREIGN KEY (Product_Name) REFERENCES Product(Product_Name)
 );
+
+INSERT INTO Product_Category (Product_Name, Category) VALUES
+('Cement', 'Building Materials'),
+('Bricks', 'Building Materials'),
+('Steel Rods', 'Building Materials'),
+('Concrete Mix', 'Building Materials'),
+('Safety Helmets', 'Safety Equipment'),
+('Gloves', 'Safety Equipment'),
+('Drills', 'Tools'),
+('Hammers', 'Tools'),
+('Screws', 'Hardware'),
+('Nails', 'Hardware');

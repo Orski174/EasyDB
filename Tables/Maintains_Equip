@@ -8,3 +8,15 @@ CREATE TABLE Maintains_Equip (
     CONSTRAINT FK_Maintains_Equip_Equipment_ID FOREIGN KEY (Equipment_ID) REFERENCES Equipment(Equipment_ID),
     CONSTRAINT FK_Maintains_Equip_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN)
 );
+
+INSERT INTO Maintains_Equip (Equipment_ID, Cost, ME_Descr, ME_Date, EmpSSN) VALUES
+('EQ001', 1500.00, 'Excavator maintenance', '2023-01-15', '123456789'),
+('EQ002', 500.00, 'Bulldozer oil change', '2023-02-10', '987654321'),
+('EQ003', 1200.00, 'Crane inspection', '2023-03-05', '456789123'),
+('EQ004', 800.00, 'Concrete mixer repair', '2023-04-20', '789123456'),
+('EQ005', 300.00, 'Forklift battery replacement', '2023-05-15', '321654987'),
+('EQ006', 700.00, 'Dump truck tire change', '2023-06-25', '654987321'),
+('EQ007', 450.00, 'Backhoe loader service', '2023-07-30', '147258369'),
+('EQ008', 600.00, 'Skid-steer loader maintenance', '2023-08-18', '963852741'),
+('EQ009', 1100.00, 'Tower crane lubrication', '2023-09-12', '852741963'),
+('EQ010', 950.00, 'Asphalt paver engine check', '2023-10-05', '741963852');
