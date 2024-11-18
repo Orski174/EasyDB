@@ -9,3 +9,15 @@ CREATE TABLE Supplier (
     Zip_Code VARCHAR(10) NOT NULL,
     CONSTRAINT PK_Supplier PRIMARY KEY (Supp_ID)
 );
+
+INSERT INTO Suppliers (Supp_ID, Supp_Name, Supp_Nb, Supp_Email, Address_1, Address_2, City, Zip_Code) VALUES
+('SUP001', 'Supplier One', '1234567890', 'supplier1@example.com', '123 Main St', 'Suite 100', 'CityA', '12345'),
+('SUP002', 'Supplier Two', '2345678901', 'supplier2@example.com', '456 Elm St', NULL, 'CityB', '23456'),
+('SUP003', 'Supplier Three', '3456789012', 'supplier3@example.com', '789 Oak St', 'Apt 2B', 'CityC', '34567'),
+('SUP004', 'Supplier Four', '4567890123', 'supplier4@example.com', '101 Pine St', NULL, 'CityD', '45678'),
+('SUP005', 'Supplier Five', '5678901234', 'supplier5@example.com', '202 Maple St', 'Suite 300', 'CityE', '56789'),
+('SUP006', 'Supplier Six', '6789012345', 'supplier6@example.com', '303 Birch St', NULL, 'CityF', '67890'),
+('SUP007', 'Supplier Seven', '7890123456', 'supplier7@example.com', '404 Cedar St', 'Apt 4C', 'CityG', '78901'),
+('SUP008', 'Supplier Eight', '8901234567', 'supplier8@example.com', '505 Walnut St', NULL, 'CityH', '89012'),
+('SUP009', 'Supplier Nine', '9012345678', 'supplier9@example.com', '606 Chestnut St', 'Suite 500', 'CityI', '90123'),
+('SUP010', 'Supplier Ten', '0123456789', 'supplier10@example.com', '707 Ash St', NULL, 'CityJ', '01234');

@@ -4,3 +4,15 @@ CREATE TABLE Raw_Material (
     Unit VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Raw_Material PRIMARY KEY (Material_Name)
 );
+
+INSERT INTO Raw_Material (Material_Name, Cost_per_unit, Unit) VALUES
+('Steel', 50.00, 'kg'),
+('Aluminum', 30.00, 'kg'),
+('Copper', 70.00, 'kg'),
+('Plastic', 20.00, 'kg'),
+('Glass', 25.00, 'kg'),
+('Wood', 15.00, 'kg'),
+('Rubber', 10.00, 'kg'),
+('Concrete', 5.00, 'kg'),
+('Brass', 60.00, 'kg'),
+('Iron', 40.00, 'kg');
