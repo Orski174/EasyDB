@@ -6,3 +6,21 @@ CREATE TABLE Block (
     Constraint PK_Block PRIMARY KEY (BK_ID),
     Constraint FK_Block_WH_Name FOREIGN KEY (WH_Name) REFERENCES Warehouse(WH_Name)
 );
+
+INSERT INTO Block (BK_ID, WH_Name, Area, Block_Name)
+VALUES
+    ('BK00000000001', 'WH001', 500, 'Block A'),
+    ('BK00000000002', 'WH001', 750, 'Block B'),
+    ('BK00000000003', 'WH002', 600, 'Block C'),
+    ('BK00000000004', 'WH002', 450, 'Block D'),
+    ('BK00000000005', 'WH003', 700, 'Block E'),
+    ('BK00000000006', 'WH003', 800, 'Block F'),
+    ('BK00000000007', 'WH004', 900, 'Block G'),
+    ('BK00000000008', 'WH004', 400, 'Block H'),
+    ('BK00000000009', 'WH005', 550, 'Block I'),
+    ('BK00000000010', 'WH005', 300, 'Block J'),
+    ('Bk00000000012', 'WH006', 900, 'Block K'),
+    ('Bk00000000013', 'WH006', 800, 'Block L'),
+    ('Bk00000000014', 'WH007', 700, 'Block M'),
+    ('Bk00000000015', 'WH007', 600, 'Block N'),
+    ('Bk00000000016', 'WH008', 500, 'Block O'),
