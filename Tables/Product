@@ -6,13 +6,13 @@ CREATE TABLE Product (
 );
 
 INSERT INTO Product (Product_Name, Price_per_unit, Unit) VALUES
-('Cement', 5.50, 'Bag'),
-('Bricks', 0.50, 'Piece'),
-('Steel Rods', 10.00, 'Meter'),
-('Sand', 3.00, 'Cubic Meter'),
-('Gravel', 2.50, 'Cubic Meter'),
+('Concrete Bricks', 5.50, 'Piece'),
+('Burnt Clay Bricks', 0.50, 'Piece'),
+('5cm Steel Rods', 10.00, 'Meter'),
 ('Concrete Blocks', 1.20, 'Piece'),
 ('Wood Planks', 7.00, 'Meter'),
-('Glass Panels', 15.00, 'Square Meter'),
-('Paint', 25.00, 'Gallon'),
-('Nails', 0.10, 'Kilogram');
+('Nails', 0.10, 'Kilogram'),
+('Screws', 0.20, 'Kilogram'),
+('Stainless Steel Pipes', 3.00, 'Meter'),
+('Galvanized Steel Pipes', 2.50, 'Meter');
+
