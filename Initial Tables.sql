@@ -336,6 +336,8 @@ VALUES
 ('C000007', 'Consumer G', '7897897896', 'consumerg@example.com', '707 Ash Drive', NULL, 'CityT', '10987'),
 ('C000008', 'Consumer H', '8908908907', 'consumerh@example.com', '808 Walnut Court', NULL, 'CityS', '21098');
 
+
+--Due to several key constraints when populating the Employee table, we'll be filling WH_Name and Room_ID with null temporarily.
 INSERT INTO Employee (SSN, F_Name, L_Name, Birth_Date, Gender, Extension_Nb, Address_1, Address_2, City, Zip_Code, Wage, Personal_Nb, SupSSN, Room_ID, WH_Name, Dep_Name)
 VALUES
 ('E000001', 'John', 'Doe', '1980-01-01', 'M', '101', '1 Main St', NULL, 'City1', '11111', 60000, '1234567890', NULL, NULL, NULL, 'HR'),
@@ -391,7 +393,7 @@ UPDATE Employee
 SET WH_Name = 'WH008'
 WHERE SSN = 'E000008';
 
-
+--------------------------------------
 
 INSERT INTO Rooms (Room_ID, Room_Name, Room_Number, WH_Name)
 VALUES
