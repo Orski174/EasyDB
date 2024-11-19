@@ -11,14 +11,3 @@ CREATE TABLE Warehouse (
     Constraint FK_Warehouse_Contact_SSN FOREIGN KEY (Contact_SSN) REFERENCES Employee(SSN)
 );
 
-INSERT INTO Warehouse (WH_Name, Contact_SSN, Contact_Number, Address_1, Address_2, City, Zip_code, Area) VALUES 
-('WH001', '123456789', '123-456-7890', '123 Main St', 'Apt 1', 'CityA', '12345', 1000),
-('WH002', '234567890', '234-567-8901', '456 Elm St', 'Apt 2', 'CityB', '23456', 2000),
-('WH003', '345678901', '345-678-9012', '789 Oak St', 'Apt 3', 'CityC', '34567', 3000),
-('WH004', '456789012', '456-789-0123', '101 Pine St', 'Apt 4', 'CityD', '45678', 4000),
-('WH005', '567890123', '567-890-1234', '202 Maple St', 'Apt 5', 'CityE', '56789', 5000),
-('WH006', '678901234', '678-901-2345', '303 Birch St', 'Apt 6', 'CityF', '67890', 6000),
-('WH007', '789012345', '789-012-3456', '404 Cedar St', 'Apt 7', 'CityG', '78901', 7000),
-('WH008', '890123456', '890-123-4567', '505 Walnut St', 'Apt 8', 'CityH', '89012', 8000),
-('WH009', '901234567', '901-234-5678', '606 Chestnut St', 'Apt 9', 'CityI', '90123', 9000),
-('WH010', '012345678', '012-345-6789', '707 Redwood St', 'Apt 10', 'CityJ', '01234', 10000);

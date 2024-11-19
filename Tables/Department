@@ -7,12 +7,3 @@ CREATE TABLE Department (
     Constraint FK_Department_ManagerSSN FOREIGN KEY (ManagerSSN) REFERENCES Employee(SSN)
 );
 
-INSERT INTO Department (Dep_Name, Contact_Nb, Email, ManagerSSN) VALUES
-('Sales', '555-555-5555', 'Sales@email.com', '123456789'),
-('Marketing', '444-555-4444', 'Marketing@email.com', '987654321'),
-('Human Resources', '777-555-7777', 'HR@email.com', '456789123'),
-('Accounting', '888-555-8888', 'Accounting@email.com', '789123456'),
-('Production', '999-555-9999', 'Prod@email.com', '321654987'),
-('Research and Development','111-555-1111', 'Dev@email.com', '654321789'),
-('Quality Control', '333-555-3333','QualityControl@email.com', '987321654'),
-('Maintenance', '222-555-2222','QualityControl@email.com', '123789456');

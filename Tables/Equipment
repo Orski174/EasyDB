@@ -8,14 +8,3 @@ CREATE TABLE Equipment (
     CONSTRAINT FK_Equipment_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
 );
 
-INSERT INTO Equipment (Equipment_ID, Equip_Name, First_Used, Operation_Cost, Room_ID) VALUES
-('EQ001', 'Excavator', '2015-06-01', 150.00, 'R001'),
-('EQ002', 'Bulldozer', '2016-07-15', 200.00, 'R002'),
-('EQ003', 'Crane', '2017-08-20', 250.00, 'R003'),
-('EQ004', 'Concrete Mixer', '2018-09-10', 100.00, 'R004'),
-('EQ005', 'Forklift', '2019-10-05', 120.00, 'R005'),
-('EQ006', 'Dump Truck', '2020-11-25', 180.00, 'R006'),
-('EQ007', 'Backhoe Loader', '2021-01-30', 160.00, 'R007'),
-('EQ008', 'Grader', '2021-03-22', 220.00, 'R008'),
-('EQ009', 'Paver', '2021-05-18', 210.00, 'R009'),
-('EQ010', 'Compactor', '2021-07-12', 130.00, 'R010');

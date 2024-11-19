@@ -5,22 +5,3 @@ CREATE TABLE Block_Categories (
     Constraint FK_Block_Categories_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );
 
-INSERT INTO Block_Categories (Block_ID, Category)
-VALUES
-    ('BK0000000001', 'Raw Cement'),
-    ('BK0000000002', 'Raw Sand'),
-    ('BK0000000003', 'Raw Gravel'),
-    ('BK0000000004', 'Raw Steel'),
-    ('BK0000000005', 'Raw Wood'),
-    ('BK0000000006', 'Cement Clinker'),
-    ('BK0000000007', 'Rebar'),
-    ('BK0000000008', 'Wooden Planks'),
-    ('BK0000000009', 'Ready-Mix Concrete'),
-    ('BK0000000010', 'Concrete Blocks'),
-    ('BK0000000011', 'Precast Concrete Panels'),
-    ('BK0000000012', 'Steel Beams'),
-    ('BK0000000013', 'Wooden Beams'),
-    ('BK0000000014', 'PVC Pipes'),
-    ('BK0000000015', 'Insulation Materials'),
-    ('BK0000000016', 'Paints and Coatings'),
-    ('BK0000000017', 'Roofing Materials');

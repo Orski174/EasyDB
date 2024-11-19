@@ -10,14 +10,3 @@ CREATE TABLE Maintains_Mach (
     CONSTRAINT FK_Maintains_Mach_Machine FOREIGN KEY (Machine_Number, Machine_Name) REFERENCES Machine(Machine_Nb, Machine_Name)
 );
 
-INSERT INTO Maintains_Mach (Machine_Number, Machine_Name, Cost, MM_Descr, MM_Date, EmpSSN) VALUES
-(1, 'Excavator', 75000.00, 'Routine maintenance', '2023-01-15', '123456789'),
-(2, 'Bulldozer', 85000.00, 'Engine check', '2023-02-20', '987654321'),
-(3, 'Crane', 120000.00, 'Hydraulic system maintenance', '2023-03-10', '456789123'),
-(4, 'Concrete Mixer', 45000.00, 'Drum cleaning', '2023-04-05', '321654987'),
-(5, 'Forklift', 30000.00, 'Battery replacement', '2023-05-12', '654321789'),
-(6, 'Dump Truck', 95000.00, 'Tire replacement', '2023-06-18', '789123456'),
-(7, 'Backhoe Loader', 65000.00, 'Oil change', '2023-07-22', '159753486'),
-(8, 'Grader', 70000.00, 'Blade sharpening', '2023-08-30', '753951486'),
-(9, 'Paver', 80000.00, 'Asphalt heating system check', '2023-09-14', '852963741'),
-(10, 'Compactor', 55000.00, 'Vibration system maintenance', '2023-10-25', '951357852');
