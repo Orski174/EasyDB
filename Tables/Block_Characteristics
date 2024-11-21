@@ -1,7 +1,0 @@
-CREATE TABLE Block_Characteristics (
-    Block_ID VARCHAR(12) NOT NULL,
-    Val VARCHAR(30) NOT NULL,
-    Types VARCHAR(15) NOT NULL,
-    CONSTRAINT PK_Block_Characteristics PRIMARY KEY (Block_ID, Val, Types),
-    Constraint FK_Block_Characteristics_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
-);

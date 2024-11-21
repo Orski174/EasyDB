@@ -25,14 +25,15 @@ CREATE TABLE Supplier (
 );
 
 CREATE TABLE Raw_Material (
-    Material_Name VARCHAR(50) NOT NULL,
+    Material_Name VARCHAR(100) NOT NULL,
+    Category VARCHAR(100) NOT NULL,
     Cost_per_unit DECIMAL(10, 2) NOT NULL,
     Unit VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Raw_Material PRIMARY KEY (Material_Name)
 );
 
 CREATE TABLE Product (
-    Product_Name VARCHAR(50) NOT NULL,
+    Product_Name VARCHAR(100) NOT NULL,
     Price_per_unit DECIMAL(10, 2) NOT NULL,
     Unit VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Product PRIMARY KEY (Product_Name)
@@ -63,30 +64,16 @@ CREATE TABLE Block_Categories (
     CONSTRAINT FK_Block_Categories_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );
 
-CREATE TABLE Block_Characteristics (
-    Block_ID VARCHAR(12) NOT NULL,
-    Val VARCHAR(30) NOT NULL,
-    Types VARCHAR(15) NOT NULL,
-    CONSTRAINT PK_Block_Characteristics PRIMARY KEY (Block_ID, Val, Types),
-    CONSTRAINT FK_Block_Characteristics_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
-);
-
-CREATE TABLE Material_Category (
-    Material_Name VARCHAR(50) NOT NULL,
-    Category VARCHAR(30) NOT NULL,
-    CONSTRAINT PK_Material_Category PRIMARY KEY (Material_Name, Category),
-    CONSTRAINT FK_Material_Category_Material_Name FOREIGN KEY (Material_Name) REFERENCES Raw_Material(Material_Name)
-);
 
 CREATE TABLE Product_Category (
-    Product_Name VARCHAR(50) NOT NULL,
+    Product_Name VARCHAR(100) NOT NULL,
     Category VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Product_Category PRIMARY KEY (Product_Name, Category),
     CONSTRAINT FK_Product_Category_Product_Name FOREIGN KEY (Product_Name) REFERENCES Product(Product_Name)
 );
 
 CREATE TABLE Product_RM (
-    Product_Name VARCHAR(50) NOT NULL,
+    Product_Name VARCHAR(100) NOT NULL,
     Material_Name VARCHAR(50) NOT NULL,
     Quantity INT NOT NULL,
     Unit VARCHAR(10) NOT NULL,
@@ -221,7 +208,7 @@ CREATE TABLE Consumer (
 );
 
 CREATE TABLE Product_Trans (
-    Prod_Name VARCHAR(50) NOT NULL,
+    Prod_Name VARCHAR(100) NOT NULL,
     Con_ID VARCHAR(12) NOT NULL,
     Expiry_Date DATE NOT NULL,
     Transaction_Date DATE NOT NULL,
@@ -248,7 +235,7 @@ CREATE TABLE Contains_Material (
 
 CREATE TABLE Contains_Product (
     Block_ID VARCHAR(12) NOT NULL,
-    Product_Name VARCHAR(50) NOT NULL,
+    Product_Name VARCHAR(100) NOT NULL,
     Quantity INT NOT NULL,
     CONSTRAINT PK_Contains_Product PRIMARY KEY (Block_ID, Product_Name),
     CONSTRAINT FK_Contains_Product_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID),
@@ -301,28 +288,58 @@ VALUES
 ('S000008', 'Supplier H', '8901234567', 'supplierh@example.com', '505 Court', NULL, 'CityH', '89012');
 
 -- Raw Materials
-INSERT INTO Raw_Material (Material_Name, Cost_per_unit, Unit)
+INSERT INTO Raw_Material (Material_Name, Category, Cost_per_unit, Unit) 
 VALUES
-('Steel', 50.00, 'kg'),
-('Wood', 20.00, 'kg'),
-('Plastic', 10.00, 'kg'),
-('Glass', 30.00, 'kg'),
-('Copper', 40.00, 'kg'),
-('Aluminum', 25.00, 'kg'),
-('Rubber', 15.00, 'kg'),
-('Fabric', 35.00, 'kg');
+('Steel', 'Metals', 50.00, 'kg'),
+('Wood', 'Wood', 500.00, 'm³'),
+('Cement', 'Cement', 10.00, 'kg'),
+('Plastic', 'Polymers', 30.00, 'kg'),
+('Copper', 'Metals', 800.00, 'kg'),
+('Aluminum', 'Metals', 275.00, 'kg'),
+('Rubber', 'Polymers', 15.00, 'kg'),
+('Green Paint', 'Chemicals', 150.00, 'liter'),
+('Gypsum', 'Cement', 5.00, 'kg'),
+('Glass', 'Finishing Materials', 200.00, 'm²'),
+('Sand', 'Aggregates', 20.00, 'kg'),
+('Gravel', 'Aggregates', 30.00, 'kg'),
+('Clay Bricks', 'Construction Materials', 500.00, '1000 units'),
+('Lime', 'Cement', 15.00, 'kg'),
+('Asphalt', 'Construction Materials', 80.00, 'kg'),
+('Reinforcement Bars', 'Metals', 60.00, 'kg'),
+('Plywood', 'Wood', 400.00, 'm²'),
+('Fiber Glass', 'Polymers', 100.00, 'kg'),
+('Bitumen', 'Construction Materials', 90.00, 'kg'),
+('Ceramic Tiles', 'Finishing Materials', 600.00, 'm²'),
+('Marble', 'Finishing Materials', 2000.00, 'm²'),
+('Granite', 'Finishing Materials', 1800.00, 'm²'),
+('PVC', 'Polymers', 40.00, 'kg'),
+('Electrical Wires', 'Electrical Materials', 300.00, 'kg'),
+('Adhesives', 'Chemicals', 80.00, 'kg'),
+('Insulation Foam', 'Insulation', 120.00, 'kg'),
+('Glass Wool', 'Insulation', 90.00, 'kg');
 
--- Products
+
 INSERT INTO Product (Product_Name, Price_per_unit, Unit)
 VALUES
-('Table', 150.00, 'piece'),
-('Chair', 75.00, 'piece'),
-('Lamp', 50.00, 'piece'),
-('Sofa', 300.00, 'piece'),
-('Bed', 500.00, 'piece'),
-('Desk', 200.00, 'piece'),
-('Shelf', 100.00, 'piece'),
-('Cabinet', 250.00, 'piece');
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 70.00, 'meter'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 40.00, 'meter'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 250.00, 'piece'),
+('Copper Pipe, 4m x 20mm ID x 1mm WT', 250.00, 'meter'),
+('Wooden Door, 220x100x5cm', 600.00, 'piece'),
+('Steel Door, 220x100x6cm', 850.00, 'piece'),
+('Aluminum Door, 210x95x5cm', 750.00, 'piece'),
+('Steel Beam, 8m x 250mm H x 150mm W', 180.00, 'meter'),
+('Steel Truss, 4x3x0.7m', 200.00, 'piece'),
+('Prefab Shed, 12x6x4m', 6500.00, 'structure'),
+('Wooden Decking, 2m x 20cm x 5cm', 50.00, 'meter'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 60.00, 'sheet'),
+('Steel Reinforcement Bar, 12mm x 6m', 10.00, 'meter'),
+('Cement Block, 40x20x20cm', 5.00, 'block'),
+('Aluminum Window Frame, 1.5m x 1m', 120.00, 'piece'),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 150.00, 'roll'),
+('Asphalt Shingles, 1m x 0.5m', 20.00, 'sheet'),
+('Ceramic Tile, 30x30cm', 2.50, 'tile'),
+('Marble Slab, 2m x 1m x 2cm', 250.00, 'slab');
 
 -- Consumers
 INSERT INTO Consumer (Con_ID, Consumer_Name, Consumer_Nb, Consumer_Email, Address_1, Address_2, City, Zip_Code)
@@ -453,89 +470,113 @@ VALUES
 ('B005', 'WH003', 700, 'Block E'),
 ('B006', 'WH003', 850, 'Block F'),
 ('B007', 'WH004', 600, 'Block G'),
-('B008', 'WH004', 750, 'Block H');
+('B008', 'WH004', 750, 'Block H'),
+('B009', 'WH005', 500, 'Block I'),
+('B010', 'WH005', 600, 'Block J'),
+('B011', 'WH006', 900, 'Block K'),
+('B012', 'WH006', 1100, 'Block L'),
+('B013', 'WH007', 800, 'Block M'),
+('B014', 'WH007', 950, 'Block N'),
+('B015', 'WH008', 700, 'Block O'),
+('B016', 'WH008', 850, 'Block P');
 
 INSERT INTO Block_Categories (Block_ID, Category)
 VALUES
-('B001', 'Raw Materials'),
-('B002', 'Finished Goods'),
-('B003', 'Raw Materials'),
-('B004', 'Finished Goods'),
-('B005', 'Packaging'),
-('B006', 'Storage'),
-('B007', 'Dispatch'),
-('B008', 'Assembly');
+('B001', 'Sand Storage'),
+('B002', 'Glass Storage'),
+('B003', 'Pipes Storage'),
+('B004', 'Doors Storage'),
+('B005', 'Finished Goods'),
+('B006', 'Raw Materials'),
+('B007', 'Steel Storage'),
+('B008', 'Cement Storage'),
+('B009', 'Wooden Planks Storage'),
+('B010', 'Paint Storage'),
+('B011', 'Tools and Equipment Storage'),
+('B012', 'Storage for Cement Bags'),
+('B013', 'Storage for Construction Aggregates'),
+('B014', 'Electrical Supplies Storage'),
+('B015', 'Plumbing Materials Storage');
 
 
-INSERT INTO Block_Characteristics (Block_ID, Val, Types)
-VALUES
-('B001', 'Temperature Controlled', 'Feature'),
-('B002', 'High Capacity', 'Feature'),
-('B003', 'Hazardous Material', 'Restriction'),
-('B004', 'Standard Storage', 'Feature'),
-('B005', 'Dust Free', 'Feature'),
-('B006', 'Ventilated', 'Feature'),
-('B007', 'Restricted Access', 'Security'),
-('B008', 'Assembly Line Support', 'Feature');
 
-
-INSERT INTO Material_Category (Material_Name, Category)
-VALUES
-('Steel', 'Metal'),
-('Wood', 'Timber'),
-('Plastic', 'Polymer'),
-('Glass', 'Mineral'),
-('Copper', 'Metal'),
-('Aluminum', 'Metal'),
-('Rubber', 'Polymer'),
-('Fabric', 'Textile');
 
 INSERT INTO Product_Category (Product_Name, Category)
 VALUES
-('Table', 'Furniture'),
-('Chair', 'Furniture'),
-('Lamp', 'Electronics'),
-('Sofa', 'Furniture'),
-('Bed', 'Furniture'),
-('Desk', 'Furniture'),
-('Shelf', 'Furniture'),
-('Cabinet', 'Furniture');
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'Metals'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'Polymers'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Cement'),
+('Copper Pipe, 4m x 20mm ID x 1mm WT', 'Metals'),
+('Wooden Door, 220x100x5cm', 'Wood'),
+('Steel Door, 220x100x6cm', 'Metals'),
+('Aluminum Door, 210x95x5cm', 'Metals'),
+('Steel Beam, 8m x 250mm H x 150mm W', 'Metals'),
+('Steel Truss, 4x3x0.7m', 'Metals'),
+('Prefab Shed, 12x6x4m', 'Wood'),
+('Wooden Decking, 2m x 20cm x 5cm', 'Wood'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'Polymers'),
+('Steel Reinforcement Bar, 12mm x 6m', 'Metals'),
+('Cement Block, 40x20x20cm', 'Cement'),
+('Aluminum Window Frame, 1.5m x 1m', 'Metals'),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 'Polymers'),
+('Asphalt Shingles, 1m x 0.5m', 'Construction Materials'),
+('Ceramic Tile, 30x30cm', 'Finishing Materials'),
+('Marble Slab, 2m x 1m x 2cm', 'Finishing Materials');
+
 
 
 INSERT INTO Product_RM (Product_Name, Material_Name, Quantity, Unit)
 VALUES
-('Table', 'Wood', 5, 'kg'),
-('Chair', 'Wood', 3, 'kg'),
-('Lamp', 'Plastic', 2, 'kg'),
-('Sofa', 'Fabric', 10, 'kg'),
-('Bed', 'Wood', 15, 'kg'),
-('Desk', 'Aluminum', 7, 'kg'),
-('Shelf', 'Wood', 6, 'kg'),
-('Cabinet', 'Wood', 8, 'kg');
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'Steel', 10.00, 'kg'),
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'PVC', 2.00, 'kg'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'PVC', 5.00, 'kg'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'Copper', 3.00, 'kg'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Cement', 60.00, 'kg'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Sand', 15.00, 'kg'),
+('Copper Pipe, 4m x 20mm ID x 1mm WT', 'Copper', 10.00, 'kg'),
+('Wooden Door, 220x100x5cm', 'Wood', 30.00, 'kg'),
+('Wooden Door, 220x100x5cm', 'Steel', 5.00, 'kg'),
+('Steel Door, 220x100x6cm', 'Steel', 40.00, 'kg'),
+('Steel Door, 220x100x6cm', 'Aluminum', 5.00, 'kg'),
+('Aluminum Door, 210x95x5cm', 'Aluminum', 30.00, 'kg'),
+('Aluminum Door, 210x95x5cm', 'Steel', 8.00, 'kg'),
+('Steel Beam, 8m x 250mm H x 150mm W', 'Steel', 100.00, 'kg'),
+('Steel Truss, 4x3x0.7m', 'Steel', 150.00, 'kg'),
+('Prefab Shed, 12x6x4m', 'Wood', 200.00, 'kg'),
+('Prefab Shed, 12x6x4m', 'Steel', 50.00, 'kg'),
+('Wooden Decking, 2m x 20cm x 5cm', 'Wood', 40.00, 'kg'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'PVC', 3.00, 'kg'),
+('Steel Reinforcement Bar, 12mm x 6m', 'Steel', 15.00, 'kg'),
+('Cement Block, 40x20x20cm', 'Cement', 40.00, 'kg'),
+('Cement Block, 40x20x20cm', 'Sand', 10.00, 'kg'),
+('Aluminum Window Frame, 1.5m x 1m', 'Aluminum', 10.00, 'kg'),
+('Aluminum Window Frame, 1.5m x 1m', 'Glass', 2.00, 'kg'),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 'Fiber Glass', 20.00, 'kg'),
+('Asphalt Shingles, 1m x 0.5m', 'Asphalt', 8.00, 'kg'),
+('Ceramic Tile, 30x30cm', 'Ceramic Tiles', 2.50, 'tile'),
+('Marble Slab, 2m x 1m x 2cm', 'Marble', 25.00, 'kg');
 
-
-INSERT INTO Material_Trans (Mat_Name, Supp_ID, Expiry_Date, Transaction_Date, Total_Revenue, Quantity, Production_Date, EmpSSN, Block_ID)
+INSERT INTO Material_Trans (Mat_Name, Supp_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
 VALUES
-('Steel', 'S000001', '2025-01-01', '2024-01-10', 1000.00, 20, '2023-12-20', 'E000001', 'B001'),
-('Wood', 'S000002', '2025-02-15', '2024-01-11', 800.00, 40, '2023-12-21', 'E000002', 'B002'),
-('Plastic', 'S000003', '2024-12-01', '2024-01-12', 200.00, 25, '2023-12-22', 'E000003', 'B003'),
-('Glass', 'S000004', '2024-11-01', '2024-01-13', 500.00, 15, '2023-12-23', 'E000004', 'B004'),
-('Copper', 'S000005', '2025-03-01', '2024-01-14', 1200.00, 10, '2023-12-24', 'E000005', 'B005'),
-('Aluminum', 'S000006', '2025-04-01', '2024-01-15', 750.00, 30, '2023-12-25', 'E000006', 'B006'),
-('Rubber', 'S000007', '2024-10-15', '2024-01-16', 300.00, 50, '2023-12-26', 'E000007', 'B007'),
-('Fabric', 'S000008', '2025-05-01', '2024-01-17', 900.00, 35, '2023-12-27', 'E000008', 'B008');
+('Steel', 'S000001', '2024-01-10', 1000.00, 20, 'E000001', 'B001'),
+('Wood', 'S000002', '2024-01-11', 800.00, 40, 'E000002', 'B002'),
+('Plastic', 'S000003', '2024-01-12', 200.00, 25, 'E000003', 'B003'),
+('Glass', 'S000004', '2024-01-13', 500.00, 15, 'E000004', 'B004'),
+('Copper', 'S000005', '2024-01-14', 1200.00, 10, 'E000005', 'B005'),
+('Aluminum', 'S000006', '2024-01-15', 750.00, 30, 'E000006', 'B006'),
+('Rubber', 'S000007', '2024-01-16', 300.00, 50, 'E000007', 'B007'),
+('Fiber Glass', 'S000008', '2024-01-17', 900.00, 35, 'E000008', 'B008');
 
-
-INSERT INTO Product_Trans (Prod_Name, Con_ID, Expiry_Date, Transaction_Date, Total_Revenue, Quantity, Production_Date, EmpSSN, Block_ID)
+INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
 VALUES
-('Table', 'C000001', '2025-01-10', '2024-02-01', 1500.00, 10, '2024-01-15', 'E000001', 'B001'),
-('Chair', 'C000002', '2025-02-20', '2024-02-02', 2250.00, 30, '2024-01-16', 'E000002', 'B002'),
-('Lamp', 'C000003', '2024-12-10', '2024-02-03', 1000.00, 20, '2024-01-17', 'E000003', 'B003'),
-('Sofa', 'C000004', '2024-11-30', '2024-02-04', 3000.00, 10, '2024-01-18', 'E000004', 'B004'),
-('Bed', 'C000005', '2025-03-15', '2024-02-05', 5000.00, 10, '2024-01-19', 'E000005', 'B005'),
-('Desk', 'C000006', '2025-04-25', '2024-02-06', 4000.00, 20, '2024-01-20', 'E000006', 'B006'),
-('Shelf', 'C000007', '2024-10-05', '2024-02-07', 1200.00, 12, '2024-01-21', 'E000007', 'B007'),
-('Cabinet', 'C000008', '2025-05-10', '2024-02-08', 2500.00, 10, '2024-01-22', 'E000008', 'B008');
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'C000001', '2024-02-01', 1500.00, 10, 'E000001', 'B001'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'C000002', '2024-02-02', 2250.00, 30, 'E000002', 'B002'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'C000003', '2024-02-03', 1000.00, 20, 'E000003', 'B003'),
+('Steel Beam, 8m x 250mm H x 150mm W', 'C000004', '2024-02-04', 3000.00, 10, 'E000004', 'B004'),
+('Cement Block, 40x20x20cm', 'C000005', '2024-02-05', 5000.00, 10, 'E000005', 'B005'),
+('Wooden Decking, 2m x 20cm x 5cm', 'C000006', '2024-02-06', 4000.00, 20, 'E000006', 'B006'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'C000007', '2024-02-07', 1200.00, 12, 'E000007', 'B007'),
+('Steel Reinforcement Bar, 12mm x 6m', 'C000008', '2024-02-08', 2500.00, 10, 'E000008', 'B008');
 
 
 INSERT INTO Contains_Material (Block_ID, Material_Name, Quantity)
@@ -547,43 +588,43 @@ VALUES
 ('B005', 'Copper', 5),
 ('B006', 'Aluminum', 25),
 ('B007', 'Rubber', 40),
-('B008', 'Fabric', 20);
+('B008', 'Fiber Glass', 20);
 
 
 INSERT INTO Contains_Product (Block_ID, Product_Name, Quantity)
 VALUES
-('B001', 'Table', 10),
-('B002', 'Chair', 20),
-('B003', 'Lamp', 15),
-('B004', 'Sofa', 5),
-('B005', 'Bed', 7),
-('B006', 'Desk', 10),
-('B007', 'Shelf', 12),
-('B008', 'Cabinet', 8);
+('B001', 'Steel Pipe, 5m x 150mm OD x 12mm WT', 10),
+('B002', 'PVC Pipe, 8m x 100mm OD x 7mm WT', 20),
+('B003', 'Concrete Pipe, 2m x 800mm ID x 75mm WT', 15),
+('B004', 'Steel Beam, 8m x 250mm H x 150mm W', 5),
+('B005', 'Cement Block, 40x20x20cm', 7),
+('B006', 'Wooden Decking, 2m x 20cm x 5cm', 10),
+('B007', 'PVC Sheet, 2.5m x 1.2m x 0.5cm', 12),
+('B008', 'Steel Reinforcement Bar, 12mm x 6m', 8);
+
 
 
 INSERT INTO Equipment (Equipment_ID, Equip_Name, First_Used, Operation_Cost, Room_ID)
 VALUES
-('EQ001', 'Forklift', '2020-01-01', 500.00, 'R001'),
-('EQ002', 'Pallet Jack', '2021-05-15', 300.00, 'R002'),
-('EQ003', 'Conveyor Belt', '2019-03-10', 700.00, 'R003'),
+('EQ001', 'Excavator', '2020-01-01', 500.00, 'R001'),
+('EQ002', 'Forklift', '2021-05-15', 300.00, 'R002'),
+('EQ003', 'Concrete Mixer', '2019-03-10', 700.00, 'R003'),
 ('EQ004', 'Crane', '2018-07-20', 1200.00, 'R004'),
-('EQ005', 'Packing Machine', '2022-02-28', 900.00, 'R005'),
-('EQ006', 'Label Printer', '2021-09-12', 200.00, 'R006'),
-('EQ007', 'Storage Rack', '2020-11-03', 150.00, 'R007'),
+('EQ005', 'Concrete Pump', '2022-02-28', 900.00, 'R005'),
+('EQ006', 'Mobile Scaffolding', '2021-09-12', 200.00, 'R006'),
+('EQ007', 'Rebar Bender', '2020-11-03', 150.00, 'R007'),
 ('EQ008', 'Weighing Scale', '2023-01-05', 100.00, 'R008');
-
 
 INSERT INTO Machine (Machine_Nb, Machine_Name, First_Used, Operation_Cost, Room_ID)
 VALUES
-(1, 'CNC Machine', '2018-01-01', 2000.00, 'R001'),
-(2, 'Lathe', '2019-06-15', 1500.00, 'R002'),
-(3, 'Drill Press', '2020-03-01', 1200.00, 'R003'),
-(4, 'Welder', '2021-09-05', 1800.00, 'R004'),
-(5, 'Injection Molder', '2017-12-10', 2500.00, 'R005'),
-(6, 'Hydraulic Press', '2019-11-20', 2200.00, 'R006'),
-(7, '3D Printer', '2022-07-01', 3000.00, 'R007'),
-(8, 'Laser Cutter', '2023-02-14', 3500.00, 'R008');
+(1, 'Concrete Cutting Machine', '2018-01-01', 2000.00, 'R001'),
+(2, 'Lathe Machine for Metal', '2019-06-15', 1500.00, 'R002'),
+(3, 'Drill Press for Concrete', '2020-03-01', 1200.00, 'R003'),
+(4, 'Welding Machine', '2021-09-05', 1800.00, 'R004'),
+(5, 'Cement Mixer', '2017-12-10', 2500.00, 'R005'),
+(6, 'Hydraulic Press for Steel', '2019-11-20', 2200.00, 'R006'),
+(7, '3D Concrete Printer', '2022-07-01', 3000.00, 'R007'),
+(8, 'Laser Cutting Machine for Metal', '2023-02-14', 3500.00, 'R008');
 
 
 INSERT INTO Maintains_Equip (Equipment_ID, Cost, ME_Descr, ME_Date, EmpSSN)
@@ -600,14 +641,14 @@ VALUES
 
 INSERT INTO Maintains_Mach (Machine_Number, Machine_Name, Cost, MM_Descr, MM_Date, EmpSSN)
 VALUES
-(1, 'CNC Machine', 500.00, 'Routine Maintenance', '2024-02-01', 'E000001'),
-(2, 'Lathe', 400.00, 'Repair', '2024-02-02', 'E000002'),
-(3, 'Drill Press', 300.00, 'Calibration', '2024-02-03', 'E000003'),
-(4, 'Welder', 600.00, 'Overhaul', '2024-02-04', 'E000004'),
-(5, 'Injection Molder', 800.00, 'Part Replacement', '2024-02-05', 'E000005'),
-(6, 'Hydraulic Press', 700.00, 'Routine Maintenance', '2024-02-06', 'E000006'),
-(7, '3D Printer', 900.00, 'Upgrade', '2024-02-07', 'E000007'),
-(8, 'Laser Cutter', 1000.00, 'Routine Maintenance', '2024-02-08', 'E000008');
+(1, 'Concrete Cutting Machine', 500.00, 'Routine Maintenance', '2024-02-01', 'E000001'),
+(2, 'Lathe Machine for Metal', 400.00, 'Repair', '2024-02-02', 'E000002'),
+(3, 'Drill Press for Concrete', 300.00, 'Calibration', '2024-02-03', 'E000003'),
+(4, 'Welding Machine', 600.00, 'Overhaul', '2024-02-04', 'E000004'),
+(5, 'Cement Mixer', 800.00, 'Part Replacement', '2024-02-05', 'E000005'),
+(6, 'Hydraulic Press for Steel', 700.00, 'Routine Maintenance', '2024-02-06', 'E000006'),
+(7, '3D Concrete Printer', 900.00, 'Upgrade', '2024-02-07', 'E000007'),
+(8, 'Laser Cutting Machine for Metal', 1000.00, 'Routine Maintenance', '2024-02-08', 'E000008');
 
 
 
@@ -625,13 +666,22 @@ VALUES
 
 INSERT INTO Machine_Trans (Supp_ID, Cost, Trans_Date, Machine_Nb, Machine_Name, EmpSSN, Quantity)
 VALUES
-('S000001', 3000.00, '2024-01-15', 1, 'CNC Machine', 'E000001', 1),
-('S000002', 2500.00, '2024-01-16', 2, 'Lathe', 'E000002', 1),
-('S000003', 2000.00, '2024-01-17', 3, 'Drill Press', 'E000003', 1),
-('S000004', 3500.00, '2024-01-18', 4, 'Welder', 'E000004', 1),
-('S000005', 4000.00, '2024-01-19', 5, 'Injection Molder', 'E000005', 1),
-('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press', 'E000006', 1),
-('S000007', 4500.00, '2024-01-21', 7, '3D Printer', 'E000007', 1),
-('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutter', 'E000008', 1);
+('S000001', 3000.00, '2024-01-15', 1, 'Concrete Cutting Machine', 'E000001', 1),
+('S000002', 2500.00, '2024-01-16', 2, 'Lathe Machine for Metal', 'E000002', 1),
+('S000003', 2000.00, '2024-01-17', 3, 'Drill Press for Concrete', 'E000003', 1),
+('S000004', 3500.00, '2024-01-18', 4, 'Welding Machine', 'E000004', 1),
+('S000005', 4000.00, '2024-01-19', 5, 'Cement Mixer', 'E000005', 1),
+('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006', 1),
+('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007', 1),
+('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008', 1),
+('S000009', 3000.00, '2024-01-23', 1, 'Concrete Cutting Machine', 'E000001', 1),
+('S000010', 2500.00, '2024-01-24', 2, 'Lathe Machine for Metal', 'E000002', 1),
+('S000011', 2000.00, '2024-01-25', 3, 'Drill Press for Concrete', 'E000003', 1),
+('S000012', 3500.00, '2024-01-26', 4, 'Welding Machine', 'E000004', 1),
+('S000013', 4000.00, '2024-01-27', 5, 'Cement Mixer', 'E000005', 1),
+('S000014', 3000.00, '2024-01-28', 6, 'Hydraulic Press for Steel', 'E000006', 1),
+('S000015', 4500.00, '2024-01-29', 7, '3D Concrete Printer', 'E000007', 1),
+('S000016', 5000.00, '2024-01-30', 8, 'Laser Cutting Machine for Metal', 'E000008', 1);
+
 
 COMMIT;

@@ -1,8 +1,0 @@
-CREATE TABLE Material_Category (
-    Material_Name VARCHAR(50) NOT NULL,
-    Category VARCHAR(30) NOT NULL,
-    CONSTRAINT PK_Material_Category PRIMARY KEY (Material_Name, Category)
-    Constraint FK_Material_Category_Material_Name FOREIGN KEY (Material_Name) REFERENCES Raw_Material(Material_Name)
-);
-
-
