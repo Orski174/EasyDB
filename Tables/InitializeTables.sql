@@ -664,6 +664,7 @@ VALUES
 ('S000006', 1000.00, '2024-01-10', 'EQ006', 2, 'E000006'),
 ('S000007', 800.00, '2024-01-11', 'EQ007', 3, 'E000007'),
 ('S000008', 700.00, '2024-01-12', 'EQ008', 1, 'E000008');
+
 -- create a trigger that would create a new entry in the equipment table
 
 
@@ -677,6 +678,7 @@ VALUES
 ('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006', 1),
 ('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007', 1),
 ('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008', 1);
+
 -- create a trigger that would create a new entry in the machines table
 
 COMMIT;
