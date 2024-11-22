@@ -59,7 +59,7 @@ CREATE TABLE Block (
 
 CREATE TABLE Block_Categories (
     Block_ID VARCHAR(12) NOT NULL,
-    Category VARCHAR(30) NOT NULL,
+    Category VARCHAR(100) NOT NULL,
     CONSTRAINT PK_Block_Categories PRIMARY KEY (Block_ID, Category),
     CONSTRAINT FK_Block_Categories_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );
@@ -67,7 +67,7 @@ CREATE TABLE Block_Categories (
 
 CREATE TABLE Product_Category (
     Product_Name VARCHAR(100) NOT NULL,
-    Category VARCHAR(30) NOT NULL,
+    Category VARCHAR(100) NOT NULL,
     CONSTRAINT PK_Product_Category PRIMARY KEY (Product_Name, Category),
     CONSTRAINT FK_Product_Category_Product_Name FOREIGN KEY (Product_Name) REFERENCES Product(Product_Name)
 );
@@ -76,7 +76,6 @@ CREATE TABLE Product_RM (
     Product_Name VARCHAR(100) NOT NULL,
     Material_Name VARCHAR(50) NOT NULL,
     Quantity INT NOT NULL,
-    Unit VARCHAR(10) NOT NULL,
     CONSTRAINT PK_Product_RM PRIMARY KEY (Product_Name, Material_Name),
     CONSTRAINT FK_Product_RM_Product_Name FOREIGN KEY (Product_Name) REFERENCES Product(Product_Name),
     CONSTRAINT FK_Product_RM_Material_Name FOREIGN KEY (Material_Name) REFERENCES Raw_Material(Material_Name)
@@ -87,7 +86,7 @@ CREATE TABLE Employee (
     F_Name VARCHAR(50) NOT NULL,
     L_Name VARCHAR(50) NOT NULL,
     Birth_Date DATE NOT NULL,
-    Gender CHAR(1) NOT NULL,
+    Gender CHAR(2) NOT NULL,
     Extension_Nb VARCHAR(5),
     Address_1 VARCHAR(64) NOT NULL,
     Address_2 VARCHAR(64),
@@ -106,13 +105,13 @@ CREATE TABLE Employee (
 );
 CREATE TABLE Emp_Occup (
     EmployeeSSN CHAR(9) NOT NULL,
-    Occupation VARCHAR(30) NOT NULL,
+    Occupation VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Emp_Occup PRIMARY KEY (EmployeeSSN, Occupation),
     Constraint FK_Emp_Occup_EmployeeSSN FOREIGN KEY (EmployeeSSN) REFERENCES Employee(SSN)
 );
 CREATE TABLE Dependents (
     DependantName VARCHAR(50) NOT NULL,
-    Gender CHAR(1) NOT NULL,
+    Gender CHAR(2) NOT NULL,
     Relationship VARCHAR(10) NOT NULL,
     Birth_Day DATE NOT NULL,
     RelativeSSN CHAR(9) NOT NULL,
@@ -123,7 +122,7 @@ CREATE TABLE Dependents (
 CREATE TABLE Department (
     Dep_Name VARCHAR(50) NOT NULL,
     Contact_Nb VARCHAR(15),
-    Email VARCHAR(30) NOT NULL,
+    Email VARCHAR(50) NOT NULL,
     ManagerSSN CHAR(9) NOT NULL,
     CONSTRAINT PK_Department PRIMARY KEY (Dep_Name),
     CONSTRAINT FK_Department_ManagerSSN FOREIGN KEY (ManagerSSN) REFERENCES Employee(SSN)
@@ -183,11 +182,9 @@ CREATE TABLE Maintains_Mach (
 CREATE TABLE Material_Trans (
     Mat_Name VARCHAR(50) NOT NULL,
     Supp_ID VARCHAR(9) NOT NULL,
-    Expiry_Date DATE NOT NULL,
     Transaction_Date DATE NOT NULL,
     Total_Revenue DECIMAL(10, 2) NOT NULL,
     Quantity INT NOT NULL,
-    Production_Date DATE NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
     Block_ID VARCHAR(12) NOT NULL,
     CONSTRAINT PK_Material_Trans PRIMARY KEY (Mat_Name, Supp_ID, Transaction_Date, EmpSSN, Block_ID),
@@ -198,9 +195,9 @@ CREATE TABLE Material_Trans (
 );
 CREATE TABLE Consumer (
     Con_ID VARCHAR(12) PRIMARY KEY,
-    Consumer_Name VARCHAR(30) NOT NULL,
+    Consumer_Name VARCHAR(50) NOT NULL,
     Consumer_Nb VARCHAR(15),
-    Consumer_Email VARCHAR(30),
+    Consumer_Email VARCHAR(50),
     Address_1 VARCHAR(64),
     Address_2 VARCHAR(64),
     City VARCHAR(50),
@@ -210,11 +207,9 @@ CREATE TABLE Consumer (
 CREATE TABLE Product_Trans (
     Prod_Name VARCHAR(100) NOT NULL,
     Con_ID VARCHAR(12) NOT NULL,
-    Expiry_Date DATE NOT NULL,
     Transaction_Date DATE NOT NULL,
     Total_Revenue DECIMAL(10, 2) NOT NULL,
     Quantity INT NOT NULL,
-    Production_Date DATE NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
     Block_ID VARCHAR(12) NOT NULL,
     CONSTRAINT PK_Product_Trans PRIMARY KEY (Prod_Name, Con_ID, Transaction_Date, EmpSSN, Block_ID),
@@ -525,36 +520,36 @@ VALUES
 
 
 
-INSERT INTO Product_RM (Product_Name, Material_Name, Quantity, Unit)
+INSERT INTO Product_RM (Product_Name, Material_Name, Quantity)
 VALUES
-('Steel Pipe, 5m x 150mm OD x 12mm WT', 'Steel', 10.00, 'kg'),
-('Steel Pipe, 5m x 150mm OD x 12mm WT', 'PVC', 2.00, 'kg'),
-('PVC Pipe, 8m x 100mm OD x 7mm WT', 'PVC', 5.00, 'kg'),
-('PVC Pipe, 8m x 100mm OD x 7mm WT', 'Copper', 3.00, 'kg'),
-('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Cement', 60.00, 'kg'),
-('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Sand', 15.00, 'kg'),
-('Copper Pipe, 4m x 20mm ID x 1mm WT', 'Copper', 10.00, 'kg'),
-('Wooden Door, 220x100x5cm', 'Wood', 30.00, 'kg'),
-('Wooden Door, 220x100x5cm', 'Steel', 5.00, 'kg'),
-('Steel Door, 220x100x6cm', 'Steel', 40.00, 'kg'),
-('Steel Door, 220x100x6cm', 'Aluminum', 5.00, 'kg'),
-('Aluminum Door, 210x95x5cm', 'Aluminum', 30.00, 'kg'),
-('Aluminum Door, 210x95x5cm', 'Steel', 8.00, 'kg'),
-('Steel Beam, 8m x 250mm H x 150mm W', 'Steel', 100.00, 'kg'),
-('Steel Truss, 4x3x0.7m', 'Steel', 150.00, 'kg'),
-('Prefab Shed, 12x6x4m', 'Wood', 200.00, 'kg'),
-('Prefab Shed, 12x6x4m', 'Steel', 50.00, 'kg'),
-('Wooden Decking, 2m x 20cm x 5cm', 'Wood', 40.00, 'kg'),
-('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'PVC', 3.00, 'kg'),
-('Steel Reinforcement Bar, 12mm x 6m', 'Steel', 15.00, 'kg'),
-('Cement Block, 40x20x20cm', 'Cement', 40.00, 'kg'),
-('Cement Block, 40x20x20cm', 'Sand', 10.00, 'kg'),
-('Aluminum Window Frame, 1.5m x 1m', 'Aluminum', 10.00, 'kg'),
-('Aluminum Window Frame, 1.5m x 1m', 'Glass', 2.00, 'kg'),
-('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 'Fiber Glass', 20.00, 'kg'),
-('Asphalt Shingles, 1m x 0.5m', 'Asphalt', 8.00, 'kg'),
-('Ceramic Tile, 30x30cm', 'Ceramic Tiles', 2.50, 'tile'),
-('Marble Slab, 2m x 1m x 2cm', 'Marble', 25.00, 'kg');
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'Steel', 10.00 ),
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'PVC', 2.00),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'PVC', 5.00),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'Copper', 3.00),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Cement', 60.00),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Sand', 15.00),
+('Copper Pipe, 4m x 20mm ID x 1mm WT', 'Copper', 10.00),
+('Wooden Door, 220x100x5cm', 'Wood', 30.00),
+('Wooden Door, 220x100x5cm', 'Steel', 5.00),
+('Steel Door, 220x100x6cm', 'Steel', 40.00),
+('Steel Door, 220x100x6cm', 'Aluminum', 5.00),
+('Aluminum Door, 210x95x5cm', 'Aluminum', 30.00),
+('Aluminum Door, 210x95x5cm', 'Steel', 8.00),
+('Steel Beam, 8m x 250mm H x 150mm W', 'Steel', 100.00),
+('Steel Truss, 4x3x0.7m', 'Steel', 150.00),
+('Prefab Shed, 12x6x4m', 'Wood', 200.00),
+('Prefab Shed, 12x6x4m', 'Steel', 50.00),
+('Wooden Decking, 2m x 20cm x 5cm', 'Wood', 40.00),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'PVC', 3.00),
+('Steel Reinforcement Bar, 12mm x 6m', 'Steel', 15.00),
+('Cement Block, 40x20x20cm', 'Cement', 40.00),
+('Cement Block, 40x20x20cm', 'Sand', 10.00),
+('Aluminum Window Frame, 1.5m x 1m', 'Aluminum', 10.00),
+('Aluminum Window Frame, 1.5m x 1m', 'Glass', 2.00),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 'Fiber Glass', 20.00),
+('Asphalt Shingles, 1m x 0.5m', 'Asphalt', 8.00),
+('Ceramic Tile, 30x30cm', 'Ceramic Tiles', 2.50),
+('Marble Slab, 2m x 1m x 2cm', 'Marble', 25.00);
 
 INSERT INTO Material_Trans (Mat_Name, Supp_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
 VALUES
@@ -567,6 +562,11 @@ VALUES
 ('Rubber', 'S000007', '2024-01-16', 300.00, 50, 'E000007', 'B007'),
 ('Fiber Glass', 'S000008', '2024-01-17', 900.00, 35, 'E000008', 'B008');
 
+-- here we have to create a trigger that inserts a new entry in the materials table, creating a new material so we have to add unit in this 
+-- table to specify the unit later on in the transactions table that would violated 3NF property discussed in wednesday's lecture but that is for phase 4
+-- we also have to create a trigger that would append the quantity included in this certain transaction to the amount present in the block(contains material)
+
+
 INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
 VALUES
 ('Steel Pipe, 5m x 150mm OD x 12mm WT', 'C000001', '2024-02-01', 1500.00, 10, 'E000001', 'B001'),
@@ -577,6 +577,8 @@ VALUES
 ('Wooden Decking, 2m x 20cm x 5cm', 'C000006', '2024-02-06', 4000.00, 20, 'E000006', 'B006'),
 ('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'C000007', '2024-02-07', 1200.00, 12, 'E000007', 'B007'),
 ('Steel Reinforcement Bar, 12mm x 6m', 'C000008', '2024-02-08', 2500.00, 10, 'E000008', 'B008');
+
+--  create a trigger that would subtract the quantity sold from the total quantity present in the block in a certain warehouse(Contains product)
 
 
 INSERT INTO Contains_Material (Block_ID, Material_Name, Quantity)
@@ -662,6 +664,7 @@ VALUES
 ('S000006', 1000.00, '2024-01-10', 'EQ006', 2, 'E000006'),
 ('S000007', 800.00, '2024-01-11', 'EQ007', 3, 'E000007'),
 ('S000008', 700.00, '2024-01-12', 'EQ008', 1, 'E000008');
+-- create a trigger that would create a new entry in the equipment table
 
 
 INSERT INTO Machine_Trans (Supp_ID, Cost, Trans_Date, Machine_Nb, Machine_Name, EmpSSN, Quantity)
@@ -673,15 +676,7 @@ VALUES
 ('S000005', 4000.00, '2024-01-19', 5, 'Cement Mixer', 'E000005', 1),
 ('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006', 1),
 ('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007', 1),
-('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008', 1),
-('S000009', 3000.00, '2024-01-23', 1, 'Concrete Cutting Machine', 'E000001', 1),
-('S000010', 2500.00, '2024-01-24', 2, 'Lathe Machine for Metal', 'E000002', 1),
-('S000011', 2000.00, '2024-01-25', 3, 'Drill Press for Concrete', 'E000003', 1),
-('S000012', 3500.00, '2024-01-26', 4, 'Welding Machine', 'E000004', 1),
-('S000013', 4000.00, '2024-01-27', 5, 'Cement Mixer', 'E000005', 1),
-('S000014', 3000.00, '2024-01-28', 6, 'Hydraulic Press for Steel', 'E000006', 1),
-('S000015', 4500.00, '2024-01-29', 7, '3D Concrete Printer', 'E000007', 1),
-('S000016', 5000.00, '2024-01-30', 8, 'Laser Cutting Machine for Metal', 'E000008', 1);
-
+('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008', 1);
+-- create a trigger that would create a new entry in the machines table
 
 COMMIT;
