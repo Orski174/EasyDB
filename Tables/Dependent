@@ -7,3 +7,16 @@ CREATE TABLE Dependents (
     CONSTRAINT PK_Dependents PRIMARY KEY (DependantName),
     Constraint FK_Dependents_RelativeSSN FOREIGN KEY (RelativeSSN) REFERENCES Employee(SSN)
 );
+
+-- After inserting into employees
+INSERT INTO Dependents (DependantName, Gender, Relationship, Birth_Day, RelativeSSN) VALUES
+('Alice Doe', 'F', 'Daughter', '2010-05-15', 'E000001'),
+('Jack Doe', 'M', 'Son', '2013-09-20', 'E000001'),
+('Sophia Smith', 'F', 'Daughter', '2015-03-12', 'E000002'),
+('Liam Brown', 'M', 'Son', '2017-11-08', 'E000003'),
+('Emma Davis', 'F', 'Daughter', '2019-07-22', 'E000004'),
+('Olivia Wilson', 'F', 'Daughter', '2011-01-18', 'E000005'),
+('Noah Wilson', 'M', 'Son', '2013-04-25', 'E000005'),
+('Mia Johnson', 'F', 'Daughter', '2014-06-10', 'E000006'),
+('Ethan Taylor', 'M', 'Son', '2016-02-28', 'E000007'),
+('Charlotte White', 'F', 'Daughter', '2020-08-05', 'E000008');

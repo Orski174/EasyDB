@@ -8,3 +8,14 @@ CREATE TABLE Machine (
     CONSTRAINT FK_Machine_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
 );
 
+-- After inserting into Rooms
+INSERT INTO Machine (Machine_Nb, Machine_Name, First_Used, Operation_Cost, Room_ID)
+VALUES
+(1, 'Concrete Cutting Machine', '2018-01-01', 2000.00, 'R001'),
+(2, 'Lathe Machine for Metal', '2019-06-15', 1500.00, 'R002'),
+(3, 'Drill Press for Concrete', '2020-03-01', 1200.00, 'R003'),
+(4, 'Welding Machine', '2021-09-05', 1800.00, 'R004'),
+(5, 'Cement Mixer', '2017-12-10', 2500.00, 'R005'),
+(6, 'Hydraulic Press for Steel', '2019-11-20', 2200.00, 'R006'),
+(7, '3D Concrete Printer', '2022-07-01', 3000.00, 'R007'),
+(8, 'Laser Cutting Machine for Metal', '2023-02-14', 3500.00, 'R008');

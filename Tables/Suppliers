@@ -2,7 +2,7 @@ CREATE TABLE Supplier (
     Supp_ID VARCHAR(9) NOT NULL,
     Supp_Name VARCHAR(50) NOT NULL,
     Supp_Nb VARCHAR(15) NOT NULL,
-    Supp_Email VARCHAR(30) NOT NULL,
+    Supp_Email VARCHAR(50) NOT NULL,
     Address_1 VARCHAR(64) NOT NULL,
     Address_2 VARCHAR(64),
     City VARCHAR(50) NOT NULL,
@@ -10,3 +10,13 @@ CREATE TABLE Supplier (
     CONSTRAINT PK_Supplier PRIMARY KEY (Supp_ID)
 );
 
+INSERT INTO Supplier (Supp_ID, Supp_Name, Supp_Nb, Supp_Email, Address_1, Address_2, City, Zip_Code)
+VALUES
+('S000001', 'Supplier A', '1234567890', 'suppliera@example.com', '123 Street', NULL, 'CityA', '12345'),
+('S000002', 'Supplier B', '2345678901', 'supplierb@example.com', '456 Avenue', NULL, 'CityB', '23456'),
+('S000003', 'Supplier C', '3456789012', 'supplierc@example.com', '789 Blvd', NULL, 'CityC', '34567'),
+('S000004', 'Supplier D', '4567890123', 'supplierd@example.com', '101 Road', NULL, 'CityD', '45678'),
+('S000005', 'Supplier E', '5678901234', 'suppliere@example.com', '202 Lane', NULL, 'CityE', '56789'),
+('S000006', 'Supplier F', '6789012345', 'supplierf@example.com', '303 Path', NULL, 'CityF', '67890'),
+('S000007', 'Supplier G', '7890123456', 'supplierg@example.com', '404 Drive', NULL, 'CityG', '78901'),
+('S000008', 'Supplier H', '8901234567', 'supplierh@example.com', '505 Court', NULL, 'CityH', '89012');

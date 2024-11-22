@@ -1,7 +1,7 @@
 CREATE TABLE Consumer (
     Con_ID VARCHAR(12) PRIMARY KEY,
-    Consumer_Name VARCHAR(30) NOT NULL,
-    Consumer_Nb VARCHAR(15),
+    Consumer_Name VARCHAR(50) NOT NULL,
+    Consumer_Nb VARCHAR(50),
     Consumer_Email VARCHAR(30),
     Address_1 VARCHAR(64),
     Address_2 VARCHAR(64),
@@ -9,3 +9,14 @@ CREATE TABLE Consumer (
     Zip_Code VARCHAR(10),
     Constraint PK_Consumer PRIMARY KEY (Con_ID)
 );
+
+INSERT INTO Consumer (Con_ID, Consumer_Name, Consumer_Nb, Consumer_Email, Address_1, Address_2, City, Zip_Code)
+VALUES
+('C000001', 'Consumer A', '1231231230', 'consumera@example.com', '101 Elm Street', NULL, 'CityX', '54321'),
+('C000002', 'Consumer B', '2342342341', 'consumerb@example.com', '202 Oak Avenue', NULL, 'CityY', '65432'),
+('C000003', 'Consumer C', '3453453452', 'consumerc@example.com', '303 Pine Blvd', NULL, 'CityZ', '76543'),
+('C000004', 'Consumer D', '4564564563', 'consumerd@example.com', '404 Maple Road', NULL, 'CityW', '87654'),
+('C000005', 'Consumer E', '5675675674', 'consumere@example.com', '505 Cedar Lane', NULL, 'CityV', '98765'),
+('C000006', 'Consumer F', '6786786785', 'consumerf@example.com', '606 Birch Path', NULL, 'CityU', '09876'),
+('C000007', 'Consumer G', '7897897896', 'consumerg@example.com', '707 Ash Drive', NULL, 'CityT', '10987'),
+('C000008', 'Consumer H', '8908908907', 'consumerh@example.com', '808 Walnut Court', NULL, 'CityS', '21098');

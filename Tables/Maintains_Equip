@@ -9,3 +9,15 @@ CREATE TABLE Maintains_Equip (
     CONSTRAINT FK_Maintains_Equip_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN)
 );
 
+
+-- After inserting into Equipment and Employee tables
+INSERT INTO Maintains_Equip (Equipment_ID, Cost, ME_Descr, ME_Date, EmpSSN)
+VALUES
+('EQ001', 200.00, 'Routine Maintenance', '2024-01-10', 'E000001'),
+('EQ002', 150.00, 'Repair', '2024-01-11', 'E000002'),
+('EQ003', 300.00, 'Part Replacement', '2024-01-12', 'E000003'),
+('EQ004', 500.00, 'Overhaul', '2024-01-13', 'E000004'),
+('EQ005', 400.00, 'Routine Maintenance', '2024-01-14', 'E000005'),
+('EQ006', 100.00, 'Calibration', '2024-01-15', 'E000006'),
+('EQ007', 80.00, 'Repair', '2024-01-16', 'E000007'),
+('EQ008', 50.00, 'Routine Maintenance', '2024-01-17', 'E000008');

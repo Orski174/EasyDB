@@ -1,7 +1,29 @@
 CREATE TABLE Product_Category (
-    Product_Name VARCHAR(50) NOT NULL,
-    Category VARCHAR(30) NOT NULL,
+    Product_Name VARCHAR(100) NOT NULL,
+    Category VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Product_Category PRIMARY KEY (Product_Name, Category),
     Constraint FK_Product_Category_Product_Name FOREIGN KEY (Product_Name) REFERENCES Product(Product_Name)
 );
 
+-- Insert after creating Product table
+INSERT INTO Product_Category (Product_Name, Category)
+VALUES
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'Metals'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'Polymers'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'Cement'),
+('Copper Pipe, 4m x 20mm ID x 1mm WT', 'Metals'),
+('Wooden Door, 220x100x5cm', 'Wood'),
+('Steel Door, 220x100x6cm', 'Metals'),
+('Aluminum Door, 210x95x5cm', 'Metals'),
+('Steel Beam, 8m x 250mm H x 150mm W', 'Metals'),
+('Steel Truss, 4x3x0.7m', 'Metals'),
+('Prefab Shed, 12x6x4m', 'Wood'),
+('Wooden Decking, 2m x 20cm x 5cm', 'Wood'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'Polymers'),
+('Steel Reinforcement Bar, 12mm x 6m', 'Metals'),
+('Cement Block, 40x20x20cm', 'Cement'),
+('Aluminum Window Frame, 1.5m x 1m', 'Metals'),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 'Polymers'),
+('Asphalt Shingles, 1m x 0.5m', 'Construction Materials'),
+('Ceramic Tile, 30x30cm', 'Finishing Materials'),
+('Marble Slab, 2m x 1m x 2cm', 'Finishing Materials');

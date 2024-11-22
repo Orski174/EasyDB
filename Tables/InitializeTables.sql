@@ -26,7 +26,6 @@ CREATE TABLE Supplier (
 
 CREATE TABLE Raw_Material (
     Material_Name VARCHAR(100) NOT NULL,
-    Category VARCHAR(100) NOT NULL,
     Cost_per_unit DECIMAL(10, 2) NOT NULL,
     Unit VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Raw_Material PRIMARY KEY (Material_Name)

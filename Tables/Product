@@ -1,9 +1,29 @@
 CREATE TABLE Product (
-    Product_Name VARCHAR(50) NOT NULL,
+    Product_Name VARCHAR(100) NOT NULL,
     Price_per_unit DECIMAL(10, 2) NOT NULL,
-    Unit VARCHAR(50) NOT NULL,
+    Unit VARCHAR(30) NOT NULL,
     CONSTRAINT PK_Product PRIMARY KEY (Product_Name)
 );
 
-
+INSERT INTO Product (Product_Name, Price_per_unit, Unit)
+VALUES
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 70.00, 'meter'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 40.00, 'meter'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 250.00, 'piece'),
+('Copper Pipe, 4m x 20mm ID x 1mm WT', 250.00, 'meter'),
+('Wooden Door, 220x100x5cm', 600.00, 'piece'),
+('Steel Door, 220x100x6cm', 850.00, 'piece'),
+('Aluminum Door, 210x95x5cm', 750.00, 'piece'),
+('Steel Beam, 8m x 250mm H x 150mm W', 180.00, 'meter'),
+('Steel Truss, 4x3x0.7m', 200.00, 'piece'),
+('Prefab Shed, 12x6x4m', 6500.00, 'structure'),
+('Wooden Decking, 2m x 20cm x 5cm', 50.00, 'meter'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 60.00, 'sheet'),
+('Steel Reinforcement Bar, 12mm x 6m', 10.00, 'meter'),
+('Cement Block, 40x20x20cm', 5.00, 'block'),
+('Aluminum Window Frame, 1.5m x 1m', 120.00, 'piece'),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 150.00, 'roll'),
+('Asphalt Shingles, 1m x 0.5m', 20.00, 'sheet'),
+('Ceramic Tile, 30x30cm', 2.50, 'tile'),
+('Marble Slab, 2m x 1m x 2cm', 250.00, 'slab');
 

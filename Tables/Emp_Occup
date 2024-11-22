@@ -4,3 +4,22 @@ CREATE TABLE Emp_Occup (
     CONSTRAINT PK_Emp_Occup PRIMARY KEY (EmployeeSSN, Occupation),
     Constraint FK_Emp_Occup_EmployeeSSN FOREIGN KEY (EmployeeSSN) REFERENCES Employee(SSN)
 );
+
+-- After inserting into employees
+INSERT INTO Emp_Occup (EmployeeSSN, Occupation) VALUES
+('E000001', 'Manager'),
+('E000001', 'HR Specialist'),
+('E000002', 'Accountant'),
+('E000002', 'Financial Analyst'),
+('E000003', 'Software Engineer'),
+('E000003', 'Team Lead'),
+('E000004', 'Marketing Specialist'),
+('E000004', 'Content Creator'),
+('E000005', 'Operations Manager'),
+('E000005', 'Logistics Coordinator'),
+('E000006', 'HR Specialist'),
+('E000006', 'Recruiter'),
+('E000007', 'Financial Analyst'),
+('E000007', 'Auditor'),
+('E000008', 'Software Developer'),
+('E000008', 'QA Engineer');

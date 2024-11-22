@@ -5,6 +5,7 @@ CREATE TABLE Employee (
     Birth_Date DATE NOT NULL,
     Gender CHAR(1) NOT NULL,
     Extension_Nb VARCHAR(5),
+    Email VARCHAR(50) NOT NULL,
     Address_1 VARCHAR(64) NOT NULL,
     Address_2 VARCHAR(64),
     City VARCHAR(50) NOT NULL,
@@ -22,3 +23,104 @@ CREATE TABLE Employee (
     Constraint FK_Employee_Dep_Name FOREIGN KEY (Dep_Name) REFERENCES Department(Dep_Name)
 );
 
+
+INSERT INTO Employee (SSN, F_Name, L_Name, Birth_Date, Gender, Extension_Nb, Email, Address_1, Address_2, City, Zip_Code, Wage, Personal_Nb, SupSSN, Room_ID, WH_Name, Dep_Name) 
+VALUES
+('E000001', 'John', 'Doe', '1980-01-01', 'M', '101', 'john.doe@company.com', '1 Main St', NULL, 'City1', '11111', 60000, '1234567890', NULL, NULL, NULL, NULL),
+('E000002', 'Jane', 'Smith', '1990-02-02', 'F', '102', 'jane.smith@company.com', '2 Main St', NULL, 'City2', '22222', 50000, '1234567891', 'E000001', NULL, NULL, NULL),
+('E000003', 'Mike', 'Brown', '1985-03-03', 'M', '103', 'mike.brown@company.com', '3 Main St', NULL, 'City3', '33333', 55000, '1234567892', 'E000001', NULL, NULL, NULL),
+('E000004', 'Sara', 'Davis', '1995-04-04', 'F', '104', 'sara.davis@company.com', '4 Main St', NULL, 'City4', '44444', 52000, '1234567893', 'E000002', NULL, NULL, NULL),
+('E000005', 'James', 'Wilson', '1970-05-05', 'M', '105', 'james.wilson@company.com', '5 Main St', NULL, 'City5', '55555', 70000, '1234567894', NULL, NULL, NULL, NULL),
+('E000006', 'Emily', 'Johnson', '1982-06-06', 'F', '106', 'emily.johnson@company.com', '6 Main St', NULL, 'City6', '66666', 65000, '1234567895', 'E000003', NULL, NULL, NULL),
+('E000007', 'Chris', 'Taylor', '1988-07-07', 'M', '107', 'chris.taylor@company.com', '7 Main St', NULL, 'City7', '77777', 58000, '1234567896', 'E000003', NULL, NULL, NULL),
+('E000008', 'Laura', 'White', '1992-08-08', 'F', '108', 'laura.white@company.com', '8 Main St', NULL, 'City8', '88888', 59000, '1234567897', 'E000004', NULL, NULL, NULL);
+
+
+-- After inserting into departments table
+UPDATE Employee
+SET Dep_Name = 'HR'
+WHERE SSN IN ('E000001', 'E000006');
+
+UPDATE Employee
+SET Dep_Name = 'Operations'
+WHERE SSN IN ('E000002', 'E000007');
+
+UPDATE Employee
+SET Dep_Name = 'Marketing'
+WHERE SSN IN ('E000003', 'E000008');
+
+UPDATE Employee
+SET Dep_Name = 'Finance'
+WHERE SSN = 'E000004';
+
+UPDATE Employee
+SET Dep_Name = 'IT'
+WHERE SSN = 'E000005';
+
+
+-- After inserting into Warehouse table
+UPDATE Employee 
+SET WH_Name = 'WH001'
+WHERE SSN = 'E000001';
+
+UPDATE Employee 
+SET WH_Name = 'WH002'
+WHERE SSN = 'E000002';
+
+UPDATE Employee 
+SET WH_Name = 'WH003'
+WHERE SSN = 'E000003';
+
+UPDATE Employee 
+SET WH_Name = 'WH004'
+WHERE SSN = 'E000004';
+
+UPDATE Employee 
+SET WH_Name = 'WH005'
+WHERE SSN = 'E000005';
+
+UPDATE Employee 
+SET WH_Name = 'WH006'
+WHERE SSN = 'E000006';
+
+UPDATE Employee 
+SET WH_Name = 'WH007'
+WHERE SSN = 'E000007';
+
+UPDATE Employee 
+SET WH_Name = 'WH008'
+WHERE SSN = 'E000008';
+
+
+-- After creating rooms and warehouse tables
+UPDATE Employee 
+SET Room_ID = 'R001'
+WHERE SSN = 'E000001';
+
+UPDATE Employee 
+SET Room_ID = 'R002'
+WHERE SSN = 'E000002';
+
+UPDATE Employee 
+SET Room_ID = 'R003'
+WHERE SSN = 'E000003';
+
+UPDATE Employee 
+SET Room_ID = 'R004'
+WHERE SSN = 'E000004';
+
+UPDATE Employee 
+SET Room_ID = 'R005'
+WHERE SSN = 'E000005';
+
+UPDATE Employee 
+SET Room_ID = 'R006'
+WHERE SSN = 'E000006';
+
+UPDATE Employee 
+SET Room_ID = 'R007'
+WHERE SSN = 'E000007';
+
+UPDATE Employee 
+SET Room_ID = 'R008'
+WHERE SSN = 'E000008';

@@ -5,3 +5,16 @@ CREATE TABLE Contains_Product (
     CONSTRAINT PK_Contains_Product PRIMARY KEY (Block_ID, Product_Name),
     Constraint FK_Contains_Product_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );
+
+-- Insert after inserting into Block and product tables
+
+INSERT INTO Contains_Product (Block_ID, Product_Name, Quantity)
+VALUES
+('B001', 'Steel Pipe, 5m x 150mm OD x 12mm WT', 10),
+('B002', 'PVC Pipe, 8m x 100mm OD x 7mm WT', 20),
+('B003', 'Concrete Pipe, 2m x 800mm ID x 75mm WT', 15),
+('B004', 'Steel Beam, 8m x 250mm H x 150mm W', 5),
+('B005', 'Cement Block, 40x20x20cm', 7),
+('B006', 'Wooden Decking, 2m x 20cm x 5cm', 10),
+('B007', 'PVC Sheet, 2.5m x 1.2m x 0.5cm', 12),
+('B008', 'Steel Reinforcement Bar, 12mm x 6m', 8);

@@ -1,11 +1,9 @@
 CREATE TABLE Product_Trans (
-    Prod_Name VARCHAR(50) NOT NULL,
+    Prod_Name VARCHAR(100) NOT NULL,
     Con_ID VARCHAR(9) NOT NULL,
-    Expiry_Date DATE NOT NULL,
     Transaction_Date DATE NOT NULL,
     Total_Revenue DECIMAL(10, 2) NOT NULL,
     Quantity INT NOT NULL,
-    Production_Date DATE NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
     Block_ID VARCHAR(12) NOT NULL,
     CONSTRAINT PK_Product_Trans PRIMARY KEY (Prod_Name, Con_ID, Transaction_Date, EmpSSN, Block_ID),
@@ -15,3 +13,16 @@ CREATE TABLE Product_Trans (
     CONSTRAINT FK_Product_Trans_Conn_ID FOREIGN KEY (Con_ID) REFERENCES Connection(Con_ID)
 );
 
+-- After inserting into Product, Connection, Employee, and Block tables
+INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
+VALUES
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'C000001', '2024-02-01', 1500.00, 10, 'E000001', 'B001'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'C000002', '2024-02-02', 2250.00, 30, 'E000002', 'B002'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'C000003', '2024-02-03', 1000.00, 20, 'E000003', 'B003'),
+('Steel Beam, 8m x 250mm H x 150mm W', 'C000004', '2024-02-04', 3000.00, 10, 'E000004', 'B004'),
+('Cement Block, 40x20x20cm', 'C000005', '2024-02-05', 5000.00, 10, 'E000005', 'B005'),
+('Wooden Decking, 2m x 20cm x 5cm', 'C000006', '2024-02-06', 4000.00, 20, 'E000006', 'B006'),
+('PVC Sheet, 2.5m x 1.2m x 0.5cm', 'C000007', '2024-02-07', 1200.00, 12, 'E000007', 'B007'),
+('Steel Reinforcement Bar, 12mm x 6m', 'C000008', '2024-02-08', 2500.00, 10, 'E000008', 'B008');
+
+--  create a trigger that would subtract the quantity sold from the total quantity present in the block in a certain warehouse(Contains product)

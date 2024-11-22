@@ -7,3 +7,14 @@ CREATE TABLE Rooms (
     Constraint FK_Rooms_WH_Name FOREIGN KEY (WH_Name) REFERENCES Warehouses(WH_Name)
 );
 
+-- Insert after creating Warehouse table
+INSERT INTO Rooms (Room_ID, Room_Name, Room_Number, WH_Name)
+VALUES
+('R001', 'Storage A', 1, 'WH001'),
+('R002', 'Storage B', 2, 'WH001'),
+('R003', 'Assembly A', 3, 'WH002'),
+('R004', 'Assembly B', 4, 'WH002'),
+('R005', 'Packaging A', 5, 'WH003'),
+('R006', 'Packaging B', 6, 'WH003'),
+('R007', 'Dispatch A', 7, 'WH004'),
+('R008', 'Dispatch B', 8, 'WH004');

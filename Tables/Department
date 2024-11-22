@@ -7,3 +7,11 @@ CREATE TABLE Department (
     Constraint FK_Department_ManagerSSN FOREIGN KEY (ManagerSSN) REFERENCES Employee(SSN)
 );
 
+
+-- Insert after creating Employee table because of ManagerSSN
+INSERT INTO Department (Dep_Name, Contact_Nb, Email, ManagerSSN) VALUES
+('HR', '123-456-7890', 'hr@company.com', 'E000001'),
+('IT', '234-567-8901', 'it@company.com', 'E000002'),
+('Finance', '345-678-9012', 'finance@company.com', 'E000003'),
+('Marketing', '456-789-0123', 'marketing@company.com', 'E000004'),
+('Operations', '567-890-1234', 'operations@company.com', 'E000005');

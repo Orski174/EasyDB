@@ -12,3 +12,15 @@ CREATE TABLE Machine_Trans (
     CONSTRAINT FK_Machine_Trans_Machine FOREIGN KEY (Machine_Nb, Machine_Name) REFERENCES Machine(Machine_Nb, Machine_Name)
 );
 
+-- After inserting into Supplier, Machine, and Employee tables
+INSERT INTO Machine_Trans (Supp_ID, Cost, Trans_Date, Machine_Nb, Machine_Name, EmpSSN, Quantity)
+VALUES
+('S000001', 3000.00, '2024-01-15', 1, 'Concrete Cutting Machine', 'E000001', 1),
+('S000002', 2500.00, '2024-01-16', 2, 'Lathe Machine for Metal', 'E000002', 1),
+('S000003', 2000.00, '2024-01-17', 3, 'Drill Press for Concrete', 'E000003', 1),
+('S000004', 3500.00, '2024-01-18', 4, 'Welding Machine', 'E000004', 1),
+('S000005', 4000.00, '2024-01-19', 5, 'Cement Mixer', 'E000005', 1),
+('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006', 1),
+('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007', 1),
+('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008', 1);
+-- create a trigger that would create a new entry in the machines table

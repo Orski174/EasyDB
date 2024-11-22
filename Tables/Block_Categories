@@ -1,7 +1,26 @@
 CREATE TABLE Block_Categories (
     Block_ID VARCHAR(12) NOT NULL,
-    Category VARCHAR(30) NOT NULL ,
+    Category VARCHAR(50) NOT NULL ,
     CONSTRAINT PK_Block_Categories PRIMARY KEY (Block_ID, Category),
     Constraint FK_Block_Categories_Block_ID FOREIGN KEY (Block_ID) REFERENCES Block(BK_ID)
 );
 
+
+-- Insert after INSERTING into Block table
+INSERT INTO Block_Categories (Block_ID, Category)
+VALUES
+('B001', 'Sand Storage'),
+('B002', 'Glass Storage'),
+('B003', 'Pipes Storage'),
+('B004', 'Doors Storage'),
+('B005', 'Finished Goods'),
+('B006', 'Raw Materials'),
+('B007', 'Steel Storage'),
+('B008', 'Cement Storage'),
+('B009', 'Wooden Planks Storage'),
+('B010', 'Paint Storage'),
+('B011', 'Tools and Equipment Storage'),
+('B012', 'Storage for Cement Bags'),
+('B013', 'Storage for Construction Aggregates'),
+('B014', 'Electrical Supplies Storage'),
+('B015', 'Plumbing Materials Storage');

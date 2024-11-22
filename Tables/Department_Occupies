@@ -1,7 +1,21 @@
 CREATE TABLE Department_Occupies (
-    Dep_Name VARCHAR(100) NOT NULL,
+    Dep_Name VARCHAR(50) NOT NULL,
     Room_ID VARCHAR(12) NOT NULL,
     CONSTRAINT PK_Department_Occupies PRIMARY KEY (Dep_Name, Room_ID)
     Constraint FK_Department_Occupies_Dep_Name FOREIGN KEY (Dep_Name) REFERENCES Department(Dep_Name),
     Constraint FK_Department_Occupies_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
 );
+
+
+-- After inserting into Department and Rooms
+INSERT INTO Department_Occupies (Dep_Name, Room_ID) VALUES
+('HR', 'R001'),
+('HR', 'R002'),
+('IT', 'R003'),
+('IT', 'R004'),
+('Finance', 'R005'),
+('Finance', 'R006'),
+('Marketing', 'R007'),
+('Marketing', 'R008'),
+('Operations', 'R005'),
+('Operations', 'R006');

@@ -11,3 +11,14 @@ CREATE TABLE Warehouse (
     Constraint FK_Warehouse_Contact_SSN FOREIGN KEY (Contact_SSN) REFERENCES Employee(SSN)
 );
 
+-- Insert after creating employees table due to contact_SSN foreign key
+INSERT INTO Warehouse (WH_Name, Contact_SSN, Contact_Number, Address_1, Address_2, City, Zip_code, Area)
+VALUES
+('WH001', 'E000001', '1231231234', '10 Industrial St', NULL, 'CityA', '12345', 5000),
+('WH002', 'E000002', '2342342345', '20 Industrial St', NULL, 'CityB', '23456', 3000),
+('WH003', 'E000003', '3453453456', '30 Industrial St', NULL, 'CityC', '34567', 4000),
+('WH004', 'E000004', '4564564567', '40 Industrial St', NULL, 'CityD', '45678', 3500),
+('WH005', 'E000005', '5675675678', '50 Industrial St', NULL, 'CityE', '56789', 2500),
+('WH006', 'E000006', '6786786789', '60 Industrial St', NULL, 'CityF', '67890', 4500),
+('WH007', 'E000007', '7897897890', '70 Industrial St', NULL, 'CityG', '78901', 4000),
+('WH008', 'E000008', '8908908901', '80 Industrial St', NULL, 'CityH', '89012', 3000);
