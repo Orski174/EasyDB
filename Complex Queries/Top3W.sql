@@ -1,4 +1,5 @@
---Find the top 3 warehouses with the highest revenue from product transactions in the last year
+-- Find the top 3 warehouses with the highest revenue from product transactions in the last year
+
 WITH ProductRevenue AS (
     SELECT 
         w.WH_Name,
