@@ -27,5 +27,8 @@ This query finds the machines that have operated for the longest cumulative hour
 ### 8. Frequently Ordered Product Pairs
 This query finds pairs of products frequently ordered together (at least 5 times). It joins the `Orders` table with itself to find pairs of products in the same order, counts occurrences, and filters pairs ordered together at least 5 times.
 
+### 9. Top 3 Revenue-Generating Warehouses for Products over the past year
+This query identifies the top 3 warehouses generating the highest revenue from product transactions over the past year. It calculates the total revenue for each warehouse by summing up the revenues from all product transactions linked to blocks in that warehouse. The results are sorted in descending order of revenue.
+
 ## Usage
 These queries can be executed in any SQL-compliant database system. Ensure that the database schema includes the relevant tables and columns as referenced in the queries.
