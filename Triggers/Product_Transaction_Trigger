@@ -1,0 +1,28 @@
+CREATE OR REPLACE FUNCTION handle_product_transaction()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Contains_Product
+        WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name
+    ) THEN
+        RAISE EXCEPTION 'No matching product found';
+    END IF;
+
+    IF (SELECT Quantity FROM Contains_Product
+        WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name) < NEW.Quantity THEN
+        RAISE EXCEPTION 'Insufficient quantity in block';
+    END IF;
+
+    UPDATE Contains_Product
+    SET Quantity = Quantity - NEW.Quantity
+    WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trigger_decrement_block_quantity
+AFTER INSERT ON Product_Trans
+FOR EACH ROW
+EXECUTE FUNCTION handle_product_transaction();

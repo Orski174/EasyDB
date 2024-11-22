@@ -1,0 +1,13 @@
+Create or replace trigger handle_machine_trans()
+Returns TRIGGER AS $$
+BEGIN  
+  INSERT INTO Equipment (Machine_Name,Machine_Nb)
+  VALUES (NEW.Machine_Name, NEW.Machine_Nb);
+  RETURN NEW;
+END;
+
+CREATE TRIGGER trigger_handle_machine_transaction
+AFTER INSERT ON machine_trans
+FOR EACH ROW
+EXECUTE FUNCTION handle_machine_transaction();
+$$ LANGUAGE plpgsql;

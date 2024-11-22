@@ -1,0 +1,39 @@
+CREATE OR REPLACE FUNCTION handle_material_transaction()
+RETURNS TRIGGER AS $$
+BEGIN
+    -- Check if the material exists in Raw_Material
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Raw_Material
+        WHERE Material_Name = NEW.Material_Name
+    ) THEN
+        -- Insert into Raw_Material if not exists
+        INSERT INTO Raw_Material (Material_Name, Unit, Category)
+        VALUES (NEW.Material_Name, NEW.Unit, NEW.Category);
+    END IF;
+
+    -- Check if the material exists in Contains_Material for the Block_ID
+    IF NOT EXISTS (
+        SELECT 1
+        FROM Contains_Material
+        WHERE Block_ID = NEW.Block_ID AND Material_Name = NEW.Material_Name
+    ) THEN
+        -- Insert a new entry into Contains_Material
+        INSERT INTO Contains_Material (Block_ID, Material_Name, Quantity)
+        VALUES (NEW.Block_ID, NEW.Material_Name, NEW.Quantity);
+    ELSE
+        -- Increment the quantity in Contains_Material
+        UPDATE Contains_Material
+        SET Quantity = Quantity + NEW.Quantity
+        WHERE Block_ID = NEW.Block_ID AND Material_Name = NEW.Material_Name;
+    END IF;
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER trigger_handle_material_transaction
+AFTER INSERT ON Material_Transaction
+FOR EACH ROW
+EXECUTE FUNCTION handle_material_transaction();

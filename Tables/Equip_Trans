@@ -3,7 +3,6 @@ CREATE TABLE Equip_Trans (
     Cost DECIMAL(10, 2) NOT NULL,
     Trans_Date DATE NOT NULL,
     Equipment_ID VARCHAR(12) NOT NULL,
-    Quantity INT NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
     CONSTRAINT PK_Equip_Trans PRIMARY KEY (Supp_ID, Trans_Date, Equipment_ID, EmpSSN),
     CONSTRAINT FK_Equip_Trans_Supp_ID FOREIGN KEY (Supp_ID) REFERENCES Supplier(Supp_ID),
@@ -12,14 +11,14 @@ CREATE TABLE Equip_Trans (
 );
 
 -- After inserting into Supplier, Equipment, and Employee tables
-INSERT INTO Equip_Trans (Supp_ID, Cost, Trans_Date, Equipment_ID, Quantity, EmpSSN)
+INSERT INTO Equip_Trans (Supp_ID, Cost, Trans_Date, Equipment_ID, EmpSSN)
 VALUES
-('S000001', 1500.00, '2024-01-05', 'EQ001', 1, 'E000001'),
-('S000002', 1200.00, '2024-01-06', 'EQ002', 2, 'E000002'),
-('S000003', 1800.00, '2024-01-07', 'EQ003', 1, 'E000003'),
-('S000004', 2500.00, '2024-01-08', 'EQ004', 1, 'E000004'),
-('S000005', 2000.00, '2024-01-09', 'EQ005', 1, 'E000005'),
-('S000006', 1000.00, '2024-01-10', 'EQ006', 2, 'E000006'),
-('S000007', 800.00, '2024-01-11', 'EQ007', 3, 'E000007'),
-('S000008', 700.00, '2024-01-12', 'EQ008', 1, 'E000008');
+('S000001', 1500.00, '2024-01-05', 'EQ001', 'E000001'),
+('S000002', 1200.00, '2024-01-06', 'EQ002', 'E000002'),
+('S000003', 1800.00, '2024-01-07', 'EQ003', 'E000003'),
+('S000004', 2500.00, '2024-01-08', 'EQ004', 'E000004'),
+('S000005', 2000.00, '2024-01-09', 'EQ005', 'E000005'),
+('S000006', 1000.00, '2024-01-10', 'EQ006', 'E000006'),
+('S000007', 800.00, '2024-01-11', 'EQ007', 'E000007'),
+('S000008', 700.00, '2024-01-12', 'EQ008', 'E000008');
 -- create a trigger that would create a new entry in the equipment table

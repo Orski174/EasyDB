@@ -1,0 +1,13 @@
+Create or replace trigger handle_equipment_trans()
+Returns TRIGGER AS $$
+BEGIN  
+  INSERT INTO Equipment (Equipment_ID)
+  VALUES (NEW.Equipment_ID);
+  RETURN NEW;
+END;
+
+CREATE TRIGGER trigger_handle_equipment_transaction
+AFTER INSERT ON Equip_Trans
+FOR EACH ROW
+EXECUTE FUNCTION handle_equipment_transaction();
+$$ LANGUAGE plpgsql;

@@ -1,9 +1,9 @@
 CREATE TABLE Equipment (
     Equipment_ID VARCHAR(12) NOT NULL,
-    Equip_Name VARCHAR(50) NOT NULL,
+    Equip_Name VARCHAR(50),
     First_Used DATE,
     Operation_Cost DECIMAL(10, 2),
-    Room_ID VARCHAR(12) NOT NULL,
+    Room_ID VARCHAR(12),
     CONSTRAINT PK_Equipment PRIMARY KEY (Equipment_ID),
     CONSTRAINT FK_Equipment_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
 );

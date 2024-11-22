@@ -5,7 +5,6 @@ CREATE TABLE Machine_Trans (
     Machine_Nb INT NOT NULL,
     Machine_Name VARCHAR(50) NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
-    Quantity INT NOT NULL,
     CONSTRAINT PK_Machine_Trans PRIMARY KEY (Supp_ID, Trans_Date, Machine_Nb, Machine_Name, EmpSSN),
     CONSTRAINT FK_Machine_Trans_Supp_ID FOREIGN KEY (Supp_ID) REFERENCES Supplier(Supp_ID),
     CONSTRAINT FK_Machine_Trans_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
@@ -15,12 +14,12 @@ CREATE TABLE Machine_Trans (
 -- After inserting into Supplier, Machine, and Employee tables
 INSERT INTO Machine_Trans (Supp_ID, Cost, Trans_Date, Machine_Nb, Machine_Name, EmpSSN, Quantity)
 VALUES
-('S000001', 3000.00, '2024-01-15', 1, 'Concrete Cutting Machine', 'E000001', 1),
-('S000002', 2500.00, '2024-01-16', 2, 'Lathe Machine for Metal', 'E000002', 1),
-('S000003', 2000.00, '2024-01-17', 3, 'Drill Press for Concrete', 'E000003', 1),
-('S000004', 3500.00, '2024-01-18', 4, 'Welding Machine', 'E000004', 1),
-('S000005', 4000.00, '2024-01-19', 5, 'Cement Mixer', 'E000005', 1),
-('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006', 1),
-('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007', 1),
-('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008', 1);
+('S000001', 3000.00, '2024-01-15', 1, 'Concrete Cutting Machine', 'E000001'),
+('S000002', 2500.00, '2024-01-16', 2, 'Lathe Machine for Metal', 'E000002'),
+('S000003', 2000.00, '2024-01-17', 3, 'Drill Press for Concrete', 'E000003'),
+('S000004', 3500.00, '2024-01-18', 4, 'Welding Machine', 'E000004'),
+('S000005', 4000.00, '2024-01-19', 5, 'Cement Mixer', 'E000005'),
+('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006'),
+('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007'),
+('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008');
 -- create a trigger that would create a new entry in the machines table
