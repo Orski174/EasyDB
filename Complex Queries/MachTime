@@ -1,0 +1,16 @@
+-- Find the machines that have operated for the longest cumulative hours, grouped by department.
+
+SELECT 
+    d.department_name, 
+    m.machine_name, 
+    SUM(op.operation_hours) AS total_hours
+FROM 
+    Machines m
+JOIN 
+    Machine_Operation op ON m.machine_id = op.machine_id
+JOIN 
+    Departments d ON m.department_id = d.department_id
+GROUP BY 
+    d.department_name, m.machine_name
+ORDER BY 
+    d.department_name, total_hours DESC;

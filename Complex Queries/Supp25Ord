@@ -1,0 +1,30 @@
+-- Detect suppliers whose products contribute to at least 25% of the total orders in the factory.
+
+WITH TotalOrders AS (
+    SELECT 
+        SUM(quantity) AS total_quantity
+    FROM 
+        Orders
+),
+SupplierOrders AS (
+    SELECT 
+        s.supplier_id, 
+        s.supplier_name, 
+        SUM(o.quantity) AS supplier_quantity
+    FROM 
+        Suppliers s
+    JOIN 
+        Products p ON s.supplier_id = p.supplier_id
+    JOIN 
+        Orders o ON p.product_id = o.product_id
+    GROUP BY 
+        s.supplier_id, s.supplier_name
+)
+SELECT 
+    so.supplier_name, 
+    so.supplier_quantity, 
+    ROUND((so.supplier_quantity::DECIMAL / to.total_quantity) * 100, 2) AS percentage
+FROM 
+    SupplierOrders so, TotalOrders to
+WHERE 
+    (so.supplier_quantity::DECIMAL / to.total_quantity) >= 0.25;

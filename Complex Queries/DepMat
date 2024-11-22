@@ -1,0 +1,18 @@
+-- Identify departments with the highest utilization of raw materials over the last year.
+
+SELECT 
+    d.department_name, 
+    SUM(rm.quantity_used) AS total_material_used
+FROM 
+    Departments d
+JOIN 
+    Production_Records pr ON d.department_id = pr.department_id
+JOIN 
+    Raw_Material_Usage rm ON pr.production_id = rm.production_id
+WHERE 
+    pr.production_date >= NOW() - INTERVAL '1 year'
+GROUP BY 
+    d.department_name
+ORDER BY 
+    total_material_used DESC
+LIMIT 1;

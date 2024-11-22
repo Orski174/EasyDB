@@ -1,0 +1,15 @@
+-- List the names of employees who operate more than one type of machine.
+
+SELECT 
+    e.employee_name, 
+    COUNT(DISTINCT m.machine_type) AS machine_count
+FROM 
+    Employees e
+JOIN 
+    Machine_Operation mo ON e.employee_id = mo.employee_id
+JOIN 
+    Machines m ON mo.machine_id = m.machine_id
+GROUP BY 
+    e.employee_name
+HAVING 
+    COUNT(DISTINCT m.machine_type) > 1;

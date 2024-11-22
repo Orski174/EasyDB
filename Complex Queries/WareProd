@@ -1,0 +1,23 @@
+-- Find warehouses storing the most expensive product and its details.
+
+WITH ProductPrice AS (
+    SELECT 
+        product_id, 
+        MAX(price) AS max_price
+    FROM 
+        Products
+)
+SELECT 
+    w.warehouse_name, 
+    p.product_name, 
+    pp.max_price
+FROM 
+    Warehouses w
+JOIN 
+    Inventory i ON w.warehouse_id = i.warehouse_id
+JOIN 
+    Products p ON i.product_id = p.product_id
+JOIN 
+    ProductPrice pp ON p.product_id = pp.product_id
+ORDER BY 
+    pp.max_price DESC;
