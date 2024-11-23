@@ -1,19 +1,15 @@
--- Find the top 3 products with the highest sales in the last 6 months, including their supplier details.
-
 SELECT 
-    p.product_name, 
-    s.supplier_name, 
-    SUM(o.quantity * o.unit_price) AS total_sales
+    pt.product_name, 
+    p.supplier_name, 
+    SUM(pt.total_Revenue) AS total_sales
 FROM 
-    Orders o
+    Product_Trans pt
 JOIN 
-    Products p ON o.product_id = p.product_id
-JOIN 
-    Suppliers s ON p.supplier_id = s.supplier_id
+    Product p ON pt.product_name = p.product_name
 WHERE 
-    o.order_date >= NOW() - INTERVAL '6 months'
+    pt.transaction_date >= CURRENT_DATE - INTERVAL '6 months'
 GROUP BY 
-    p.product_name, s.supplier_name
+    pt.product_name, p.supplier_name
 ORDER BY 
     total_sales DESC
 LIMIT 3;
