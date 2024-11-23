@@ -1,5 +1,5 @@
 CREATE TABLE Equipment (
-    Equipment_ID VARCHAR(12) NOT NULL,
+    Equipment_ID INT NOT NULL,
     Equip_Name VARCHAR(50),
     First_Used DATE,
     Operation_Cost DECIMAL(10, 2),
