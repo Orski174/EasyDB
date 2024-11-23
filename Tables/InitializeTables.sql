@@ -666,6 +666,32 @@ VALUES
 
 -- create a trigger that would create a new entry in the equipment table
 
+CREATE OR REPLACE FUNCTION add_equipment() RETURNS TRIGGER AS $$
+DECLARE
+    v_room_id VARCHAR(12);
+    v_operation_cost DECIMAL(10, 2);
+    v_equip_name VARCHAR(50);
+BEGIN
+    -- Prompt the user for Room ID, Operation Cost, and Equipment Name
+    RAISE NOTICE 'Enter Room ID:';
+    v_room_id := NEW.Room_ID;
+    RAISE NOTICE 'Enter Operation Cost:';
+    v_operation_cost := NEW.Operation_Cost;
+    RAISE NOTICE 'Enter Equipment Name:';
+    v_equip_name := NEW.Equip_Name;
+
+    -- Insert the new equipment into the Equipment table
+    INSERT INTO Equipment (Equipment_ID, Equip_Name, First_Used, Operation_Cost, Room_ID)
+    VALUES (NEW.Equipment_ID, v_equip_name, NEW.First_Used, v_operation_cost, v_room_id);
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER trg_add_equipment
+AFTER INSERT ON Equip_Trans
+FOR EACH ROW
+EXECUTE FUNCTION add_equipment();
 
 INSERT INTO Machine_Trans (Supp_ID, Cost, Trans_Date, Machine_Nb, Machine_Name, EmpSSN, Quantity)
 VALUES
