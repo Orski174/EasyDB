@@ -1,8 +1,8 @@
 Create or replace trigger handle_equipment_trans()
 Returns TRIGGER AS $$
 BEGIN  
-  INSERT INTO Equipment (Equipment_ID)
-  VALUES (NEW.Equipment_ID);
+  INSERT INTO Equipment (Equipment_Name)
+  VALUES (NEW.Equip_Name);
   RETURN NEW;
 END;
 

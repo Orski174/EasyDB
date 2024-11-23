@@ -1,22 +1,22 @@
 CREATE TABLE Equipment (
     Equipment_ID VARCHAR(12) NOT NULL,
-        Equip_Name VARCHAR(50),
-        First_Used DATE,
-        Operation_Cost DECIMAL(10, 2),
-        Room_ID VARCHAR(12),
-        E_Status VARCHAR(1) DEFAULT 'S',
-        CONSTRAINT PK_Equipment PRIMARY KEY (Equipment_ID),
-        CONSTRAINT FK_Equipment_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
+    Equip_Name VARCHAR(50),
+    First_Used DATE,
+    Operation_Cost DECIMAL(10, 2),
+    Room_ID VARCHAR(12),
+    E_Status VARCHAR(1) DEFAULT 'S',
+    CONSTRAINT PK_Equipment PRIMARY KEY (Equipment_ID),
+    CONSTRAINT FK_Equipment_Room_ID FOREIGN KEY (Room_ID) REFERENCES Room(Room_ID)
     );
 
     -- After inserting into Rooms
     INSERT INTO Equipment (Equipment_ID, Equip_Name, First_Used, Operation_Cost, Room_ID, E_Status)
     VALUES
-    ('EQ001', 'Excavator', '2020-01-01', 500.00, 'R001', 'S'),
-    ('EQ002', 'Forklift', '2021-05-15', 300.00, 'R002', 'S'),
-    ('EQ003', 'Concrete Mixer', '2019-03-10', 700.00, 'R003', 'S'),
-    ('EQ004', 'Crane', '2018-07-20', 1200.00, 'R004', 'S'),
-    ('EQ005', 'Concrete Pump', '2022-02-28', 900.00, 'R005', 'S'),
-    ('EQ006', 'Mobile Scaffolding', '2021-09-12', 200.00, 'R006', 'S'),
-    ('EQ007', 'Rebar Bender', '2020-11-03', 150.00, 'R007', 'S'),
-    ('EQ008', 'Weighing Scale', '2023-01-05', 100.00, 'R008', 'S');
+    ('0000001', 'Excavator', '2020-01-01', 500.00, 'R001', 'S'),
+    ('0000002', 'Forklift', '2021-05-15', 300.00, 'R002', 'S'),
+    ('0000003', 'Concrete Mixer', '2019-03-10', 700.00, 'R003', 'S'),
+    ('0000004', 'Crane', '2018-07-20', 1200.00, 'R004', 'S'),
+    ('0000005', 'Concrete Pump', '2022-02-28', 900.00, 'R005', 'S'),
+    ('0000006', 'Mobile Scaffolding', '2021-09-12', 200.00, 'R006', 'S'),
+    ('0000007', 'Rebar Bender', '2020-11-03', 150.00, 'R007', 'S'),
+    ('0000008', 'Weighing Scale', '2023-01-05', 100.00, 'R008', 'S');
