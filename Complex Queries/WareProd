@@ -2,10 +2,10 @@
 
 WITH ProductPrice AS (
     SELECT 
-        product_id, 
-        MAX(price) AS max_price
+        Product_Name, 
+        MAX(Price_per_unit) AS max_price
     FROM 
-        Products
+        Product
 )
 SELECT 
     w.warehouse_name, 
@@ -14,10 +14,10 @@ SELECT
 FROM 
     Warehouses w
 JOIN 
-    Inventory i ON w.warehouse_id = i.warehouse_id
+    BLOCK b ON w.WH_Name = b.WH_Name
+JOIN
+    Contains_Product cp on b.Block_ID = cp.Block_ID  
 JOIN 
-    Products p ON i.product_id = p.product_id
-JOIN 
-    ProductPrice pp ON p.product_id = pp.product_id
+    ProductPrice pp ON p.Product_Name = pp.Product_Name
 ORDER BY 
     pp.max_price DESC;
