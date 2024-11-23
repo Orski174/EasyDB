@@ -3,7 +3,8 @@ CREATE TABLE Maintains_Mach (
     Machine_Name VARCHAR(50) NOT NULL,
     Cost DECIMAL(10, 2) NOT NULL,
     MM_Descr VARCHAR(255),
-    MM_Date DATE NOT NULL,
+    MMS_Date DATE NOT NULL,
+    MME_Date DATE ,
     EmpSSN CHAR(9) NOT NULL,    
     CONSTRAINT PK_Maintains_Mach PRIMARY KEY (Machine_Number),
     CONSTRAINT FK_Maintains_Mach_EmpSSN FOREIGN KEY (EmpSSN) REFERENCES Employee(SSN),
@@ -11,13 +12,10 @@ CREATE TABLE Maintains_Mach (
 );
 
 -- After inserting into Machine and Employee tables
-INSERT INTO Maintains_Mach (Machine_Number, Machine_Name, Cost, MM_Descr, MM_Date, EmpSSN)
+INSERT INTO Maintains_Mach (Machine_Number, Machine_Name, Cost, MM_Descr, MMS_Date, MME_Date, EmpSSN)
 VALUES
-(1, 'Concrete Cutting Machine', 500.00, 'Routine Maintenance', '2024-02-01', 'E000001'),
-(2, 'Lathe Machine for Metal', 400.00, 'Repair', '2024-02-02', 'E000002'),
-(3, 'Drill Press for Concrete', 300.00, 'Calibration', '2024-02-03', 'E000003'),
-(4, 'Welding Machine', 600.00, 'Overhaul', '2024-02-04', 'E000004'),
-(5, 'Cement Mixer', 800.00, 'Part Replacement', '2024-02-05', 'E000005'),
-(6, 'Hydraulic Press for Steel', 700.00, 'Routine Maintenance', '2024-02-06', 'E000006'),
-(7, '3D Concrete Printer', 900.00, 'Upgrade', '2024-02-07', 'E000007'),
-(8, 'Laser Cutting Machine for Metal', 1000.00, 'Routine Maintenance', '2024-02-08', 'E000008');
+(4, 'Welding Machine', 600.00, 'Overhaul', '2024-02-04', NULL, 'E000004'),
+(5, 'Cement Mixer', 800.00, 'Part Replacement', '2024-02-05', NULL, 'E000005'),
+(6, 'Hydraulic Press for Steel', 700.00, 'Routine Maintenance', '2024-02-06', NULL, 'E000006'),
+(7, '3D Concrete Printer', 900.00, 'Upgrade', '2024-02-07', NULL, 'E000007'),
+(8, 'Laser Cutting Machine for Metal', 1000.00, 'Routine Maintenance', '2024-02-08', NULL, 'E000008');

@@ -7,17 +7,16 @@ BEGIN
         WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name
     ) THEN
         RAISE EXCEPTION 'No matching product found';
-    END IF;
 
-    IF (SELECT Quantity FROM Contains_Product
+    ELSE IF (SELECT Quantity FROM Contains_Product
         WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name) < NEW.Quantity THEN
         RAISE EXCEPTION 'Insufficient quantity in block';
+
+    ELSE
+        UPDATE Contains_Product
+        SET Quantity = Quantity - NEW.Quantity
+        WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name;
     END IF;
-
-    UPDATE Contains_Product
-    SET Quantity = Quantity - NEW.Quantity
-    WHERE Block_ID = NEW.Block_ID AND Product_Name = NEW.Product_Name;
-
     RETURN NEW;
 END;
 $$ LANGUAGE plpgsql;

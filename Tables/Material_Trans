@@ -4,6 +4,8 @@ CREATE TABLE Material_Trans (
     Transaction_Date DATE NOT NULL,
     Total_Revenue DECIMAL(10, 2) NOT NULL,
     Quantity INT NOT NULL,
+    Unit VARCHAR(50) NOT NULL,
+    Category VARCHAR(50) NOT NULL,
     EmpSSN CHAR(9) NOT NULL,
     Block_ID VARCHAR(12) NOT NULL,
     CONSTRAINT PK_Material_Trans PRIMARY KEY (Mat_Name, Supp_ID, Transaction_Date, EmpSSN, Block_ID),
@@ -15,16 +17,16 @@ CREATE TABLE Material_Trans (
 
 -- After inserting into Supplier, Employee, and Block tables (No need to insert into Material table since we are going to create a trigger that would define a trigger that would insert the newly created material 
 -- into raw_material table specifying the unit, category(to know in which block to store them) and price per unit of each material)
-INSERT INTO Material_Trans (Mat_Name, Supp_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
+INSERT INTO Material_Trans (Mat_Name, Supp_ID, Transaction_Date, Total_Revenue, Quantity, Unit, Category, EmpSSN, Block_ID)
 VALUES
-('Steel', 'S000001', '2024-01-10', 1000.00, 20, 'E000001', 'B001'),
-('Wood', 'S000002', '2024-01-11', 800.00, 40, 'E000002', 'B002'),
-('Plastic', 'S000003', '2024-01-12', 200.00, 25, 'E000003', 'B003'),
-('Glass', 'S000004', '2024-01-13', 500.00, 15, 'E000004', 'B004'),
-('Copper', 'S000005', '2024-01-14', 1200.00, 10, 'E000005', 'B005'),
-('Aluminum', 'S000006', '2024-01-15', 750.00, 30, 'E000006', 'B006'),
-('Rubber', 'S000007', '2024-01-16', 300.00, 50, 'E000007', 'B007'),
-('Fiber Glass', 'S000008', '2024-01-17', 900.00, 35, 'E000008', 'B008');
+('Steel', 'S000001', '2024-01-10', 1000.00, 20, 'kg', 'Metals', 'E000001', 'B001'),
+('Wood', 'S000002', '2024-01-11', 800.00, 40, 'kg', 'Lumber', 'E000002', 'B002'),
+('Plastic', 'S000003', '2024-01-12', 200.00, 25, 'kg', 'Polymers', 'E000003', 'B003'),
+('Glass', 'S000004', '2024-01-13', 500.00, 15, 'kg', 'Silicates', 'E000004', 'B004'),
+('Copper', 'S000005', '2024-01-14', 1200.00, 10, 'kg', 'Metals', 'E000005', 'B005'),
+('Aluminum', 'S000006', '2024-01-15', 750.00, 30, 'kg', 'Metals', 'E000006', 'B006'),
+('Rubber', 'S000007', '2024-01-16', 300.00, 50, 'kg', 'Elastomers', 'E000007', 'B007'),
+('Fiber Glass', 'S000008', '2024-01-17', 900.00, 35, 'kg', 'Composites', 'E000008', 'B008');
 
 -- here we have to create a trigger that inserts a new entry in the materials table, creating a new material so we have to add unit in this 
 -- table to specify the unit later on in the transactions table that would violated 3NF property discussed in wednesday's lecture but that is for phase 4

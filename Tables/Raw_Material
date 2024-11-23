@@ -1,6 +1,7 @@
 CREATE TABLE Raw_Material (
     Material_Name VARCHAR(50) NOT NULL,
-    Cost_per_unit DECIMAL(10, 2) NOT NULL,
+    Category VARCHAR(50) NOT NULL,
+    Cost_per_unit DECIMAL(10, 2),
     Unit VARCHAR(50) NOT NULL,
     CONSTRAINT PK_Raw_Material PRIMARY KEY (Material_Name),
     CONSTRAINT FK_Raw_Material_Material_Name FOREIGN KEY (Material_Name) REFERENCES Material_Trans(Material_Name)

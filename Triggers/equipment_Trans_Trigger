@@ -11,3 +11,4 @@ AFTER INSERT ON Equip_Trans
 FOR EACH ROW
 EXECUTE FUNCTION handle_equipment_transaction();
 $$ LANGUAGE plpgsql;
+
