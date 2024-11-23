@@ -1,0 +1,24 @@
+--Find the Most Frequently Maintained Equipment in the Last Year
+WITH EquipmentMaintenanceFrequency AS (
+    SELECT 
+        e.Equipment_ID AS equipment_id,
+        eq.Equip_Name AS equipment_name,
+        COUNT(m.Equipment_ID) AS maintenance_count
+    FROM 
+        Maintains_Equip m
+    JOIN 
+        Equipment eq ON m.Equipment_ID = eq.Equipment_ID
+    WHERE 
+        m.ME_Date >= NOW() - INTERVAL '1 year'
+    GROUP BY 
+        e.Equipment_ID, eq.Equip_Name
+)
+SELECT 
+    equipment_id,
+    equipment_name,
+    maintenance_count
+FROM 
+    EquipmentMaintenanceFrequency
+ORDER BY 
+    maintenance_count DESC
+LIMIT 5;
