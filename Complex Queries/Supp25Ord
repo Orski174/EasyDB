@@ -2,26 +2,26 @@
 
 WITH TotalOrders AS (
     SELECT 
-        SUM(quantity) AS total_quantity
+        SUM(Quantity) AS total_quantity
     FROM 
-        Orders
+        Material_Trans
 ),
 SupplierOrders AS (
     SELECT 
-        s.supplier_id, 
-        s.supplier_name, 
-        SUM(o.quantity) AS supplier_quantity
+        s.Supp_ID, 
+        s.Supp_Name, 
+        SUM(ss.Quantity) AS supplier_quantity
     FROM 
         Suppliers s
     JOIN 
-        Products p ON s.supplier_id = p.supplier_id
+        Material_Trans p ON s.Supp_ID = p.supplier_id
     JOIN 
-        Orders o ON p.product_id = o.product_id
+        Material_Trans mt ON p.Mat_Name = mt.Mat_Name
     GROUP BY 
-        s.supplier_id, s.supplier_name
+        s.Supp_ID, s.Supp_Name
 )
 SELECT 
-    so.supplier_name, 
+    so.Supp_Name, 
     so.supplier_quantity, 
     ROUND((so.supplier_quantity::DECIMAL / to.total_quantity) * 100, 2) AS percentage
 FROM 
