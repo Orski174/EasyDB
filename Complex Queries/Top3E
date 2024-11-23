@@ -3,7 +3,7 @@ WITH EmployeeProductTransactions AS (
     SELECT 
         e.SSN AS employee_ssn,
         CONCAT(e.F_Name, ' ', e.L_Name) AS employee_name,
-        COUNT(DISTINCT pt.Prod_Name) AS products_handled
+        COUNT(pt.Prod_Name) AS products_handled
     FROM 
         Employee e
     JOIN 
