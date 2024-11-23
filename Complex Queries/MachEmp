@@ -1,15 +1,15 @@
--- List the names of employees who operate more than one type of machine.
+-- List the names of employees who maintains more than one type of machine.
 
 SELECT 
-    e.employee_name, 
-    COUNT(DISTINCT m.machine_type) AS machine_count
+    e.SSN,
+    e.F_Name, 
+    e.L_Name,
+    COUNT(DISTINCT CONCAT(mm.machine_number, '-', mm.machine_name)) AS machine_count
 FROM 
-    Employees e
+    Employee e
 JOIN 
-    Machine_Operation mo ON e.employee_id = mo.employee_id
-JOIN 
-    Machines m ON mo.machine_id = m.machine_id
+    Maintains_Mach mm ON e.SSN = mm.EmpSSN
 GROUP BY 
-    e.employee_name
+    e.SSN, e.F_Name, e.L_Name
 HAVING 
-    COUNT(DISTINCT m.machine_type) > 1;
+    COUNT(DISTINCT CONCAT(mm.machine_number, '-', mm.machine_name)) > 3;

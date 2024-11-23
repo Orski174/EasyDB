@@ -1,16 +1,15 @@
 -- Retrieve the names and details of employees who worked on orders with at least 3 different products.
 
 SELECT 
-    e.employee_id, 
-    e.employee_name, 
-    COUNT(DISTINCT o.product_id) AS product_count
+    e.SSN, 
+    e.F_Name, 
+    e.L_Name,
+    COUNT(DISTINCT t.product_name) AS product_count
 FROM 
-    Employees e
+    Employee e
 JOIN 
-    Order_Assignments oa ON e.employee_id = oa.employee_id
-JOIN 
-    Orders o ON oa.order_id = o.order_id
+    Product_Trans t ON e.SSN = t.EmpSSN
 GROUP BY 
-    e.employee_id, e.employee_name
+    e.SSN, e.F_Name, e.L_Name
 HAVING 
-    COUNT(DISTINCT o.product_id) >= 3;
+    COUNT(DISTINCT t.product_name) >= 3;
