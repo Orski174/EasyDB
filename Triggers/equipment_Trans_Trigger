@@ -1,14 +1,23 @@
-Create or replace trigger handle_equipment_trans()
-Returns TRIGGER AS $$
-BEGIN  
-  INSERT INTO Equipment (Equipment_Name)
-  VALUES (NEW.Equip_Name);
-  RETURN NEW;
-END;
+CREATE OR REPLACE FUNCTION handle_equipment_trans()
+RETURNS TRIGGER AS $$
+DECLARE
+    next_id INT;
+BEGIN
+    -- Find the current maximum Equipment_ID and increment it
+    SELECT COALESCE(MAX(Equipment_ID), 0) + 1
+    INTO next_id
+    FROM Equipment;
 
+    -- Insert the new record into Equipment with the next Equipment_ID
+    INSERT INTO Equipment (Equipment_ID, Equip_Name)
+    VALUES (next_id, NEW.Equipment_Name); -- Ensure NEW.Equip_Name is the correct column in Equip_Trans
+
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Create the trigger
 CREATE TRIGGER trigger_handle_equipment_transaction
 AFTER INSERT ON Equip_Trans
 FOR EACH ROW
-EXECUTE FUNCTION handle_equipment_transaction();
-$$ LANGUAGE plpgsql;
-
+EXECUTE FUNCTION handle_equipment_trans();
