@@ -1,24 +1,44 @@
---Find the Most Frequently Maintained Equipment in the Last Year
-WITH EquipmentMaintenanceFrequency AS (
+--Identify the Most Frequently Sold Product Category in Each Warehouse in the Last Year
+WITH WarehouseCategorySales AS (
     SELECT 
-        e.Equipment_ID AS equipment_id,
-        eq.Equip_Name AS equipment_name,
-        COUNT(m.Equipment_ID) AS maintenance_count
+        w.WH_Name AS warehouse_name,
+        pc.Category AS product_category,
+        SUM(pt.Quantity) AS total_quantity_sold
     FROM 
-        Maintains_Equip m
+        Warehouse w
     JOIN 
-        Equipment eq ON m.Equipment_ID = eq.Equipment_ID
+        Block b ON w.WH_Name = b.WH_Name
+    JOIN 
+        Product_Trans pt ON b.BK_ID = pt.Block_ID
+    JOIN 
+        Product_Category pc ON pt.Prod_Name = pc.Product_Name
     WHERE 
-        m.ME_Date >= NOW() - INTERVAL '1 year'
+        pt.Transaction_Date >= NOW() - INTERVAL '1 year'
     GROUP BY 
-        e.Equipment_ID, eq.Equip_Name
+        w.WH_Name, pc.Category
+),
+MaxCategoryPerWarehouse AS (
+    SELECT 
+        warehouse_name,
+        product_category,
+        total_quantity_sold
+    FROM (
+        SELECT 
+            warehouse_name,
+            product_category,
+            total_quantity_sold,
+            RANK() OVER (PARTITION BY warehouse_name ORDER BY total_quantity_sold DESC) AS rank
+        FROM 
+            WarehouseCategorySales
+    ) ranked_categories
+    WHERE 
+        rank = 1
 )
 SELECT 
-    equipment_id,
-    equipment_name,
-    maintenance_count
+    warehouse_name,
+    product_category,
+    total_quantity_sold
 FROM 
-    EquipmentMaintenanceFrequency
+    MaxCategoryPerWarehouse
 ORDER BY 
-    maintenance_count DESC
-LIMIT 5;
+    warehouse_name;

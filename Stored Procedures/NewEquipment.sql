@@ -1,3 +1,4 @@
+-- Insert a new Equipment into the database, ensuring all fields are provided
 CREATE OR REPLACE PROCEDURE AddNewEquipment(
     IN equipmentId INT,
     IN equipmentName VARCHAR(50),
