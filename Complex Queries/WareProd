@@ -1,23 +1,25 @@
--- Find warehouses storing the most expensive product and its details.
+-- Identify warehouses storing the most expensive product along with the product's name and price.
 
 WITH ProductPrice AS (
     SELECT 
         Product_Name, 
-        MAX(Price_per_unit) AS max_price
+        Price_per_unit AS max_price
     FROM 
         Product
+    WHERE 
+        Price_per_unit = (SELECT MAX(Price_per_unit) FROM Product)
 )
 SELECT 
-    w.warehouse_name, 
-    p.product_name, 
+    w.WH_Name AS warehouse_name, 
+    pp.Product_Name AS product_name, 
     pp.max_price
 FROM 
-    Warehouses w
+    Warehouse w
 JOIN 
-    BLOCK b ON w.WH_Name = b.WH_Name
+    Block b ON w.WH_Name = b.WH_Name
 JOIN
-    Contains_Product cp on b.Block_ID = cp.Block_ID  
+    Contains_Product cp ON b.BK_ID = cp.Block_ID  
 JOIN 
-    ProductPrice pp ON p.Product_Name = pp.Product_Name
+    ProductPrice pp ON cp.Product_Name = pp.Product_Name
 ORDER BY 
     pp.max_price DESC;

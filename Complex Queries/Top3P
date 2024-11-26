@@ -1,15 +1,14 @@
+-- List the top 3 products by total sales in the last 6 months.
+
 SELECT 
-    pt.product_name, 
-    p.supplier_name, 
-    SUM(pt.total_Revenue) AS total_sales
+    pt.Prod_Name AS product_name, 
+    SUM(pt.Total_Revenue) AS total_sales
 FROM 
     Product_Trans pt
-JOIN 
-    Product p ON pt.product_name = p.product_name
 WHERE 
-    pt.transaction_date >= CURRENT_DATE - INTERVAL '6 months'
+    pt.Transaction_Date >= CURRENT_DATE - INTERVAL '6 months'
 GROUP BY 
-    pt.product_name, p.supplier_name
+    pt.Prod_Name
 ORDER BY 
     total_sales DESC
 LIMIT 3;

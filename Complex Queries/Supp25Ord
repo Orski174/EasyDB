@@ -1,4 +1,4 @@
--- Detect suppliers whose products contribute to at least 25% of the total orders in the factory.
+-- Detect suppliers whose products contribute to more than 10% of the total quantity of orders in the Material_trans table.
 
 WITH TotalOrders AS (
     SELECT 
@@ -10,21 +10,21 @@ SupplierOrders AS (
     SELECT 
         s.Supp_ID, 
         s.Supp_Name, 
-        SUM(ss.Quantity) AS supplier_quantity
+        SUM(mt.Quantity) AS supplier_quantity
     FROM 
-        Suppliers s
+        Supplier s
     JOIN 
-        Material_Trans p ON s.Supp_ID = p.supplier_id
-    JOIN 
-        Material_Trans mt ON p.Mat_Name = mt.Mat_Name
+        Material_Trans mt ON s.Supp_ID = mt.Supp_ID
     GROUP BY 
         s.Supp_ID, s.Supp_Name
 )
 SELECT 
     so.Supp_Name, 
     so.supplier_quantity, 
-    ROUND((so.supplier_quantity::DECIMAL / to.total_quantity) * 100, 2) AS percentage
+    ROUND((so.supplier_quantity::DECIMAL / t.total_quantity) * 100, 2) AS percentage
 FROM 
-    SupplierOrders so, TotalOrders to
+    SupplierOrders so
+CROSS JOIN 
+    TotalOrders t
 WHERE 
-    (so.supplier_quantity::DECIMAL / to.total_quantity) >= 0.25;
+    (so.supplier_quantity::DECIMAL / t.total_quantity) * 100 > 10;

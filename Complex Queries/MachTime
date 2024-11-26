@@ -1,15 +1,13 @@
--- Find the machines that have operated for the longest cumulative days, grouped by department.
+-- List all machines with their total days operated since first use, along with their associated department, ordered by department and days operated.
 
 SELECT 
     d.Dep_Name AS department_name, 
-    m.machine_name,
-    m.machine_number, 
-    DATEDIFF(CURRENT_DATE, m.First_Used) AS total_days_operated
+    m.Machine_Name,
+    m.Machine_Nb, 
+    (CURRENT_DATE - m.First_Used) AS total_days_operated
 FROM 
-    Machines m
+    Machine m
 JOIN 
-    Department_Occupies d ON m.room_ID = d.room_ID
-GROUP BY 
-    d.Dep_Name, m.machine_numebr, m.machine_name, m.First_Used
+    Department_Occupies d ON m.Room_ID = d.Room_ID
 ORDER BY 
     d.Dep_Name, total_days_operated DESC;

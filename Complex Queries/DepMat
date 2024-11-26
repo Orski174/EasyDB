@@ -1,18 +1,18 @@
--- Identify departments with the highest utilization of raw materials over the last year.
+-- Identify the top 5 departments whose managers oversaw the highest quantity of raw material transactions in the past year.
 
 SELECT 
-    d.department_name, 
-    SUM(rm.quantity_used) AS total_material_used
+    d.Dep_Name AS department_name,
+    SUM(mt.Quantity) AS total_material_used
 FROM 
-    Departments d
+    Department d
 JOIN 
-    Production_Records pr ON d.department_id = pr.department_id
+    Employee e ON d.ManagerSSN = e.SSN
 JOIN 
-    Raw_Material_Usage rm ON pr.production_id = rm.production_id
+    Material_Trans mt ON e.SSN = mt.EmpSSN
 WHERE 
-    pr.production_date >= NOW() - INTERVAL '1 year'
+    mt.Transaction_Date >= NOW() - INTERVAL '1 year'
 GROUP BY 
-    d.department_name
+    d.Dep_Name
 ORDER BY 
     total_material_used DESC
-LIMIT 1;
+LIMIT 5;

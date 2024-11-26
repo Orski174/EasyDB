@@ -607,7 +607,6 @@ VALUES
 ('S000006', 1000.00, '2024-01-10', 'Tablet', 'E000006'),
 ('S000007', 800.00, '2024-01-11', 'Monitor', 'E000007'),
 ('S000008', 700.00, '2024-01-12', 'Keyboard', 'E000008');
--- create a trigger that would create a new entry in the equipment table
 
 
 
@@ -621,6 +620,89 @@ VALUES
 ('S000006', 3000.00, '2024-01-20', 6, 'Hydraulic Press for Steel', 'E000006'),
 ('S000007', 4500.00, '2024-01-21', 7, '3D Concrete Printer', 'E000007'),
 ('S000008', 5000.00, '2024-01-22', 8, 'Laser Cutting Machine for Metal', 'E000008');
--- create a trigger that would create a new entry in the machines table
+
+
+INSERT INTO Department (Dep_Name, Contact_Nb, Email, ManagerSSN)
+VALUES
+('HR', '1112223333', 'hr@example.com', 'E000001'),
+('Logistics', '4445556666', 'logistics@example.com', 'E000002'),
+('Finance', '7778889999', 'finance@example.com', 'E000003'),
+('Operations', '3334445555', 'operations@example.com', 'E000004'),
+('IT', '9998887777', 'it@example.com', 'E000005');
+
+INSERT INTO Emp_Occup (EmployeeSSN, Occupation)
+VALUES
+('E000001', 'Manager'),
+('E000002', 'Supervisor'),
+('E000003', 'Technician'),
+('E000004', 'Clerk'),
+('E000005', 'Engineer'),
+('E000006', 'Consultant'),
+('E000007', 'Analyst'),
+('E000008', 'Operator');
+
+INSERT INTO Dependents (DependantName, Gender, Relationship, Birth_Day, RelativeSSN)
+VALUES
+('Emily Doe', 'F', 'Daughter', '2010-05-15', 'E000001'),
+('Michael Doe', 'M', 'Son', '2012-08-20', 'E000001'),
+('Sophia Smith', 'F', 'Daughter', '2015-09-10', 'E000002'),
+('Liam Brown', 'M', 'Son', '2018-11-30', 'E000003'),
+('Olivia Davis', 'F', 'Daughter', '2017-04-25', 'E000004');
+
+
+INSERT INTO Department_Occupies (Dep_Name, Room_ID)
+VALUES
+('HR', 'R001'),
+('Logistics', 'R002'),
+('Finance', 'R003'),
+('Operations', 'R004'),
+('IT', 'R005');
+
+
+
+
+-- Adding more transactions for E000001
+INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
+VALUES
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'C000002', '2024-02-09', 1200.00, 5, 'E000001', 'B001'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'C000003', '2024-02-10', 2500.00, 3, 'E000001', 'B001');
+
+-- Adding more transactions for E000002
+INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
+VALUES
+('Steel Beam, 8m x 250mm H x 150mm W', 'C000004', '2024-02-09', 3000.00, 2, 'E000002', 'B002'),
+('Wooden Door, 220x100x5cm', 'C000005', '2024-02-10', 1800.00, 1, 'E000002', 'B002');
+
+-- Adding more transactions for E000003
+INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
+VALUES
+('Aluminum Door, 210x95x5cm', 'C000006', '2024-02-11', 1500.00, 1, 'E000003', 'B003'),
+('Fiberglass Insulation Roll, 5m x 1.2m x 0.05m', 'C000007', '2024-02-12', 1200.00, 2, 'E000003', 'B003'),
+('Asphalt Shingles, 1m x 0.5m', 'C000008', '2024-02-13', 800.00, 3, 'E000003', 'B003');
+
+
+
+--Adding more Maintains_Mach entries
+INSERT INTO Maintains_Mach (Machine_Number, Machine_Name, Cost, MM_Descr, MMS_Date, MME_Date, EmpSSN)
+VALUES
+(3, 'Drill Press for Concrete', 2000.00, 'Routine Maintenance', '2024-03-01', NULL, 'E000004');
+
+
+
+--Adding more products and product_trans
+INSERT INTO Product (Product_Name, Price_per_unit, Unit)
+VALUES
+('Reinforced Steel Beam', 120.00, 'meter');
+
+
+INSERT INTO Product_Trans (Prod_Name, Con_ID, Transaction_Date, Total_Revenue, Quantity, EmpSSN, Block_ID)
+VALUES
+('Reinforced Steel Beam', 'C000001', '2024-07-01', 2400.00, 20, 'E000001', 'B001'),
+('Steel Pipe, 5m x 150mm OD x 12mm WT', 'C000002', '2024-06-15', 3200.00, 25, 'E000002', 'B002'),
+('Concrete Pipe, 2m x 800mm ID x 75mm WT', 'C000003', '2024-05-20', 5000.00, 30, 'E000003', 'B003'),
+('PVC Pipe, 8m x 100mm OD x 7mm WT', 'C000004', '2024-07-10', 1500.00, 10, 'E000004', 'B004'),
+('Wooden Door, 220x100x5cm', 'C000005', '2024-06-25', 4500.00, 15, 'E000005', 'B005');
+
+
 
 COMMIT;

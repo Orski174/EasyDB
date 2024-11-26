@@ -4,7 +4,7 @@ SELECT
     e.SSN, 
     e.F_Name, 
     e.L_Name,
-    COUNT(DISTINCT t.product_name) AS product_count
+    COUNT(DISTINCT t.Prod_Name) AS product_count
 FROM 
     Employee e
 JOIN 
@@ -12,4 +12,4 @@ JOIN
 GROUP BY 
     e.SSN, e.F_Name, e.L_Name
 HAVING 
-    COUNT(DISTINCT t.product_name) >= 3;
+    COUNT(DISTINCT t.Prod_Name) >= 3;
