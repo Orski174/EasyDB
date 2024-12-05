@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Delete Teachers Without Courses</title>
+</head>
+<body>
+    <li><a href="/">Main menu</a></li>
+
+    <h1>Delete Teachers Not Giving Any Courses</h1>
+
+    {% if message %}
+        <p><strong>{{ message }}</strong></p>
+    {% endif %}
+
+    <form action="/delete_teacher_without_courses" method="POST">
+        <button type="submit">Delete Teachers Without Courses and Their Dependents</button>
+    </form>
+
+</body>
+</html>
