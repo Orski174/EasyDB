@@ -88,7 +88,7 @@ CREATE TABLE Employee (
     SupSSN CHAR(9),
     Room_ID VARCHAR(12),
     WH_Name VARCHAR(100),
-    Dep_Name VARCHAR(100),
+    Dep_Name VARCHAR(100) NOT NULL,
     CONSTRAINT PK_Employee PRIMARY KEY (SSN),
     CONSTRAINT FK_Employee_SupSSN FOREIGN KEY (SupSSN) REFERENCES Employee(SSN),
     CONSTRAINT FK_Employee_Room_ID FOREIGN KEY (Room_ID) REFERENCES Rooms(Room_ID),
@@ -104,8 +104,6 @@ CREATE TABLE Department (
     CONSTRAINT FK_Department_ManagerSSN FOREIGN KEY (ManagerSSN) REFERENCES Employee(SSN)
 );
 
-ALTER TABLE Employee
-ADD CONSTRAINT FK_Employee_Dep_Name FOREIGN KEY (Dep_Name) REFERENCES Department(Dep_Name);
 
 CREATE TABLE Block_Categories (
     Block_ID VARCHAR(12) NOT NULL,
@@ -389,14 +387,14 @@ VALUES
 
 INSERT INTO Employee (SSN, F_Name, L_Name, Birth_Date, Gender, Extension_Nb, Address_1, Address_2, City, Zip_Code, Wage, Personal_Nb, SupSSN, Room_ID, WH_Name, Dep_Name)
 VALUES
-('E000001', 'John', 'Doe', '1980-01-01', 'M', '101', '1 Main St', NULL, 'City1', '11111', 60000, '1234567890', NULL, 'R001', 'WH001', NULL),
-('E000002', 'Jane', 'Smith', '1990-02-02', 'F', '102', '2 Main St', NULL, 'City2', '22222', 50000, '1234567891', 'E000001', 'R002', 'WH002', NULL),
-('E000003', 'Mike', 'Brown', '1985-03-03', 'M', '103', '3 Main St', NULL, 'City3', '33333', 55000, '1234567892', 'E000001', 'R003', 'WH003', NULL),
-('E000004', 'Sara', 'Davis', '1995-04-04', 'F', '104', '4 Main St', NULL, 'City4', '44444', 52000, '1234567893', 'E000002', 'R004', 'WH004', NULL),
-('E000005', 'James', 'Wilson', '1970-05-05', 'M', '105', '5 Main St', NULL, 'City5', '55555', 70000, '1234567894', NULL, 'R005', 'WH005', NULL),
-('E000006', 'Emily', 'Johnson', '1982-06-06', 'F', '106', '6 Main St', NULL, 'City6', '66666', 65000, '1234567895', 'E000003', 'R006', 'WH006', NULL),
-('E000007', 'Chris', 'Taylor', '1988-07-07', 'M', '107', '7 Main St', NULL, 'City7', '77777', 58000, '1234567896', 'E000003', 'R007', 'WH007', NULL),
-('E000008', 'Laura', 'White', '1992-08-08', 'F', '108', '8 Main St', NULL, 'City8', '88888', 59000, '1234567897', 'E000004', 'R008', 'WH008', NULL);
+('E000001', 'John', 'Doe', '1980-01-01', 'M', '101', '1 Main St', NULL, 'City1', '11111', 60000, '1234567890', NULL, 'R001', 'WH001', 'HR'),
+('E000002', 'Jane', 'Smith', '1990-02-02', 'F', '102', '2 Main St', NULL, 'City2', '22222', 62000, '1234567891', 'E000001', 'R002', 'WH002', 'Logistics'),
+('E000003', 'Mike', 'Brown', '1985-03-03', 'M', '103', '3 Main St', NULL, 'City3', '33333', 55000, '1234567892', 'E000001', 'R003', 'WH003', 'Finance'),
+('E000004', 'Sara', 'Davis', '1995-04-04', 'F', '104', '4 Main St', NULL, 'City4', '44444', 52000, '1234567893', 'E000003', 'R004', 'WH004', 'Operations'),
+('E000005', 'James', 'Wilson', '1970-05-05', 'M', '105', '5 Main St', NULL, 'City5', '55555', 70000, '1234567894', NULL, 'R005', 'WH005', 'IT'),
+('E000006', 'Emily', 'Johnson', '1982-06-06', 'F', '106', '6 Main St', NULL, 'City6', '66666', 65000, '1234567895', 'E000003', 'R006', 'WH006', 'HR'),
+('E000007', 'Chris', 'Taylor', '1988-07-07', 'M', '107', '7 Main St', NULL, 'City7', '77777', 58000, '1234567896', 'E000003', 'R007', 'WH007', 'Logistics'),
+('E000008', 'Laura', 'White', '1992-08-08', 'F', '108', '8 Main St', NULL, 'City8', '88888', 59000, '1234567897', 'E000004', 'R008', 'WH008', 'Finance');
 
 ALTER TABLE Warehouse
 ADD CONSTRAINT FK_Warehouse_Contact_SSN FOREIGN KEY (Contact_SSN) REFERENCES Employee(SSN);
@@ -629,6 +627,10 @@ VALUES
 ('Finance', '7778889999', 'finance@example.com', 'E000003'),
 ('Operations', '3334445555', 'operations@example.com', 'E000004'),
 ('IT', '9998887777', 'it@example.com', 'E000005');
+
+ALTER TABLE Employee
+ADD CONSTRAINT FK_Employee_Dep_Name FOREIGN KEY (Dep_Name) REFERENCES Department(Dep_Name);
+
 
 INSERT INTO Emp_Occup (EmployeeSSN, Occupation)
 VALUES
