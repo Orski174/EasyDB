@@ -22,6 +22,16 @@ function Header() {
               Interact with Database
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/Logistics" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              Logistics
+            </NavLink>
+          </li>
+          <li>
+            <NavLink to="/Transactions" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              Transactions
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>
