@@ -75,6 +75,7 @@ function InteractDB() {
 
   const [hoveredRow, setHoveredRow] = useState(null);
   const [editMode, setEditMode] = useState(false);
+  const [insertMode, setInsertMode] = useState(false);
 
   return (
     <div>
@@ -138,7 +139,10 @@ function InteractDB() {
                           acc[key] = '';
                           return acc;
                         }, {});
-                        setData([...data, newRow]);
+                        setData([...data.slice(0, rowIndex + 1), newRow, ...data.slice(rowIndex + 1)]);
+                        setHoveredRow(rowIndex + 1);
+                        setEditMode(false);
+                        setInsertMode(true);
                       }}
                       style={{
                         padding: '10px 20px',
@@ -157,19 +161,18 @@ function InteractDB() {
                       onClick={() => {
                         if (data.length > 0) {
                           const primaryKey = getPrimaryKey(selectedTable);
-                          
                           const rowToDelete = data[data.length - 1][primaryKey];
 
                           axios.post(`http://localhost:5000/api/${selectedTable}/delete`, {
                             row: rowToDelete
                           })
-                          .then(response => {
-                            console.log('Row deleted successfully');
-                            setData(data.slice(0, -1));
-                          })
-                          .catch(error => {
-                            console.error('There was an error deleting the row!', error);
-                          });
+                            .then(response => {
+                              console.log('Row deleted successfully');
+                              setData(data.slice(0, -1));
+                            })
+                            .catch(error => {
+                              console.error('There was an error deleting the row!', error);
+                            });
                         }
                       }}
                       style={{
@@ -182,12 +185,39 @@ function InteractDB() {
                         cursor: 'pointer'
                       }}
                     >
-                      Delete Last Row
+                      Delete Row
                     </button>
                   </td>
                 )}
               </tr>
             ))}
+            {hoveredRow === data.length && insertMode && (
+              <td style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
+                      <button
+                        onClick={() => {
+                          const newRow = data[hoveredRow.index];
+                          axios.post(`http://localhost:5000/api/${selectedTable}/insert`, newRow)
+                            .then(response => {
+                              console.log('Row inserted successfully');
+                            })
+                            .catch(error => {
+                              console.error('There was an error inserting the row!', error);
+                            });
+                        }}
+                        style={{
+                          padding: '10px 20px',
+                          fontSize: '16px',
+                          borderRadius: '5px',
+                          border: 'none',
+                          backgroundColor: '#008CBA',
+                          color: 'white',
+                          cursor: 'pointer'
+                        }}
+                      >
+                        Accept
+                      </button>
+                </td>
+              )}
           </tbody>
         </table>
       </div>
