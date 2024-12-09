@@ -12,7 +12,7 @@ const pool = new Pool({
   user: 'postgres',
   host: 'localhost',
   database: 'EasyDB',
-  password: 'omar123',
+  password: '123',
   port: 5432,
 });
 
@@ -91,7 +91,7 @@ tables.forEach(table => {
   });
 });
 
-app.get('/api/logistics', async (req, res) => {
+app.get('/api/Query1', async (req, res) => {
   try {
     const results = await pool.query(`
       WITH ProductPrice AS (
@@ -124,6 +124,298 @@ app.get('/api/logistics', async (req, res) => {
     res.status(500).send('Error fetching data');
   }
 });
+
+
+app.get('/api/Query2', async (req, res) => {
+  try {
+    const results = await pool.query(`
+      SELECT 
+          e.Dep_Name AS department_name,
+          SUM(mt.Quantity) AS total_material_used
+      FROM 
+          Employee e
+      JOIN 
+          Material_Trans mt ON e.SSN = mt.EmpSSN
+      WHERE 
+          mt.Transaction_Date >= NOW() - INTERVAL '1 year'
+      GROUP BY 
+          e.Dep_Name
+      ORDER BY 
+          total_material_used DESC
+      LIMIT 5;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+app.get('/api/Query3', async (req, res) => {
+  try {
+    const results = await pool.query(`
+      SELECT 
+          e.SSN, 
+          e.F_Name, 
+          e.L_Name,
+          COUNT(DISTINCT t.Prod_Name) AS product_count
+      FROM 
+          Employee e
+      JOIN 
+          Product_Trans t ON e.SSN = t.EmpSSN
+      GROUP BY 
+          e.SSN, e.F_Name, e.L_Name
+      HAVING 
+          COUNT(DISTINCT t.Prod_Name) >= 3;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+app.get('/api/Query4', async (req, res) => {
+  try {
+    const results = await pool.query(`
+        SELECT 
+            e.SSN,
+            e.F_Name, 
+            e.L_Name,
+            COUNT(DISTINCT mm.machine_number || '-' || mm.machine_name) AS machine_count
+        FROM 
+            Employee e
+        JOIN 
+            Maintains_Mach mm ON e.SSN = mm.EmpSSN
+        GROUP BY 
+            e.SSN, e.F_Name, e.L_Name
+        HAVING 
+            COUNT(DISTINCT mm.machine_number || '-' || mm.machine_name) > 1;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+app.get('/api/Query5', async (req, res) => {
+  try {
+    const results = await pool.query(`
+        SELECT 
+            d.Dep_Name AS department_name, 
+            m.Machine_Name,
+            m.Machine_Nb, 
+            (CURRENT_DATE - m.First_Used) AS total_days_operated
+        FROM 
+            Machine m
+        JOIN 
+            Department_Occupies d ON m.Room_ID = d.Room_ID
+        ORDER BY 
+            d.Dep_Name, total_days_operated DESC;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+
+app.get('/api/Query6', async (req, res) => {
+  try {
+    const results = await pool.query(`
+          WITH TotalOrders AS (
+              SELECT 
+                  SUM(Quantity) AS total_quantity
+              FROM 
+                  Material_Trans
+          ),
+          SupplierOrders AS (
+              SELECT 
+                  s.Supp_ID, 
+                  s.Supp_Name, 
+                  SUM(mt.Quantity) AS supplier_quantity
+              FROM 
+                  Supplier s
+              JOIN 
+                  Material_Trans mt ON s.Supp_ID = mt.Supp_ID
+              GROUP BY 
+                  s.Supp_ID, s.Supp_Name
+          )
+          SELECT 
+              so.Supp_Name, 
+              so.supplier_quantity, 
+              ROUND((so.supplier_quantity::DECIMAL / t.total_quantity) * 100, 2) AS percentage
+          FROM 
+              SupplierOrders so
+          CROSS JOIN 
+              TotalOrders t
+          WHERE 
+              (so.supplier_quantity::DECIMAL / t.total_quantity) * 100 > 10;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+
+app.get('/api/Query7', async (req, res) => {
+  try {
+    const results = await pool.query(`
+        WITH ProductRevenue AS (
+            SELECT 
+                w.WH_Name,
+                SUM(pt.Total_Revenue) AS product_revenue
+            FROM 
+                Warehouse w
+            JOIN 
+                Block b ON w.WH_Name = b.WH_Name
+            JOIN 
+                Product_Trans pt ON b.BK_ID = pt.Block_ID
+            WHERE 
+                pt.Transaction_Date >= NOW() - INTERVAL '1 year'
+            GROUP BY 
+                w.WH_Name
+        )
+        SELECT 
+            WH_Name,
+            product_revenue
+        FROM 
+            ProductRevenue
+        ORDER BY 
+            product_revenue DESC
+        LIMIT 3;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+app.get('/api/Query8', async (req, res) => {
+  try {
+    const results = await pool.query(`
+          WITH WarehouseCategorySales AS (
+              SELECT 
+                  w.WH_Name AS warehouse_name,
+                  pc.Category AS product_category,
+                  SUM(pt.Quantity) AS total_quantity_sold
+              FROM 
+                  Warehouse w
+              JOIN 
+                  Block b ON w.WH_Name = b.WH_Name
+              JOIN 
+                  Product_Trans pt ON b.BK_ID = pt.Block_ID
+              JOIN 
+                  Product_Category pc ON pt.Prod_Name = pc.Product_Name
+              WHERE 
+                  pt.Transaction_Date >= NOW() - INTERVAL '1 year'
+              GROUP BY 
+                  w.WH_Name, pc.Category
+          ),
+          MaxCategoryPerWarehouse AS (
+              SELECT 
+                  warehouse_name,
+                  product_category,
+                  total_quantity_sold
+              FROM (
+                  SELECT 
+                      warehouse_name,
+                      product_category,
+                      total_quantity_sold,
+                      RANK() OVER (PARTITION BY warehouse_name ORDER BY total_quantity_sold DESC) AS rank
+                  FROM 
+                      WarehouseCategorySales
+              ) ranked_categories
+              WHERE 
+                  rank = 1
+          )
+          SELECT 
+              warehouse_name,
+              product_category,
+              total_quantity_sold
+          FROM 
+              MaxCategoryPerWarehouse
+          ORDER BY 
+              warehouse_name;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+app.get('/api/Query9', async (req, res) => {
+  try {
+    const results = await pool.query(`
+      WITH EmployeeProductTransactions AS (
+            SELECT 
+                e.SSN AS employee_ssn,
+                CONCAT(e.F_Name, ' ', e.L_Name) AS employee_name,
+                COUNT(pt.Prod_Name) AS products_handled
+            FROM 
+                Employee e
+            JOIN 
+                Product_Trans pt ON e.SSN = pt.EmpSSN
+            WHERE 
+                pt.Transaction_Date >= NOW() - INTERVAL '1 year'
+            GROUP BY 
+                e.SSN, e.F_Name, e.L_Name
+        )
+        SELECT 
+            employee_name,
+            products_handled
+        FROM 
+            EmployeeProductTransactions
+        ORDER BY 
+            products_handled DESC
+        LIMIT 3;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+
+app.get('/api/Query10', async (req, res) => {
+  try {
+    const results = await pool.query(`
+      SELECT 
+          pt.Prod_Name AS product_name, 
+          SUM(pt.Total_Revenue) AS total_sales
+      FROM 
+          Product_Trans pt
+      WHERE 
+          pt.Transaction_Date >= CURRENT_DATE - INTERVAL '6 months'
+      GROUP BY 
+          pt.Prod_Name
+      ORDER BY 
+          total_sales DESC
+      LIMIT 3;
+    `);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
+
+
+
 
 
 app.listen(port, () => {
