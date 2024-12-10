@@ -6,26 +6,20 @@ ENV POSTGRES_USER=postgres
 ENV POSTGRES_PASSWORD=123
 ENV POSTGRES_DB=EasyDB
 
-# Create a new stage for the application
-FROM node:14 AS app
-
 # Install git
 RUN apt-get update && apt-get install -y git
 
-# Clone the repository
+# Clone the EasyDB repository
 RUN git clone https://github.com/Orski174/EasyDB.git /EasyDB
 
 # Copy the InitializeTables.sql script to the PostgreSQL container
-COPY Tables/InitializeTables.sql /docker-entrypoint-initdb.d
+COPY --from=postgres /EasyDB/Tables/InitializeTables.sql /docker-entrypoint-initdb.d
 
-# Use the official Node.js image from the Docker Hub
-FROM node:14
+# Create a new stage for the application
+FROM node:14 AS app
 
 # Set the working directory to /EasyDB/webapp/backend
 WORKDIR /EasyDB/webapp/backend
-
-# Copy package.json and package-lock.json
-COPY package*.json ./
 
 # Install backend dependencies
 RUN npm install
