@@ -26,7 +26,7 @@ function ViewDB() {
     <div>
       <h1>View Database Page</h1>
       <p>Here you can view the database.</p>
-      <label htmlFor="tables">Choose a table:</label>
+      <label htmlFor="tables">Choose a table: </label>
       <select
         name="tables"
         id="tables"

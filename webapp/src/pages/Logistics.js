@@ -8,6 +8,7 @@ function Logistics() {
 
   const handleQueryChange = (event) => {
     setSelectedQuery(event.target.value);
+    setQueryData([]); // Clear query data when a new query is selected
   };
 
   const fetchData = () => {
@@ -25,10 +26,47 @@ function Logistics() {
       });
   };
 
+  const getQueryTitle = (query) => {
+    switch (query) {
+      case 'Query1':
+        return 'Warehouse(s) Containing the Product with Highest Price per Unit';
+      case 'Query2':
+        return 'Top 5 Departments Buying the Most Material in the Last Year based on Employee activity';
+      case 'Query3':
+        return 'Employees who have handled at least 3 different product transactions';
+      case 'Query4':
+        return 'Employees Managing Multiple Unique Machines';
+      case 'Query5':
+        return 'Machines and Their Total Days Operated by Department';
+      case 'Query6':
+        return 'Identifying Key Suppliers with Significant Contribution to Material Transactions';
+      case 'Query7':
+        return 'Top 3 Warehouses by Product Revenue in the Last Year';
+      case 'Query8':
+        return 'Most Sold Product Category per Warehouse in the Last Year';
+      case 'Query9':
+        return 'Top 3 Employees Handling the Most Product Transactions in the Last Year';
+      case 'Query10':
+        return 'Top 3 Best-Selling Products in the Last 6 Months by Total Sales';
+      default:
+        return '';
+    }
+  };
+
   return (
     <div style={{ padding: '20px' }}>
       <div style={{ marginBottom: '20px', textAlign: 'center' }}>
-        <select value={selectedQuery} onChange={handleQueryChange}>
+        <select
+          value={selectedQuery}
+          onChange={handleQueryChange}
+          style={{
+            padding: '10px',
+            fontSize: '16px',
+            borderRadius: '5px',
+            border: '1px solid #ccc',
+            marginRight: '10px'
+          }}
+        >
           <option value="">Select a query</option>
           <option value="Query1">Warehouse(s) Containing the Product with Highest Price per Unit</option>
           <option value="Query2">Top 5 Departments Buying the Most Material in the Last Year based on Employee activity</option>
@@ -41,7 +79,19 @@ function Logistics() {
           <option value="Query9">Top 3 Employees Handling the Most Product Transactions in the Last Year</option>
           <option value="Query10">Top 3 Best-Selling Products in the Last 6 Months by Total Sales</option>
         </select>
-        <button onClick={fetchData} disabled={loading}>
+        <button
+          onClick={fetchData}
+          disabled={loading}
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            borderRadius: '5px',
+            border: 'none',
+            backgroundColor: '#008CBA',
+            color: 'white',
+            cursor: 'pointer'
+          }}
+        >
           {loading ? 'Loading...' : 'Run'}
         </button>
       </div>
@@ -49,13 +99,13 @@ function Logistics() {
       {loading && <p style={{ textAlign: 'center' }}>Loading data...</p>}
 
       {!loading && queryData.length === 0 && selectedQuery && (
-        <p style={{ textAlign: 'center' }}>No data available for {selectedQuery}</p>
+        <p style={{ textAlign: 'center' }}>No data available for {getQueryTitle(selectedQuery)}</p>
       )}
 
       {queryData.length > 0 && (
         <div>
           <h3 style={{ textAlign: 'center', marginBottom: '20px' }}>
-            {selectedQuery}
+            {getQueryTitle(selectedQuery)}
           </h3>
           <div style={{ display: 'flex', justifyContent: 'center' }}>
             <table
@@ -98,6 +148,7 @@ function Logistics() {
                 ))}
               </tbody>
             </table>
+            <div style={{ marginBottom: '20px' }}></div>
           </div>
         </div>
       )}

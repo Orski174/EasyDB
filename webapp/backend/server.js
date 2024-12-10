@@ -124,6 +124,70 @@ tables.forEach(table => {
   });
 });
 
+app.post('/api/machine_trans/trans', async (req, res) => {
+  const newTransaction = req.body;
+  try {
+    const columns = Object.keys(newTransaction).join(', ');
+    const values = Object.values(newTransaction);
+    const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
+
+    const insertQuery = `INSERT INTO Machine_Trans (${columns}) VALUES (${placeholders}) RETURNING *`;
+    const result = await pool.query(insertQuery, values);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(`Server Error: ${err.message}`);
+  }
+});
+
+app.post('/api/equip_trans/trans', async (req, res) => {
+  const newTransaction = req.body;
+  try {
+    const columns = Object.keys(newTransaction).join(', ');
+    const values = Object.values(newTransaction);
+    const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
+
+    const insertQuery = `INSERT INTO Equip_Trans (${columns}) VALUES (${placeholders}) RETURNING *`;
+    const result = await pool.query(insertQuery, values);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(`Server Error: ${err.message}`);
+  }
+});
+
+app.post('/api/product_trans/trans', async (req, res) => {
+  const newTransaction = req.body;
+  try {
+    const columns = Object.keys(newTransaction).join(', ');
+    const values = Object.values(newTransaction);
+    const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
+
+    const insertQuery = `INSERT INTO Product_Trans (${columns}) VALUES (${placeholders}) RETURNING *`;
+    const result = await pool.query(insertQuery, values);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(`Server Error: ${err.message}`);
+  }
+});
+
+app.post('/api/material_trans/trans', async (req, res) => {
+  const newTransaction = req.body;
+  try {
+    const columns = Object.keys(newTransaction).join(', ');
+    const values = Object.values(newTransaction);
+    const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
+
+    const insertQuery = `INSERT INTO Material_Trans (${columns}) VALUES (${placeholders}) RETURNING *`;
+    const result = await pool.query(insertQuery, values);
+    res.json(result.rows[0]);
+  } catch (err) {
+    console.error(err.message);
+    res.status(500).send(`Server Error: ${err.message}`);
+  }
+});
+
 app.get('/api/Query1', async (req, res) => {
   try {
     const results = await pool.query(`

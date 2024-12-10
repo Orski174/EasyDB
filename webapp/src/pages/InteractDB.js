@@ -76,11 +76,12 @@ function InteractDB() {
   const [hoveredRow, setHoveredRow] = useState(null);
   const [editMode, setEditMode] = useState(false);
   const [insertMode, setInsertMode] = useState(false);
+  const [notification, setNotification] = useState('');
 
   return (
     <div>
       <h1>Interact with Database</h1>
-      <label htmlFor="tables">Choose a table:</label>
+      <label htmlFor="tables">Choose a table: </label>
       <select
         name="tables"
         id="tables"
@@ -154,73 +155,81 @@ function InteractDB() {
           <tbody>
             {(insertMode ? data : data.sort((a, b) => {
                 const primaryKey = getPrimaryKey(selectedTable);
-              return a[primaryKey] > b[primaryKey] ? 1 : -1;
-            })).map((item, rowIndex) => (
-              <tr
+                return a[primaryKey] > b[primaryKey] ? 1 : -1;
+              })).map((item, rowIndex) => (
+                <tr
                 key={rowIndex}
                 style={{ backgroundColor: rowIndex % 2 === 0 ? '#f9f9f9' : '#fff' }}
                 onMouseEnter={() => !insertMode && setHoveredRow(rowIndex)}
                 onMouseLeave={() => !insertMode && setHoveredRow(null)}
-              >
+                >
                 {Object.keys(item).map((key, columnIndex) => (
                   <td key={columnIndex} style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
-                    <input
-                      type="text"
-                      value={item[key]}
-                      onChange={(e) => handleCellChange(rowIndex, key, e.target.value)}
-                      onBlur={(e) => handleCellChange(rowIndex, key, e.target.value)}
-                      style={{ width: '100%', border: 'none', background: 'transparent', textAlign: 'center' }}
-                    />
+                  <input
+                    type="text"
+                    value={item[key]}
+                    onChange={(e) => handleCellChange(rowIndex, key, e.target.value)}
+                    onBlur={(e) => handleCellChange(rowIndex, key, e.target.value)}
+                    style={{ width: '100%', border: 'none', background: 'transparent', textAlign: 'center' }}
+                  />
                   </td>
                 ))}
                 {hoveredRow === rowIndex && editMode && !insertMode && (
                   <td style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
-                    <button
-                      onClick={() => {
-                        if (data.length > 0) {
-                          const primaryKey = getPrimaryKey(selectedTable);
-                          const rowToDelete = data[rowIndex][primaryKey];
+                  <button
+                    onClick={() => {
+                    if (data.length > 0) {
+                      const primaryKey = getPrimaryKey(selectedTable);
+                      const rowToDelete = data[rowIndex][primaryKey];
 
-                          axios.post(`http://localhost:5000/api/${selectedTable}/delete`, {
-                            row: rowToDelete
-                          })
-                            .then(response => {
-                              console.log('Row deleted successfully');
-                              setData(data.filter((_, index) => index !== rowIndex));
-                            })
-                            .catch(error => {
-                              console.error('There was an error deleting the row!', error);
-                            });
-                        }
-                      }}
-                      style={{
-                        padding: '10px 20px',
-                        fontSize: '16px',
-                        borderRadius: '5px',
-                        border: 'none',
-                        backgroundColor: '#f44336',
-                        color: 'white',
-                        cursor: 'pointer'
-                      }}
-                    >
-                      Delete Row
-                    </button>
+                      axios.post(`http://localhost:5000/api/${selectedTable}/delete`, {
+                      row: rowToDelete
+                      })
+                      .then(response => {
+                        console.log('Row deleted successfully');
+                        setData(data.filter((_, index) => index !== rowIndex));
+                        setNotification('Row deleted successfully');
+                        setTimeout(() => setNotification(''), 3000);
+                      })
+                      .catch(error => {
+                        console.error('There was an error deleting the row!', error);
+                        setNotification(`Error deleting row: ${error.message}`);
+                        setTimeout(() => setNotification(''), 3000);
+                      });
+                    }
+                    }}
+                    style={{
+                    padding: '10px 20px',
+                    fontSize: '16px',
+                    borderRadius: '5px',
+                    border: 'none',
+                    backgroundColor: '#f44336',
+                    color: 'white',
+                    cursor: 'pointer'
+                    }}
+                  >
+                    Delete Row
+                  </button>
                   </td>
                 )}
                 {hoveredRow === rowIndex && insertMode && (
                   <td style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
-                    <button
-                      onClick={() => {
-                        const newRow = data[rowIndex];
-                        axios.post(`http://localhost:5000/api/${selectedTable}/insert`, newRow)
-                          .then(response => {
-                            console.log('Row inserted successfully');
-                            setInsertMode(false);
-                          })
-                          .catch(error => {
-                            console.error('There was an error inserting the row!', error);
-                          });
-                      }}
+                  <button
+                    onClick={() => {
+                      const newRow = data[rowIndex];
+                      axios.post(`http://localhost:5000/api/${selectedTable}/insert`, newRow)
+                        .then(response => {
+                          console.log('Row inserted successfully');
+                          setNotification('Row inserted successfully');
+                          setTimeout(() => setNotification(''), 3000);
+                          setInsertMode(false);
+                        })
+                        .catch(error => {
+                          console.error('There was an error inserting the row!', error);
+                          setNotification(`Error inserting row: ${error.message}`);
+                          setTimeout(() => setNotification(''), 3000);
+                        });
+                    }}
                       style={{
                         padding: '10px 20px',
                         fontSize: '16px',
@@ -258,6 +267,11 @@ function InteractDB() {
           </tbody>
         </table>
       </div>
+      <div style={{ marginBottom: '20px' }}></div>
+      {notification && (
+        <div style={{ position: 'fixed', bottom: '20px', right: '20px', background: '#007bff', color: '#fff', padding: '10px 20px', borderRadius: '5px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)' }}>
+          {notification}
+        </div>)}
     </div>
   );
 };
