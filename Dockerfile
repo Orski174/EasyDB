@@ -13,7 +13,7 @@ FROM node:14 AS app
 RUN apt-get update && apt-get install -y git
 
 # Clone the repository
-RUN git clone https://github.com/your-repo/EasyDB.git /EasyDB
+RUN git clone https://github.com/Orski174/EasyDB.git /EasyDB
 
 # Copy the InitializeTables.sql script to the PostgreSQL container
 COPY Tables/InitializeTables.sql /docker-entrypoint-initdb.d
