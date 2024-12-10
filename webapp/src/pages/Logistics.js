@@ -30,16 +30,16 @@ function Logistics() {
       <div style={{ marginBottom: '20px', textAlign: 'center' }}>
         <select value={selectedQuery} onChange={handleQueryChange}>
           <option value="">Select a query</option>
-          <option value="Query1">Query 1</option>
-          <option value="Query2">Query 2</option>
-          <option value="Query3">Query 3</option>
-          <option value="Query4">Query 4</option>
-          <option value="Query5">Query 5</option>
-          <option value="Query6">Query 6</option>
-          <option value="Query7">Query 7</option>
-          <option value="Query8">Query 8</option>
-          <option value="Query9">Query 9</option>
-          <option value="Query10">Query 10</option>
+          <option value="Query1">Warehouse(s) Containing the Product with Highest Price per Unit</option>
+          <option value="Query2">Top 5 Departments Buying the Most Material in the Last Year based on Employee activity</option>
+          <option value="Query3">Employees who have handled at least 3 different product transactions</option>
+          <option value="Query4">Employees Managing Multiple Unique Machines</option>
+          <option value="Query5">Machines and Their Total Days Operated by Department</option>
+          <option value="Query6">Identifying Key Suppliers with Significant Contribution to Material Transactions</option>
+          <option value="Query7">Top 3 Warehouses by Product Revenue in the Last Year</option>
+          <option value="Query8">Most Sold Product Category per Warehouse in the Last Year</option>
+          <option value="Query9">Top 3 Employees Handling the Most Product Transactions in the Last Year</option>
+          <option value="Query10">Top 3 Best-Selling Products in the Last 6 Months by Total Sales</option>
         </select>
         <button onClick={fetchData} disabled={loading}>
           {loading ? 'Loading...' : 'Run'}
