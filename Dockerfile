@@ -31,6 +31,7 @@ WORKDIR /EasyDB/webapp/backend
 
 # Install backend dependencies and start the server
 RUN npm install
+RUN npm start
 
 # Expose the port the app runs on
 EXPOSE 3000
