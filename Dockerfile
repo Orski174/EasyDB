@@ -15,11 +15,11 @@ RUN apt-get update && apt-get install -y git
 # Clone the repository
 RUN git clone https://github.com/your-repo/EasyDB.git /EasyDB
 
+# Copy the initializeDB.sql script to the PostgreSQL container
+COPY /EasyDB/Tables/InitializeTables.sql /docker-entrypoint-initdb.d
+
 # Set the working directory to /EasyDB/Tables
 WORKDIR /EasyDB/Tables
-
-# Copy the initializeDB.sql script to the PostgreSQL container
-COPY InitializeTables.sql /docker-entrypoint-initdb.d
 
 # Set the working directory to /EasyDB/webapp
 WORKDIR /EasyDB/webapp
