@@ -35,5 +35,7 @@ RUN npm install
 # Expose the port the app runs on
 EXPOSE 3000
 
+WORKDIR /EasyDB/webapp
+
 # Start the application and log the output
 CMD ["sh", "-c", "serve -s build &> /var/log/serve.log & npm start"]
