@@ -19,7 +19,7 @@ RUN git clone https://github.com/your-repo/EasyDB.git /EasyDB
 WORKDIR /EasyDB/Tables
 
 # Copy the initializeDB.sql script to the PostgreSQL container
-COPY initializeDB.sql /docker-entrypoint-initdb.d
+COPY initializeTables.sql /docker-entrypoint-initdb.d
 
 # Set the working directory to /EasyDB/webapp
 WORKDIR /EasyDB/webapp
