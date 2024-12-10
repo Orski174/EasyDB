@@ -91,6 +91,39 @@ tables.forEach(table => {
   });
 });
 
+tables.forEach(table => {
+  app.post(`/api/${table.toLowerCase()}/insert`, async (req, res) => {
+    const newRow = req.body;
+    try {
+      const columns = Object.keys(newRow).join(', ');
+      const values = Object.values(newRow);
+      const placeholders = values.map((_, index) => `$${index + 1}`).join(', ');
+
+      const insertQuery = `INSERT INTO ${table} (${columns}) VALUES (${placeholders}) RETURNING *`;
+      const result = await pool.query(insertQuery, values);
+      res.json(result.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send(`Server Error: ${err.message}`);
+    }
+  });
+});
+
+tables.forEach(table => {
+  app.post(`/api/${table.toLowerCase()}/delete`, async (req, res) => {
+    const { row } = req.body;
+    try {
+      const primaryKey = getPrimaryKey(table);
+      const deleteQuery = `DELETE FROM ${table} WHERE ${primaryKey} = $1 RETURNING *`;
+      const result = await pool.query(deleteQuery, [row]);
+      res.json(result.rows[0]);
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send(`Server Error: ${err.message}`);
+    }
+  });
+});
+
 app.get('/api/Query1', async (req, res) => {
   try {
     const results = await pool.query(`

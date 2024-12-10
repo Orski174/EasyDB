@@ -100,6 +100,47 @@ function InteractDB() {
       <br />
       <br />
       <h3>{selectedTable}</h3>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '20px', marginLeft: '10%' }}>
+        <button
+          onClick={() => setEditMode(!editMode)}
+          style={{
+            padding: '10px 20px',
+            fontSize: '16px',
+            borderRadius: '5px',
+            border: 'none',
+            backgroundColor: '#008CBA',
+            color: 'white',
+            cursor: 'pointer'
+          }}
+        >
+          {editMode ? 'Exit Advanced Edit' : 'Advanced Edit'}
+        </button>
+        {editMode && (
+          <button
+            onClick={() => {
+              const newRow = Object.keys(data[0]).reduce((acc, key) => {
+                acc[key] = '';
+                return acc;
+              }, {});
+              setData([newRow, ...data]);
+              setHoveredRow(0);
+              setInsertMode(true);
+            }}
+            style={{
+              padding: '10px 20px',
+              fontSize: '16px',
+              borderRadius: '5px',
+              border: 'none',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              cursor: 'pointer',
+              marginRight: '10%'
+            }}
+          >
+            Insert Row
+          </button>
+        )}
+      </div>
       <div style={{ display: 'flex', justifyContent: 'center' }}>
         <table style={{ borderCollapse: 'collapse', width: '80%', boxShadow: '0 0 10px rgba(0, 0, 0, 0.1)' }}>
           <thead>
@@ -107,18 +148,19 @@ function InteractDB() {
               {data.length > 0 && Object.keys(data[0]).map((key, index) => (
                 <th key={index} style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>{key}</th>
               ))}
+              {editMode && <th style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>Actions</th>}
             </tr>
           </thead>
           <tbody>
-            {data.sort((a, b) => {
+            {(insertMode ? data : data.sort((a, b) => {
                 const primaryKey = getPrimaryKey(selectedTable);
               return a[primaryKey] > b[primaryKey] ? 1 : -1;
-            }).map((item, rowIndex) => (
+            })).map((item, rowIndex) => (
               <tr
                 key={rowIndex}
                 style={{ backgroundColor: rowIndex % 2 === 0 ? '#f9f9f9' : '#fff' }}
-                onMouseEnter={() => setHoveredRow(rowIndex)}
-                onMouseLeave={() => setHoveredRow(null)}
+                onMouseEnter={() => !insertMode && setHoveredRow(rowIndex)}
+                onMouseLeave={() => !insertMode && setHoveredRow(null)}
               >
                 {Object.keys(item).map((key, columnIndex) => (
                   <td key={columnIndex} style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
@@ -131,44 +173,20 @@ function InteractDB() {
                     />
                   </td>
                 ))}
-                {hoveredRow === rowIndex && editMode && (
+                {hoveredRow === rowIndex && editMode && !insertMode && (
                   <td style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
-                    <button
-                      onClick={() => {
-                        const newRow = Object.keys(data[0]).reduce((acc, key) => {
-                          acc[key] = '';
-                          return acc;
-                        }, {});
-                        setData([...data.slice(0, rowIndex + 1), newRow, ...data.slice(rowIndex + 1)]);
-                        setHoveredRow(rowIndex + 1);
-                        setEditMode(false);
-                        setInsertMode(true);
-                      }}
-                      style={{
-                        padding: '10px 20px',
-                        fontSize: '16px',
-                        borderRadius: '5px',
-                        border: 'none',
-                        backgroundColor: '#4CAF50',
-                        color: 'white',
-                        cursor: 'pointer',
-                        marginRight: '10px'
-                      }}
-                    >
-                      Insert Row
-                    </button>
                     <button
                       onClick={() => {
                         if (data.length > 0) {
                           const primaryKey = getPrimaryKey(selectedTable);
-                          const rowToDelete = data[data.length - 1][primaryKey];
+                          const rowToDelete = data[rowIndex][primaryKey];
 
                           axios.post(`http://localhost:5000/api/${selectedTable}/delete`, {
                             row: rowToDelete
                           })
                             .then(response => {
                               console.log('Row deleted successfully');
-                              setData(data.slice(0, -1));
+                              setData(data.filter((_, index) => index !== rowIndex));
                             })
                             .catch(error => {
                               console.error('There was an error deleting the row!', error);
@@ -189,56 +207,57 @@ function InteractDB() {
                     </button>
                   </td>
                 )}
+                {hoveredRow === rowIndex && insertMode && (
+                  <td style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
+                    <button
+                      onClick={() => {
+                        const newRow = data[rowIndex];
+                        axios.post(`http://localhost:5000/api/${selectedTable}/insert`, newRow)
+                          .then(response => {
+                            console.log('Row inserted successfully');
+                            setInsertMode(false);
+                          })
+                          .catch(error => {
+                            console.error('There was an error inserting the row!', error);
+                          });
+                      }}
+                      style={{
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        backgroundColor: '#008CBA',
+                        color: 'white',
+                        cursor: 'pointer'
+                      }}
+                    >
+                      Accept
+                    </button>
+                    <button
+                      onClick={() => {
+                        setData(data.slice(1));
+                        setInsertMode(false);
+                      }}
+                      style={{
+                        padding: '10px 20px',
+                        fontSize: '16px',
+                        borderRadius: '5px',
+                        border: 'none',
+                        backgroundColor: '#f44336',
+                        color: 'white',
+                        cursor: 'pointer',
+                        marginLeft: '10px'
+                      }}
+                    >
+                      Cancel
+                    </button>
+                  </td>
+                )}
               </tr>
             ))}
-            {hoveredRow === data.length && insertMode && (
-              <td style={{ border: '1px solid #ddd', padding: '12px', textAlign: 'center' }}>
-                      <button
-                        onClick={() => {
-                          const newRow = data[hoveredRow.index];
-                          axios.post(`http://localhost:5000/api/${selectedTable}/insert`, newRow)
-                            .then(response => {
-                              console.log('Row inserted successfully');
-                            })
-                            .catch(error => {
-                              console.error('There was an error inserting the row!', error);
-                            });
-                        }}
-                        style={{
-                          padding: '10px 20px',
-                          fontSize: '16px',
-                          borderRadius: '5px',
-                          border: 'none',
-                          backgroundColor: '#008CBA',
-                          color: 'white',
-                          cursor: 'pointer'
-                        }}
-                      >
-                        Accept
-                      </button>
-                </td>
-              )}
           </tbody>
         </table>
       </div>
-      <div style={{ marginTop: '20px', textAlign: 'center' }}>
-        <button
-          onClick={() => setEditMode(!editMode)}
-          style={{
-            padding: '10px 20px',
-            fontSize: '16px',
-            borderRadius: '5px',
-            border: 'none',
-            backgroundColor: '#008CBA',
-            color: 'white',
-            cursor: 'pointer'
-          }}
-        >
-          {editMode ? 'Exit Advanced Edit' : 'Advanced Edit'}
-        </button>
-      </div>
-      <br />
-      <br />
     </div>
   );
 };
