@@ -38,4 +38,4 @@ EXPOSE 3000
 WORKDIR /EasyDB/webapp
 
 # Start the application and log the output
-CMD ["sh", "-c", "serve -s build &> /var/log/serve.log & npm start"]
+CMD ["sh", "-c", "serve -s build &> /var/log/serve.log"]
