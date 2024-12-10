@@ -30,11 +30,11 @@ jobs:
         with:
           context: ./webapp
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/easydb/frontend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/easydb-frontend:latest
 
       - name: Build and push backend Docker image
         uses: docker/build-push-action@v2
         with:
           context: ./webapp/backend
           push: true
-          tags: ${{ secrets.DOCKER_USERNAME }}/easydb/backend:latest
+          tags: ${{ secrets.DOCKER_USERNAME }}/easydb-backend:latest
