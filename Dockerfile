@@ -26,15 +26,15 @@ RUN apt-get update && apt-get install -y \
     apt-get clean
 
 # Set up environment variables for PostgreSQL
-ENV POSTGRES_USER=myuser
-ENV POSTGRES_PASSWORD=mypassword
-ENV POSTGRES_DB=mydatabase
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=123
+ENV POSTGRES_DB=EasyDB
 
 # Copy Node.js backend from the previous stage
 COPY --from=backend-builder /app ./
 
 # Add initialization script for PostgreSQL
-COPY ./init.sql /docker-entrypoint-initdb.d/
+COPY Tables/InitializeTables.sql /docker-entrypoint-initdb.d/
 
 # Expose necessary ports
 EXPOSE 5000 5432
