@@ -14,7 +14,7 @@ RUN npm install
 COPY webapp/backend/ ./
 
 # Copy the built frontend to the backend's public directory
-COPY --from=frontend-builder /app/build ./public
+COPY --from=frontend-builder /app/build ./
 
 # Stage 3: Add PostgreSQL
 FROM postgres:15 AS postgres
