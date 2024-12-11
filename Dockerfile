@@ -16,33 +16,28 @@ COPY webapp/backend/ ./
 # Copy the built frontend to the backend's public directory
 COPY --from=frontend-builder /app/build ./public
 
-# Stage 3: Add PostgreSQL
-FROM postgres:15 AS postgres
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=123
-ENV POSTGRES_DB=EasyDB
-
-# Copy database initialization script
-COPY Tables/InitializeTables.sql /docker-entrypoint-initdb.d/
-
-# Expose the PostgreSQL port
-EXPOSE 5432
-
-# Stage 4: Final container to run backend and PostgreSQL
-FROM node:14 AS final
+# Stage 3: Final stage with Node.js backend and PostgreSQL
+FROM ubuntu:20.04 AS final
 WORKDIR /app
+
+# Install dependencies for PostgreSQL and Node.js
+RUN apt-get update && apt-get install -y \
+    postgresql postgresql-contrib nodejs npm && \
+    apt-get clean
+
+# Set up environment variables for PostgreSQL
+ENV POSTGRES_USER=myuser
+ENV POSTGRES_PASSWORD=mypassword
+ENV POSTGRES_DB=mydatabase
+
+# Copy Node.js backend from the previous stage
 COPY --from=backend-builder /app ./
 
-# Include a mechanism to run PostgreSQL and Node.js together
-# Use a simple script to start PostgreSQL in the background
-RUN apt-get update && apt-get install -y postgresql-client
+# Add initialization script for PostgreSQL
+COPY ./init.sql /docker-entrypoint-initdb.d/
 
-COPY --from=postgres /usr/local/bin /usr/local/bin
-COPY --from=postgres /usr/lib/postgresql /usr/lib/postgresql
-COPY --from=postgres /etc/postgresql /etc/postgresql
-
-# Expose backend and PostgreSQL ports
+# Expose necessary ports
 EXPOSE 5000 5432
 
-# Start both services
-CMD ["sh", "-c", "pg_ctl start -D /var/lib/postgresql/data && npm start"]
+# Start both PostgreSQL and Node.js
+CMD ["sh", "-c", "/etc/init.d/postgresql start && npm start"]
