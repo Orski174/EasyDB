@@ -16,33 +16,13 @@ COPY webapp/backend/ ./
 # Copy the built frontend to the backend's public directory
 COPY --from=frontend-builder /app/build ./build
 
-# Stage 3: Add PostgreSQL
-FROM postgres:15 AS postgres
-ENV POSTGRES_USER=postgres
-ENV POSTGRES_PASSWORD=123
-ENV POSTGRES_DB=EasyDB
-
-# Copy database initialization script
-COPY Tables/InitializeTables.sql /docker-entrypoint-initdb.d/
-
-# Expose the PostgreSQL port
-EXPOSE 5432
-
-# Stage 4: Final container to run backend and PostgreSQL
+# Stage 3: Final container to run backend
 FROM node:14 AS final
 WORKDIR /app
 COPY --from=backend-builder /app ./
 
-# Include a mechanism to run PostgreSQL and Node.js together
-# Use a simple script to start PostgreSQL in the background
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib libreadline8 libreadline-dev && apt-get clean
-
-COPY --from=postgres /usr/local/bin /usr/local/bin
-COPY --from=postgres /usr/lib/postgresql /usr/lib/postgresql
-COPY --from=postgres /etc/postgresql /etc/postgresql
-
-# Expose backend and PostgreSQL ports
-EXPOSE 5000 5432
+# Expose backend ports
+EXPOSE 5000
 
 # Start both services
-CMD ["sh", "-c", "pg_ctlcluster 11 main start && npm start"]
+CMD ["npm", "start"]

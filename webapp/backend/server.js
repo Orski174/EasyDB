@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 const express = require('express');
 const cors = require('cors');
 const { Pool } = require('pg');
@@ -12,12 +14,14 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 
 const pool = new Pool({
-  user: 'postgres',
-  host: 'localhost',
-  database: 'EasyDB',
-  password: '123',
-  port: 5432,
+  user: process.env.DB_USER || 'postgres',
+  host: process.env.DB_HOST || 'localhost',
+  database: process.env.DB_NAME || 'EasyDB',
+  password: process.env.DB_PASSWORD || '123',
+  port: process.env.DB_PORT || 5432,
 });
+
+module.exports = pool;
 
 const tables = ['Block', 'Block_Categories', 'Consumer', 'Contains_Material', 'Contains_Product', 'Department', 'Department_Occupies', 'Dependents', 'Emp_Occup', 'Employee', 'Equip_Trans', 'Equipment', 'Machine', 'Machine_Trans', 'Maintains_Equip', 'Maintains_Mach', 'Material_Trans', 'Product', 'Product_Category', 'Product_RM', 'Product_Trans', 'Raw_Material', 'Rooms', 'Supplier', 'Warehouse'];
 
