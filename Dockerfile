@@ -45,4 +45,4 @@ COPY --from=postgres /etc/postgresql /etc/postgresql
 EXPOSE 5000 5432
 
 # Start both services
-CMD ["sh", "-c", "pg_ctlcluster 15 main start && npm start"]
+CMD ["sh", "-c", "pg_ctlcluster 11 main start && npm start"]
