@@ -35,7 +35,7 @@ COPY --from=backend-builder /app ./
 
 # Include a mechanism to run PostgreSQL and Node.js together
 # Use a simple script to start PostgreSQL in the background
-RUN apt-get update && apt-get install -y postgresql postgresql-contrib
+RUN apt-get update && apt-get install -y postgresql postgresql-contrib libreadline8 libreadline-dev && apt-get clean
 
 COPY --from=postgres /usr/local/bin /usr/local/bin
 COPY --from=postgres /usr/lib/postgresql /usr/lib/postgresql
