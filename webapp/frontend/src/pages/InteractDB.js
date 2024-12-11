@@ -44,7 +44,7 @@ function InteractDB() {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/${selectedTable}`)
+    axios.get(`/api/${selectedTable}`)
       .then(response => {
         setData(response.data);
       })
@@ -60,7 +60,7 @@ function InteractDB() {
 
     const primaryKey = getPrimaryKey(selectedTable);
 
-    axios.post(`http://localhost:5000/api/${selectedTable}/update`, {
+    axios.post(`/api/${selectedTable}/update`, {
       row: updatedData[rowIndex][primaryKey],
       column: columnKey,
       value: newValue
@@ -182,7 +182,7 @@ function InteractDB() {
                       const primaryKey = getPrimaryKey(selectedTable);
                       const rowToDelete = data[rowIndex][primaryKey];
 
-                      axios.post(`http://localhost:5000/api/${selectedTable}/delete`, {
+                      axios.post(`/api/${selectedTable}/delete`, {
                       row: rowToDelete
                       })
                       .then(response => {
@@ -217,7 +217,7 @@ function InteractDB() {
                   <button
                     onClick={() => {
                       const newRow = data[rowIndex];
-                      axios.post(`http://localhost:5000/api/${selectedTable}/insert`, newRow)
+                      axios.post(`/api/${selectedTable}/insert`, newRow)
                         .then(response => {
                           console.log('Row inserted successfully');
                           setNotification('Row inserted successfully');

@@ -13,7 +13,7 @@ function ViewDB() {
   };
 
   useEffect(() => {
-    axios.get(`http://localhost:5000/api/${selectedTable}`)
+    axios.get(`/api/${selectedTable}`)
       .then(response => {
         setData(response.data);
       })

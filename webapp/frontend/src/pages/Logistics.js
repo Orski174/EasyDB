@@ -15,7 +15,7 @@ function Logistics() {
     if (!selectedQuery) return;
     setLoading(true);
     axios
-      .get(`http://localhost:5000/api/${selectedQuery}`)
+      .get(`/api/${selectedQuery}`)
       .then((response) => {
         setQueryData(response.data);
         setLoading(false);

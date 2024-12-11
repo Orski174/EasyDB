@@ -13,16 +13,16 @@ function Transactions() {
       let endpoint = '';
       switch (activeTab) {
         case 'Machines':
-          endpoint = 'http://localhost:5000/api/machine_trans';
+          endpoint = '/api/machine_trans';
           break;
         case 'Equipment':
-          endpoint = 'http://localhost:5000/api/equip_trans';
+          endpoint = '/api/equip_trans';
           break;
         case 'Product':
-          endpoint = 'http://localhost:5000/api/product_trans';
+          endpoint = '/api/product_trans';
           break;
         case 'Materials':
-          endpoint = 'http://localhost:5000/api/material_trans';
+          endpoint = '/api/material_trans';
           break;
         default:
           return;
@@ -87,16 +87,16 @@ function Transactions() {
       let endpoint = '';
       switch (activeTab) {
         case 'Machines':
-          endpoint = 'http://localhost:5000/api/machine_trans/trans';
+          endpoint = '/api/machine_trans/trans';
           break;
         case 'Equipment':
-          endpoint = 'http://localhost:5000/api/equip_trans/trans';
+          endpoint = '/api/equip_trans/trans';
           break;
         case 'Product':
-          endpoint = 'http://localhost:5000/api/product_trans/trans';
+          endpoint = '/api/product_trans/trans';
           break;
         case 'Materials':
-          endpoint = 'http://localhost:5000/api/material_trans/trans';
+          endpoint = '/api/material_trans/trans';
           break;
         default:
           return '';
