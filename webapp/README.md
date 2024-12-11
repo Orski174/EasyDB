@@ -34,7 +34,7 @@
 ### Frontend Configuration
 
 1. **Install Dependencies**:
-    Navigate to the `webapp` directory and install the required dependencies by running:
+    Navigate to the `webapp/frontend` directory and install the required dependencies by running:
 
     ```bash
     cd webapp
