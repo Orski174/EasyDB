@@ -195,6 +195,18 @@ app.post('/api/material_trans/trans', async (req, res) => {
   }
 });
 
+app.post('/api/query', async (req, res) => {
+
+  const { query } = req.body;
+  try {
+    const results = await pool.query(query);
+    res.json(results.rows);
+  } catch (err) {
+    console.error('Error executing query', err.stack);
+    res.status(500).send('Error fetching data');
+  }
+});
+
 app.get('/api/Query1', async (req, res) => {
   try {
     const results = await pool.query(`

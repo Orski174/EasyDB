@@ -32,6 +32,11 @@ function Header() {
               Transactions
             </NavLink>
           </li>
+          <li>
+            <NavLink to="/query" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>
+              Query
+            </NavLink>
+          </li>
         </ul>
       </nav>
     </header>

@@ -123,25 +123,25 @@ function Transactions() {
       <nav style={{ position: 'sticky', top: 0, backgroundColor: '#fff', zIndex: 1000 }}>
         <ul className="nav-list" style={{ display: 'flex', justifyContent: 'flex-start', listStyle: 'none', padding: 0 }}>
           <li style={{ marginRight: '10px' }}>
-            <button className={activeTab === 'Machines' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Machines')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s' }}>
+            <button className={activeTab === 'Machines' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Machines')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s', color: activeTab === 'Machines' ? '#ff0000' : '#007bff' }}>
               Machines
             </button>
             {activeTab === 'Machines' && <hr style={{ margin: '5px 0', border: 'none', borderTop: '2px solid #007bff' }} />}
           </li>
           <li style={{ marginRight: '10px' }}>
-            <button className={activeTab === 'Equipment' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Equipment')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s' }}>
+            <button className={activeTab === 'Equipment' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Equipment')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s', color: activeTab === 'Equipment' ? '#ff0000' : '#007bff' }}>
               Equipment
             </button>
             {activeTab === 'Equipment' && <hr style={{ margin: '5px 0', border: 'none', borderTop: '2px solid #007bff' }} />}
           </li>
           <li style={{ marginRight: '10px' }}>
-            <button className={activeTab === 'Product' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Product')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s' }}>
+            <button className={activeTab === 'Product' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Product')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s', color: activeTab === 'Product' ? '#ff0000' : '#007bff' }}>
               Product
             </button>
             {activeTab === 'Product' && <hr style={{ margin: '5px 0', border: 'none', borderTop: '2px solid #007bff' }} />}
           </li>
           <li style={{ marginRight: '10px' }}>
-            <button className={activeTab === 'Materials' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Materials')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s' }}>
+            <button className={activeTab === 'Materials' ? 'nav-link active' : 'nav-link'} onClick={() => setActiveTab('Materials')} style={{ border: 'none', background: 'none', padding: '10px 20px', cursor: 'pointer', borderRadius: '5px', transition: 'background-color 0.3s', color: activeTab === 'Materials' ? '#ff0000' : '#007bff' }}>
               Materials
             </button>
             {activeTab === 'Materials' && <hr style={{ margin: '5px 0', border: 'none', borderTop: '2px solid #007bff' }} />}
