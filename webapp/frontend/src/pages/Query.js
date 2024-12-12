@@ -22,6 +22,33 @@ const Query = () => {
         }
     };
 
+    const renderResult = (data) => {
+        if (Array.isArray(data)) {
+            return (
+                <table>
+                    <thead>
+                        <tr>
+                            {Object.keys(data[0]).map((key) => (
+                                <th key={key}>{key}</th>
+                            ))}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {data.map((row, index) => (
+                            <tr key={index}>
+                                {Object.values(row).map((value, i) => (
+                                    <td key={i}>{value}</td>
+                                ))}
+                            </tr>
+                        ))}
+                    </tbody>
+                </table>
+            );
+        } else {
+            return <pre>{JSON.stringify(data, null, 2)}</pre>;
+        }
+    };
+
     return (
         <Container style={{ padding: '20px' }}>
             <Typography variant="h4" gutterBottom align="center">
@@ -45,7 +72,7 @@ const Query = () => {
             {result && (
                 <Paper style={{ marginTop: '20px', padding: '20px' }}>
                     <Typography variant="h6">Result:</Typography>
-                    <pre>{JSON.stringify(result, null, 2)}</pre>
+                    {renderResult(result)}
                 </Paper>
             )}
             {error && (
@@ -54,12 +81,6 @@ const Query = () => {
                     <pre>{error}</pre>
                 </Paper>
             )}
-            {result && (
-            <Paper style={{ marginTop: '20px', padding: '20px' }}>
-                <Typography variant="h6">Response:</Typography>
-                <pre>{JSON.stringify(result, null, 2)}</pre>
-            </Paper>
-        )}
         </Container>
     );
 };

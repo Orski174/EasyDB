@@ -204,6 +204,7 @@ app.post('/api/query', async (req, res) => {
   } catch (err) {
     console.error('Error executing query', err.stack);
     res.status(500).send('Error fetching data');
+    res.json({ error: err.message });
   }
 });
 
