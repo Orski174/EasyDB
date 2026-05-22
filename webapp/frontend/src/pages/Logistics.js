@@ -5,23 +5,31 @@ function Logistics() {
   const [selectedQuery, setSelectedQuery] = useState('');
   const [queryData, setQueryData] = useState([]);
   const [loading, setLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
+  const [hasRunQuery, setHasRunQuery] = useState(false);
 
   const handleQueryChange = (event) => {
     setSelectedQuery(event.target.value);
     setQueryData([]); // Clear query data when a new query is selected
+    setErrorMessage('');
+    setHasRunQuery(false);
   };
 
   const fetchData = () => {
     if (!selectedQuery) return;
     setLoading(true);
+    setErrorMessage('');
+    setHasRunQuery(true);
     axios
       .get(`/api/${selectedQuery}`)
       .then((response) => {
-        setQueryData(response.data);
+        setQueryData(Array.isArray(response.data) ? response.data : []);
         setLoading(false);
       })
       .catch((error) => {
         console.error(`Error fetching ${selectedQuery} data:`, error);
+        setQueryData([]);
+        setErrorMessage(`Could not load ${getQueryTitle(selectedQuery)}.`);
         setLoading(false);
       });
   };
@@ -98,8 +106,16 @@ function Logistics() {
 
       {loading && <p style={{ textAlign: 'center' }}>Loading data...</p>}
 
-      {!loading && queryData.length === 0 && selectedQuery && (
-        <p style={{ textAlign: 'center' }}>No data available for {getQueryTitle(selectedQuery)}</p>
+      {!loading && !hasRunQuery && selectedQuery && (
+        <p style={{ textAlign: 'center' }}>Click Run to view results for {getQueryTitle(selectedQuery)}.</p>
+      )}
+
+      {!loading && errorMessage && (
+        <p style={{ textAlign: 'center', color: '#b00020' }}>{errorMessage}</p>
+      )}
+
+      {!loading && hasRunQuery && !errorMessage && queryData.length === 0 && selectedQuery && (
+        <p style={{ textAlign: 'center' }}>No results found for {getQueryTitle(selectedQuery)}.</p>
       )}
 
       {queryData.length > 0 && (

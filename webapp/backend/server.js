@@ -6,7 +6,7 @@ const { Pool } = require('pg');
 const path = require('path');
 
 const app = express();
-const port = 5000;
+const port = process.env.PORT || 5000;
 
 app.use(cors());
 app.use(express.json());
@@ -22,6 +22,16 @@ const pool = new Pool({
 });
 
 module.exports = pool;
+
+app.get('/api/health', async (req, res) => {
+  try {
+    await pool.query('SELECT 1');
+    res.json({ status: 'ok' });
+  } catch (err) {
+    console.error(err.message);
+    res.status(503).json({ status: 'error' });
+  }
+});
 
 const tables = ['Block', 'Block_Categories', 'Consumer', 'Contains_Material', 'Contains_Product', 'Department', 'Department_Occupies', 'Dependents', 'Emp_Occup', 'Employee', 'Equip_Trans', 'Equipment', 'Machine', 'Machine_Trans', 'Maintains_Equip', 'Maintains_Mach', 'Material_Trans', 'Product', 'Product_Category', 'Product_RM', 'Product_Trans', 'Raw_Material', 'Rooms', 'Supplier', 'Warehouse'];
 
@@ -213,12 +223,18 @@ app.get('/api/Query1', async (req, res) => {
     const results = await pool.query(`
       WITH ProductPrice AS (
             SELECT 
-                Product_Name, 
-                Price_per_unit AS max_price
+                p.Product_Name, 
+                p.Price_per_unit AS max_price
             FROM 
-                Product
+                Product p
+            JOIN
+                Contains_Product cp ON p.Product_Name = cp.Product_Name
             WHERE 
-                Price_per_unit = (SELECT MAX(Price_per_unit) FROM Product)
+                p.Price_per_unit = (
+                    SELECT MAX(p2.Price_per_unit)
+                    FROM Product p2
+                    JOIN Contains_Product cp2 ON p2.Product_Name = cp2.Product_Name
+                )
         )
         SELECT 
             w.WH_Name AS warehouse_name, 
@@ -254,7 +270,7 @@ app.get('/api/Query2', async (req, res) => {
       JOIN 
           Material_Trans mt ON e.SSN = mt.EmpSSN
       WHERE 
-          mt.Transaction_Date >= NOW() - INTERVAL '1 year'
+          mt.Transaction_Date >= (SELECT MAX(Transaction_Date) FROM Material_Trans) - INTERVAL '1 year'
       GROUP BY 
           e.Dep_Name
       ORDER BY 
@@ -307,7 +323,7 @@ app.get('/api/Query4', async (req, res) => {
         GROUP BY 
             e.SSN, e.F_Name, e.L_Name
         HAVING 
-            COUNT(DISTINCT mm.machine_number || '-' || mm.machine_name) > 1;
+            COUNT(DISTINCT CONCAT(mm.machine_number, '-', mm.machine_name)) > 1;
     `);
     res.json(results.rows);
   } catch (err) {
@@ -396,7 +412,7 @@ app.get('/api/Query7', async (req, res) => {
             JOIN 
                 Product_Trans pt ON b.BK_ID = pt.Block_ID
             WHERE 
-                pt.Transaction_Date >= NOW() - INTERVAL '1 year'
+                pt.Transaction_Date >= (SELECT MAX(Transaction_Date) FROM Product_Trans) - INTERVAL '1 year'
             GROUP BY 
                 w.WH_Name
         )
@@ -434,7 +450,7 @@ app.get('/api/Query8', async (req, res) => {
               JOIN 
                   Product_Category pc ON pt.Prod_Name = pc.Product_Name
               WHERE 
-                  pt.Transaction_Date >= NOW() - INTERVAL '1 year'
+                  pt.Transaction_Date >= (SELECT MAX(Transaction_Date) FROM Product_Trans) - INTERVAL '1 year'
               GROUP BY 
                   w.WH_Name, pc.Category
           ),
@@ -485,7 +501,7 @@ app.get('/api/Query9', async (req, res) => {
             JOIN 
                 Product_Trans pt ON e.SSN = pt.EmpSSN
             WHERE 
-                pt.Transaction_Date >= NOW() - INTERVAL '1 year'
+                pt.Transaction_Date >= (SELECT MAX(Transaction_Date) FROM Product_Trans) - INTERVAL '1 year'
             GROUP BY 
                 e.SSN, e.F_Name, e.L_Name
         )
@@ -516,7 +532,7 @@ app.get('/api/Query10', async (req, res) => {
       FROM 
           Product_Trans pt
       WHERE 
-          pt.Transaction_Date >= CURRENT_DATE - INTERVAL '6 months'
+          pt.Transaction_Date >= (SELECT MAX(Transaction_Date) FROM Product_Trans) - INTERVAL '6 months'
       GROUP BY 
           pt.Prod_Name
       ORDER BY 
